@@ -48,26 +48,26 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
           <input
             type="checkbox"
             id="priority4"
-            checked={selectedPriorities.includes(4)}
-            onChange={() => handlePriorityChange(4)}
+            checked={selectedPriorities.includes(3)}
+            onChange={() => handlePriorityChange(3)}
           />
-          <label htmlFor="priority4">★ ★ ★ ★</label>
+          <label htmlFor="priority4">★ ★ ★ </label>
           <br />
           <input
             type="checkbox"
             id="priority3"
-            checked={selectedPriorities.includes(3)}
-            onChange={() => handlePriorityChange(3)}
+            checked={selectedPriorities.includes(2)}
+            onChange={() => handlePriorityChange(2)}
           />
-          <label htmlFor="priority3">★ ★ ★</label>
+          <label htmlFor="priority3">★ ★ </label>
           <br />
           <input
             type="checkbox"
             id="priority2"
-            checked={selectedPriorities.includes(2)}
-            onChange={() => handlePriorityChange(2)}
+            checked={selectedPriorities.includes(1)}
+            onChange={() => handlePriorityChange(1)}
           />
-          <label htmlFor="priority2">★ ★</label>
+          <label htmlFor="priority2">★ </label>
         </div>
       </div>
 
