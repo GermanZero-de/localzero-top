@@ -1,17 +1,38 @@
 .app {
   display: flex;
+  padding-left: 280px; // Combined padding for second file
 }
 
 .sidebar {
-  width: 14%;
-  padding: 20px;
-  background-color: #f4f4f4;
+  width: 300px; // From second file
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 13px; // From first file
+  background-color: #ffffff; // From first file
+  display: flex;
+  flex-direction: column; // Ensure the filter content stacks vertically
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 121px;
+    left: 263px;
+    bottom: 200px;
+    width: 1px;
+    height: 80%;
+    background-color: #08812c;
+  }
 }
 
 .main-content {
-  width: 80%;
-  padding: 80px;
-  margin-top: -65px;
+  flex: 1;
+  padding: 80px; // From first file
+  padding-left: 30px; // From second file
+  width: 100%;
+  margin-top: -65px; // Preserving first file's margin
 }
 
 h1 {
@@ -23,21 +44,20 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(380px, 1fr)
+  ); // From first file
   gap: 20px;
 }
 
 .measure-card {
   position: relative;
   background-color: #92d1ef;
-  // background-color: #aee1f9;
-
   padding-top: 0px;
   padding-right: 8px;
   padding-bottom: 0px;
   padding-left: 8px;
-  //   padding: 10px;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,8 +96,8 @@ h1 {
 
 .code {
   position: absolute;
-  bottom: -7px; /* Adjust distance from the bottom */
-  left: 12px; /* Optional: Adjust distance from the left */
+  bottom: -7px;
+  left: 12px;
 
   p {
     color: #4a0a78;
@@ -101,16 +121,20 @@ h1 {
 .arrow-button {
   background-color: transparent;
   border: none;
-  font-size: 50px;
+  font-size: 55px; // From second file
   cursor: pointer;
   z-index: 1;
   position: absolute;
-  right: -5px; /* Move the arrow more to the right */
-  bottom: -15px; /* Move the arrow further down */
-  color: #4a0a78;
+  right: -5px;
+  bottom: -15px;
+  color: #4a0a78; // From first file
 }
 
 .filter-panel {
+  width: 250px; // From second file
+  padding: 20px;
+  background-color: white;
+
   h3,
   h4 {
     margin-bottom: 10px;
@@ -118,6 +142,125 @@ h1 {
 
   label {
     margin: 2px 5px;
+  }
+
+  .filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 94px 0 40px 0;
+
+    .filter-icon {
+      font-size: 20px;
+      color: #666;
+    }
+
+    .trash-icon {
+      font-size: 34px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    h3 {
+      margin: 0 0 0 20px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  .filter-section {
+    margin-bottom: 20px;
+
+    h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    button {
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+
+    label {
+      flex-grow: 1;
+      font-size: 14px;
+    }
+
+    .info-icon {
+      color: #999;
+      font-size: 10px;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #999;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+
+  .filter-divider {
+    height: 1px;
+    background-color: #46c20d;
+    margin: 20px 80px 20px 40px;
+  }
+
+  .focus-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .focus-label {
+    font-size: 14px;
+    flex-grow: 1;
+  }
+
+  .filter-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-icon-image {
+    filter: invert(69%) sepia(29%) saturate(900%) hue-rotate(173deg)
+      brightness(100%) contrast(90%);
+  }
+
+  label:has(+ .info-icon) {
+    font-size: 16px;
+  }
+
+  .filter-options .stars {
+    font-size: 22px;
   }
 }
 

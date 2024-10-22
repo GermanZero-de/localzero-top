@@ -1,6 +1,8 @@
 // src/components/FilterPanel.tsx
 
 import React, { useState } from "react";
+import Image from "next/image";
+import filterIcon from "../photos/filterPlaceholder.png";
 
 interface FilterPanelProps {
   onFilterChange: (priorities: number[], sectors: string[]) => void;
@@ -10,125 +12,116 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
   const [selectedPriorities, setSelectedPriorities] = useState<number[]>([]);
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
 
-  // Handle changes for Priority (stars)
   const handlePriorityChange = (priority: number) => {
     const updatedPriorities = selectedPriorities.includes(priority)
       ? selectedPriorities.filter((p) => p !== priority)
       : [...selectedPriorities, priority];
-
     setSelectedPriorities(updatedPriorities);
     onFilterChange(updatedPriorities, selectedSectors);
   };
 
-  // Handle changes for Sectors
   const handleSectorChange = (sector: string) => {
     const updatedSectors = selectedSectors.includes(sector)
       ? selectedSectors.filter((s) => s !== sector)
       : [...selectedSectors, sector];
-
     setSelectedSectors(updatedSectors);
     onFilterChange(selectedPriorities, updatedSectors);
   };
 
-  // Handle clearing filters
-  const handleClearFilters = () => {
-    setSelectedPriorities([]); // Reset priorities
-    setSelectedSectors([]); // Reset sectors
-    onFilterChange([], []); // Clear filters
-  };
-
   return (
     <div className="filter-panel">
-      <h3>Filter</h3>
+      <div className="filter-header">
+        <div className="filter-icon">
+          <button className="filter-button">
+            <Image
+              src={filterIcon}
+              alt="Filter Icon"
+              width={32}
+              height={32}
+              className="filter-icon-image"
+            />
+            <h3>Filter</h3>
+          </button>
+        </div>
+        <div className="trash-icon">🗑</div>
+      </div>
 
       {/* Priority Filter */}
       <div className="filter-section">
-        <h4>Priority</h4>
-        <div className="priority-filter">
-          <input
-            type="checkbox"
-            id="priority4"
-            checked={selectedPriorities.includes(3)}
-            onChange={() => handlePriorityChange(3)}
-          />
-          <label htmlFor="priority4">★ ★ ★ </label>
-          <br />
-          <input
-            type="checkbox"
-            id="priority3"
-            checked={selectedPriorities.includes(2)}
-            onChange={() => handlePriorityChange(2)}
-          />
-          <label htmlFor="priority3">★ ★ </label>
-          <br />
-          <input
-            type="checkbox"
-            id="priority2"
-            checked={selectedPriorities.includes(1)}
-            onChange={() => handlePriorityChange(1)}
-          />
-          <label htmlFor="priority2">★ </label>
+        <h4>Priorität</h4>
+        <div className="filter-options">
+          {[3, 2, 1].map((stars) => (
+            <div key={stars} className="filter-option">
+              <input
+                type="checkbox"
+                id={`priority${stars}`}
+                checked={selectedPriorities.includes(stars)}
+                onChange={() => handlePriorityChange(stars)}
+              />
+              <label className="stars" htmlFor={`priority${stars}`}>
+                {"★".repeat(stars)}
+              </label>
+              <span className="info-icon">i</span>
+            </div>
+          ))}
         </div>
       </div>
+
+      <div className="filter-divider"></div>
 
       {/* Sector Filter */}
       <div className="filter-section">
-        <h4>Sector</h4>
-        <div className="sector-filter">
-          <input
-            type="checkbox"
-            id="sectorEnergy"
-            checked={selectedSectors.includes("Energy")}
-            onChange={() => handleSectorChange("Energy")}
-          />
-          <label htmlFor="sectorEnergy">Energy</label>
-          <br />
-          <input
-            type="checkbox"
-            id="sectorTransport"
-            checked={selectedSectors.includes("Transport")}
-            onChange={() => handleSectorChange("Transport")}
-          />
-          <label htmlFor="sectorTransport">Transport</label>
-          <br />
-          <input
-            type="checkbox"
-            id="sectorBuildings"
-            checked={selectedSectors.includes("Buildings")}
-            onChange={() => handleSectorChange("Buildings")}
-          />
-          <label htmlFor="sectorBuildings">Buildings</label>
-          <br />
-          <input
-            type="checkbox"
-            id="sectorWasteManagement"
-            checked={selectedSectors.includes("Waste Management")}
-            onChange={() => handleSectorChange("Waste Management")}
-          />
-          <label htmlFor="sectorWasteManagement">Waste Management</label>
-          <br />
-          <input
-            type="checkbox"
-            id="sectorFinance"
-            checked={selectedSectors.includes("Finance")}
-            onChange={() => handleSectorChange("Finance")}
-          />
-          <label htmlFor="sectorFinance">Finance</label>
-          <br />
-          <input
-            type="checkbox"
-            id="sectorWater"
-            checked={selectedSectors.includes("Water")}
-            onChange={() => handleSectorChange("Water")}
-          />
-          <label htmlFor="sectorWater">Water</label>
+        <h4>Sektoren</h4>
+        <div className="filter-options">
+          {[
+            "Transport",
+            "Buildings",
+            "Waste Management",
+            "Finance",
+            "Water",
+          ].map((sector) => (
+            <div key={sector} className="filter-option">
+              <input
+                type="checkbox"
+                id={`sector${sector}`}
+                checked={selectedSectors.includes(sector)}
+                onChange={() => handleSectorChange(sector)}
+              />
+              <label htmlFor={`sector${sector}`}>{sector}</label>
+              <span className="info-icon">i</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Add a Clear Filters Button */}
-      <button className="clear-filters-button" onClick={handleClearFilters}>
-        X Clear Filters
-      </button>
+      <div className="filter-divider"></div>
+
+      {/* Focus Filter */}
+      <div className="filter-section">
+        <h4>Fokus</h4>
+        <div className="filter-options">
+          {[
+            { label: "THG-Einsparpotenzial", color: "pink" },
+            { label: "Wirtschaftlichkeit", color: "coral" },
+            { label: "Einfache Umsetzung", color: "yellow" },
+            { label: "Kommune als Vorbild", color: "lightgreen" },
+            { label: "Akzeptanzförderung", color: "green" },
+            { label: "Multiplikatoreffekt", color: "lightblue" },
+            { label: "Benefits für die Allgemeinheit", color: "plum" },
+          ].map(({ label, color }) => (
+            <div key={label} className="filter-option">
+              <button
+                className="focus-dot"
+                style={{ backgroundColor: color }}
+              ></button>
+              <span className="focus-label">{label}</span>
+              <span className="info-icon">i</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="filter-divider"></div>
     </div>
   );
 };
