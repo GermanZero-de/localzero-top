@@ -47,7 +47,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
             })
           }
         >
-          ➜
+          🡺
         </button>
       </div>
     </div>
