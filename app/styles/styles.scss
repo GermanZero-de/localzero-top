@@ -163,7 +163,6 @@ h1 {
   }
 }
 
-.clear-filters-button,
 .share-button,
 .add-button {
   margin-top: 20px;
@@ -175,14 +174,6 @@ h1 {
 
   &:hover {
     background-color: #3042a9;
-  }
-}
-
-.clear-filters-button {
-  background-color: #ff6b6b;
-
-  &:hover {
-    background-color: #d32f2f;
   }
 }
 
@@ -214,6 +205,15 @@ h1 {
     .filter-icon {
       font-size: 20px;
       color: #666;
+
+      .filter-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer; /* Optional: makes it look more like a button */
+        padding: 10px;
+        display: flex;
+        align-items: center;
+      }
     }
 
     .trash-icon {
@@ -227,6 +227,13 @@ h1 {
       font-size: 18px;
       font-weight: 600;
     }
+  }
+
+  .clear-filters-button {
+    background-color: transparent;
+    color: black;
+    font-size: 30px;
+    border: none;
   }
 
   .filter-section {
@@ -300,15 +307,6 @@ h1 {
   .focus-label {
     font-size: 14px;
     flex-grow: 1;
-  }
-
-  .filter-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer; /* Optional: makes it look more like a button */
-    padding: 10px;
-    display: flex;
-    align-items: center;
   }
 
   .filter-icon-image {

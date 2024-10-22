@@ -26,6 +26,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     onFilterChange(selectedPriorities, updatedSectors);
   };
 
+  // Handle clearing filters
+  const handleClearFilters = () => {
+    setSelectedPriorities([]); // Reset priorities
+    setSelectedSectors([]); // Reset sectors
+    onFilterChange([], []); // Clear filters
+  };
+
   return (
     <div className='filter-panel'>
       <div className='filter-header'>
@@ -41,7 +48,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
             <h3>Filter</h3>
           </button>
         </div>
-        <div className='trash-icon'>🗑</div>
+        {/* Add a Clear Filters Button */}
+        <button className='clear-filters-button' onClick={handleClearFilters}>
+          🗑
+        </button>
       </div>
 
       {/* Priority Filter */}
@@ -118,7 +128,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
           ))}
         </div>
       </div>
-
       <div className='filter-divider'></div>
     </div>
   );
