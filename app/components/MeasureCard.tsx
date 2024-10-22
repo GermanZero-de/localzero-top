@@ -30,7 +30,9 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       </div>
       <div className="card-body">
         <h5>{title}</h5>
-        <p>{code}</p>
+        <div className="code">
+          <p>{code}</p> {/* Keep the p here without additional class */}
+        </div>
       </div>
       <div className="card-footer">
         <button
@@ -41,16 +43,11 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
               sector,
               priority,
               code,
-              description:
-                "Lorem ipsum dolor sit amet, commodo scriptorem ea sed, quo soluta eligendi molestie ut. Eu eam possit apeirian prodesset, nostrum commune cu vis, an mucius gubergren eum. Ex eum error eruditi euripidis, ut pro natum tritani, aliquando neglegentur pro ne. An placerat rationibus ius, mel meliore denique mnesarchum ea, ex nam rebum abhorreant. Vis ut corpora senserit mediocritatem.",
+              description: "hello",
             })
           }
         >
-          <img
-            src="https://localzero.net/assets/icons/icon-ux-arrow-btn.svg"
-            alt="Arrow"
-            className="svg-purple"
-          />
+          ➜
         </button>
       </div>
     </div>
