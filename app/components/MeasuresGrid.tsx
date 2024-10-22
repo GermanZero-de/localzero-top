@@ -27,7 +27,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       sector: "Energy",
       priority: 4,
       code: "TOP001",
-      description: "...wind power...",
+      description: "...vdsgsdesfs...",
     },
     {
       title: "Support the implementation of...",

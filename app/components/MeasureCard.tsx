@@ -46,7 +46,11 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
             })
           }
         >
-          ➔
+          <img
+            src="https://localzero.net/assets/icons/icon-ux-arrow-btn.svg"
+            alt="Arrow"
+            className="svg-purple"
+          />
         </button>
       </div>
     </div>
