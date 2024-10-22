@@ -1,0 +1,80 @@
+/* styles/styles.css */
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 25%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.sidebar h3 {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.sidebar label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sidebar input {
+  margin-right: 10px;
+}
+
+/* Main content */
+.main-content {
+  width: 75%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background-color: #cceeff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  margin-bottom: 5px;
+}
+
+.card .stars {
+  color: #6c63ff;
+}
+
+.card .code {
+  font-size: 0.8rem;
+  color: gray;
+}
