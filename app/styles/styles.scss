@@ -1,16 +1,35 @@
 .app {
   display: flex;
+  padding-left: 280px;
 }
 
 .sidebar {
-  width: 12%;
-  padding: 20px;
-  background-color: #f4f4f4;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column; // Ensure the filter content stacks vertically
+}
+
+.sidebar::after {
+  content: '';
+  position: absolute;
+  top: 160px;
+  left: 275px;
+  bottom: 200px;
+  width: 1px;
+  height: 60%;
+  background-color: #4d8012;
 }
 
 .main-content {
-  width: 80%;
+  flex: 1;
   padding: 15px;
+  padding-left: 30px;
+  width: 100%; // Add this to ensure proper content width
 }
 
 h1 {
@@ -53,7 +72,7 @@ h1 {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     right: 0;
@@ -106,17 +125,6 @@ h1 {
   position: absolute;
   right: -5px; /* Move the arrow more to the right */
   bottom: -15px; /* Move the arrow further down */
-}
-
-.filter-panel {
-  h3,
-  h4 {
-    margin-bottom: 10px;
-  }
-
-  label {
-    margin: 2px 5px;
-  }
 }
 
 .modal-overlay {
@@ -190,4 +198,139 @@ h1 {
 .checkbox {
   margin-right: 4px;
   font-size: 10px;
+}
+
+.filter-panel {
+  width: 280px;
+  padding: 20px;
+  background-color: white;
+
+  .filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 94px 0 40px 0;
+
+    .filter-icon {
+      font-size: 20px;
+      color: #666;
+    }
+
+    .trash-icon {
+      font-size: 34px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    h3 {
+      margin: 0 0 0 20px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  .filter-section {
+    margin-bottom: 20px;
+
+    h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    button {
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+
+    label {
+      flex-grow: 1;
+      font-size: 14px;
+    }
+
+    .info-icon {
+      color: #999;
+      font-size: 10px;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #999;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+
+  .filter-divider {
+    height: 1px;
+    background-color: #46c20d;
+    margin: 20px 80px 20px 40px;
+  }
+
+  .focus-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .focus-label {
+    font-size: 14px;
+    flex-grow: 1;
+  }
+
+  .filter-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer; /* Optional: makes it look more like a button */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .filter-icon-image {
+    /*
+    Adjust the filter values to change the color.
+    - invert(69%): Inverts the black to white. Adjusting this changes the "base" color before hue manipulation.
+    - sepia(29%): Adds a slight sepia tone to get more natural colors. You can increase this if you want more of a warm tone.
+    - saturate(500%): Boosts the intensity of the colors. Increase this for more vibrant blue.
+    - hue-rotate(173deg): Shifts the hue towards the blue spectrum. Adjust this to get different shades of blue.
+    - brightness(120%): Makes the color brighter. Increase this to make it even brighter.
+    - contrast(100%): Controls the contrast between dark and light areas. Increase this for more distinction.
+  */
+    filter: invert(69%) sepia(29%) saturate(900%) hue-rotate(173deg)
+      brightness(100%) contrast(90%);
+  }
+
+  // Star styling
+  label:has(+ .info-icon) {
+    font-size: 16px;
+  }
+
+  .filter-options .stars {
+    font-size: 22px;
+  }
 }
