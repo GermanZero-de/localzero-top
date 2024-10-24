@@ -1,4 +1,3 @@
-// src/components/MeasuresGrid.tsx
 import React, { useState } from "react";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
@@ -95,6 +94,10 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   ];
 
   const [selectedMeasure, setSelectedMeasure] = useState<Measure | null>(null);
+  const [visibleCount, setVisibleCount] = useState(9); // Number of measures to show
+
+  // Initial number of measures to display (for reset purposes)
+  const INITIAL_VISIBLE_COUNT = 9;
 
   // Filter measures based on selected priorities and sectors
   const filteredMeasures = measures.filter((measure) => {
@@ -109,9 +112,20 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     return priorityMatch && sectorMatch;
   });
 
+  // Load more measures
+  const loadMoreMeasures = () => {
+    setVisibleCount((prevCount) => prevCount + 9); // Increase visible count by 9
+  };
+
+  // Hide measures to initial count
+  const hideMeasures = () => {
+    setVisibleCount(INITIAL_VISIBLE_COUNT); // Reset to initial visible count
+  };
+
   return (
     <div className="measures-grid">
-      {filteredMeasures.map((measure, index) => (
+      {/* Display only the visible measures */}
+      {filteredMeasures.slice(0, visibleCount).map((measure, index) => (
         <MeasureCard
           key={index}
           title={measure.title}
@@ -122,6 +136,21 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         />
       ))}
 
+      {/* "Load More" button (only show if there are more measures to load) */}
+      {visibleCount < filteredMeasures.length && (
+        <div className="load-more">
+          <button onClick={loadMoreMeasures}>Load More</button>
+        </div>
+      )}
+
+      {/* "Hide" button (only show if more measures have been loaded) */}
+      {visibleCount > INITIAL_VISIBLE_COUNT && (
+        <div className="hide-measures">
+          <button onClick={hideMeasures}>Hide</button>
+        </div>
+      )}
+
+      {/* Modal to show measure details */}
       {selectedMeasure && (
         <MeasureDetailsModal
           measure={selectedMeasure}
