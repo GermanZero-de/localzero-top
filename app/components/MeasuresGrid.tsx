@@ -136,19 +136,23 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         />
       ))}
 
-      {/* "Load More" button (only show if there are more measures to load) */}
-      {visibleCount < filteredMeasures.length && (
-        <div className="load-more">
-          <button onClick={loadMoreMeasures}>Load More</button>
-        </div>
-      )}
-
-      {/* "Hide" button (only show if more measures have been loaded) */}
-      {visibleCount > INITIAL_VISIBLE_COUNT && (
-        <div className="hide-measures">
-          <button onClick={hideMeasures}>Hide</button>
-        </div>
-      )}
+      {/* Button container to position in the bottom center */}
+      <div className="button-container">
+        {visibleCount > INITIAL_VISIBLE_COUNT && (
+          <button className="hide-button" onClick={hideMeasures}>
+            <img src="/images/arrow_up.png" alt="Hide" className="arrow-icon" />
+          </button>
+        )}
+        {visibleCount < filteredMeasures.length && (
+          <button className="load-more-button" onClick={loadMoreMeasures}>
+            <img
+              src="/images/arrow_down.png"
+              alt="Load More"
+              className="arrow-icon"
+            />
+          </button>
+        )}
+      </div>
 
       {/* Modal to show measure details */}
       {selectedMeasure && (
