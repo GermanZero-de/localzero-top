@@ -23,11 +23,13 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
 }) => {
   const measures: Measure[] = [
     {
-      title: "Ausweisung von Windkraftstandorten gemäB Wind-an-Land Gesetz",
+      title: "Bau von Windenergieanlagen ermöglichen und unterstützen",
       sector: "Strom",
       priority: 3,
       code: "TOP001",
-      description: "...vdsgsdesfs...",
+      description:
+        "... Meistens sind die überkommunalen Regionalverbände für die Ausweisung" +
+        "der Windkraftstandorten zuständig. Jedes Bundesland hat aus dem 2%-Bundesziel eigene Ausbauziele. ",
     },
     {
       title:
