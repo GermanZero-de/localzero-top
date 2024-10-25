@@ -27,7 +27,7 @@ const Pages = () => {
         <FilterPanel onFilterChange={handleFilterChange} />
       </div>
       <div className="main-content">
-        <h1>Top Measures</h1>
+        <h1>TOP-MASSNAHMEN</h1>
         <MeasuresGrid
           selectedPriorities={selectedPriorities}
           selectedSectors={selectedSectors}
