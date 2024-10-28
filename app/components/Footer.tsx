@@ -57,7 +57,7 @@ export default function Footer() {
                             rel="noopener nofollow"
                             target="_blank"
                         >
-                            <img alt="" height={50} src="https://localzero.net/assets/itz_weiss_transp.png"/>
+                            <img alt="" height={50} src="/imgs/itz_weiss_transp.png"/>
                         </a>
                     </Col>
                 </Row>
