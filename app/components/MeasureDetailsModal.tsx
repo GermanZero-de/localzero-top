@@ -35,10 +35,12 @@ const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
         </p>
 
         {/* Additional info about the measure */}
-        <p>
-          <strong>Description:</strong> This measure focuses on{" "}
-          {measure.description}.
-        </p>
+        <div>
+          <strong>Description:</strong>
+          {measure.description.split("[NEWLINE]").map((line, index) => (
+            <p key={index}>{line.trim()}</p>
+          ))}
+        </div>
 
         {/* Add more detailed information as needed */}
 
