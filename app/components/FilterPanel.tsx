@@ -74,11 +74,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
         <h4>Sektoren</h4>
         <div className="filter-options">
           {[
-            "Transport",
-            "Buildings",
-            "Waste Management",
-            "Finance",
-            "Water",
+            "Strom",
+            "Wärme",
+            "Gebäude",
+            "Verkehr",
+            "Landwirtschaft",
+            "LULUCF",
+            "Abdallwirtschaft",
+            "Industrie/Wirtschaft",
           ].map((sector) => (
             <div key={sector} className="filter-option">
               <input
