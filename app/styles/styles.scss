@@ -1,13 +1,12 @@
 .app {
   display: flex;
-  padding-left: 280px; // Combined padding for second file
 }
 
 .sidebar {
   width: 300px; // From second file
   height: 100vh;
   overflow-y: auto;
-  position: fixed;
+  position: sticky;
   left: 0;
   top: 0;
   padding: 13px; // From first file
