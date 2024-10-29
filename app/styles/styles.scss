@@ -336,3 +336,47 @@ h1 {
   margin-right: 4px;
   font-size: 10px;
 }
+
+footer {
+    background-color: #011633;
+    padding: 50px 0 35px 0;
+    color: white !important;
+    font-family: FabrikatNormal;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    line-height: 1.75;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: unset;
+    text-decoration-color: #ffc80c;
+    text-decoration-thickness: 5px;
+    text-underline-offset: 2px;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+a, a:hover {
+    color: #011633;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
