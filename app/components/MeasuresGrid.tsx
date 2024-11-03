@@ -632,7 +632,13 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 3,
       code: "TOP001",
       description: `
+      • Die Kommune kann für Nahrungsmittel bestimmte prozentuale Mindestanteile festlegen, die z.B. aus
+      biologischer Landwirtschaft stammen müssen. [NEWLINE]
 
+      • sowohl für den Direkteinkauf als auch für die Vergabe von Catering-Aufträgen. [NEWLINE]
+
+      • Die öffentliche Gemeinschaftsverpflegung hat einen hohen Versorgungsgrat und daher einen Hebel zur
+      Veränderung der Essroutinen
       `,
     },
     {
@@ -642,7 +648,15 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 3,
       code: "TOP002",
       description: `
+      • Schaffung einer umfangreichen Wissenssammlung zu klimaschonenden Praktiken in der LW (Düngen,
+      Bodenerosion, etc.) [NEWLINE]
 
+      • idealerweise konkrete Verknüpfung von neusten Forschungserkenntnissen mit (regionalen)
+      Realerfahrungen [NEWLINE]
+
+      • Übersetzung der konzentrierten Informationen in umsetzbare Maßnahmen [NEWLINE]
+
+      • Verzahnung zwischen Wissensangebot und Beratungsangebot (s. nächste Folie)
       `,
     },
     {
@@ -652,7 +666,16 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 3,
       code: "TOP003",
       description: `
+      • konkrete Maßnahmenfeststellung und -umsetzungsberatung zur Treibhausgaseinsparung
+      • finanzielle Förderung für die Umsetzung von Projekten gemäß Einsparungspotenzial
 
+      • Ergänzung zur bisherigen Förderkulisse [NEWLINE]
+
+      • in Abstimmung mit Landkreis [NEWLINE]
+
+      • Bereitstellung von Expertise zur Beantragung von Fördermöglichkeiten auf allen Ebenen (EU bis Kommune) [NEWLINE]
+
+      • wenn vorhanden: Verweis auf Landes- und Landkreisberatungsdienste
       `,
     },
     {
@@ -662,7 +685,17 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 3,
       code: "TOP004",
       description: `
+      • Ansprache und Sensibilisierung von Landwirt:innen, Stadtgesellschaft und Entscheidungsträger:innen aus
+      Wirtschaft und Verwaltung zu Treibhausgas-Einsparmöglichkeiten in der Landwirtschaft [NEWLINE]
 
+      • Organisation und Ausrichtung von Kommunikationsforen für Interessierte durch kompetenten Partner
+      (Stiftung, Verein etc.) in Kollaboration mit z.B. Landwirtschaftsamt [NEWLINE]
+
+      • Inputs und Austausch zu ökologischer bzw. regenerativer Landwirtschaft [NEWLINE]
+
+      • Vernetzung mit anderen Klimaallianzen aus anderen Sektoren oder aber auf anderer Ebene [NEWLINE]
+
+      • auf lokales Wissen und Strukturen zurückgreifen, z.B. Ernährungsräte
       `,
     },
     {
@@ -671,7 +704,13 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 3,
       code: "TOP005",
       description: `
+      • Einbeziehung von Ökolandbau bzw. regenerativer Praktiken in Vergabe von landwirtschaftlichen
+      Pachtflächen [NEWLINE]
 
+      • Anpassung der Vergabekriterien kommunaler landwirtschaftlicher Flächen [NEWLINE]
+
+      • Herantreten an Großverpächter:innen wie bspw. die Kirche (katholische + evangelische Kirche ca. 500.000
+      Hektar)
       `,
     },
     {
@@ -681,43 +720,278 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       priority: 2,
       code: "TOP006",
       description: `
+      • Aktivierung der Stadtgesellschaft zur Sensibilisierung von landwirtschaftlicher Praxis , z.B. durch Umsetzung
+      von Maßnahmen zur Förderung einer „essbaren Stadt“ (Anlegen öffentlicher Hochbeete, Obststreuwiesen
+      etc.) [NEWLINE]
 
+      • Förderung von urbanen Gärten und Kampagnen [NEWLINE]
+
+      • Kombination mit Sichtbarmachung von regionalen bäuerlichen Strukturen möglich: Unterstützung von z.B.
+      Regionalläden
       `,
     },
     {
-      title: "",
-      sector: "",
-      priority: 0,
-      code: "",
+      title: "Aufforstung als Klimawald ermöglichen und unterstützen",
+      sector: "LULUCF",
+      priority: 3,
+      code: "TOP001",
       description: `
+    Kernaufgabe: Erhaltung und Wiederherstellung von klimaangepassten, multifunktionalen Wäldern zum Ausbau
+    des Senkenpotentials. [NEWLINE]
 
+    Waldmanagement durch Förster:innen in kommunalen Forstbetrieben [NEWLINE]
+    • Waldumbau hin zu klimaresilienten Mischwäldern [NEWLINE]
+    • Analyse des Baum- und Walbestands in Absprache mit unterer Forstbehörde [NEWLINE]
+
+    Vermittlung und Koordination durch Kommune zum Waldumbau [NEWLINE]
+    • Stellenschaffung für Umwelt- und Naturschutzangelegenheiten [NEWLINE]
+    • Beantragen von Fördermitteln durch die Kommune (z.B. Förderrichtlinie für Natürlichen Klimaschutz in
+    kommunalen Gebieten im ländlichen Raum) [NEWLINE]
+
+    • Regelmäßige Gesprächsrunde mit Nachbarkommunen oder innerhalb des Landkreises [NEWLINE]
+    • Koordination von Flächentausch und Flächenkauf (als technische Maßnahme oder als Tauschflächen) [NEWLINE]
+    • Nutzung von Landschafts- und Flächennutzungsplänen [NEWLINE]
+    • Einbeziehen der Zivilgesellschaft [NEWLINE]
       `,
     },
     {
-      title: "",
-      sector: "",
-      priority: 0,
-      code: "",
+      title:
+        "Unterstützung bei der Wiedervernässung von Mooren und organischen Böden",
+      sector: "LULUCF",
+      priority: 3,
+      code: "TOP002",
       description: `
+      Koordinierende Rolle der Kommune: Koordination von Flächentausch und Flächenkauf, z.B. über [NEWLINE]
+      • Stellenschaffung: Klima- und Moorschutzmannager:innen [NEWLINE]
+      • Beantragen von Fördermitteln durch die Kommune (z.B. Förderrichtlinie für Natürlichen Klimaschutz in
+      kommunalen Gebieten im ländlichen Raum) [NEWLINE]
+      • Einbindung von Behörden, v.a. untere Wasser-, Naturschutz, und Forstbehörde als wichtigste Behörde und
+      Landrät:innen [NEWLINE]
+      • Gutachten in Auftrag geben, Fortbildungen anbieten, Handreichungen entwickeln [NEWLINE]
 
+      Förderung von Paludikultur [NEWLINE]
+      • Schaffung von Kooperationsstrukturen zwischen Landwirtschaft, Produktentwicklung, Produktvermarktung,
+      Tourismus und Naturschutz [NEWLINE]
+      • Einbindung der Bevölkerung auf Grund von Veränderungen der Landschaft [NEWLINE]
+
+      Kooperation mit Landes- und Entwicklungsgesellschaften [NEWLINE]
+      • Aufkauf und Vermittlung von landwirtschaftlich genutzter Fläche > Flächenpool
       `,
     },
     {
-      title: "",
-      sector: "",
-      priority: 0,
-      code: "",
+      title: "Flächenschonende Stadtentwicklung",
+      sector: "LULUCF",
+      priority: 3,
+      code: "TOP003",
       description: `
+      Nutzung formelle und informelle Instrumente der Stadtplanung [NEWLINE]
+      • Die Flächenneuinanspruchnahme kann sehr gut im Rahmen der Bauleitplanung beeinflusst werden. Das BauGB
+      bildet dabei die Grundlage, dort werden die formellen städteplanerischen Instrumente festgelegt. [NEWLINE]
+      • Entwicklung von städtebaulichen Entwicklungskonzepten zur Flächensparpolitik [NEWLINE]
 
+      Verhinderung von Versiegelung über städteplanerische Instrumente, z.B. [NEWLINE]
+      • keine Ausweitung von neuen Siedlungs- und Vehrkehrsflächen (insbesondere im Außenbereich) [NEWLINE]
+      • Beeinflussung baulicher Dichte, Nachverdichtung (Umbau/ Ausbau des Dachgeschosses oder Ausbauten im
+      Bestand) [NEWLINE]
+      • städtebauliche Verträge mit privaten Investoren od. Bauherren für positive Stadtentwicklung (bspw. Umbau von
+      Parkfläche zu multifunktionalen Grünzonen) [NEWLINE]
+      • konsequente Umsetzung von Ausgleichsfläche in BLP
       `,
     },
     {
-      title: "",
-      sector: "",
-      priority: 0,
-      code: "",
+      title: "Schaffung von Biotopverbünden",
+      sector: "LULUCF",
+      priority: 2,
+      code: "TOP004",
       description: `
+      • Konkrete Umsetzung und Sicherung der landesweiten Biotopverbundkonzepte: Ausgestaltung der
+      überregionalen Planungsinstrumente (v.a. Landschaftsrahmenplan) auf lokaler Ebene sowie deren
+      Integration in die kommunale Planung. [NEWLINE]
 
+      • Durchführung aktueller Erhebungen, v.a. Biotopkartierungen, Artenschutzprogramme und
+      Managementplanungen in FFH-Gebieten zur Identifikation und Priorisierung naturschutzfachlich
+      bedeutsamer Arten und Lebensräume. [NEWLINE]
+
+      • Entwicklung und Implementierung konkreter Maßnahmen: Basierend auf den erhobenen Daten müssen
+      Maßnahmen zur Verbesserung der Landschaftsdurchlässigkeit sowie zur Aufwertung und Entwicklung neuer
+      Habitate und Lebensräume umgesetzt werden.
+      `,
+    },
+    {
+      title: "Beschluss Baumschutzkonzept",
+      sector: "LULUCF",
+      priority: 2,
+      code: "TOP005",
+      description: `
+      Baumschutzkonzepte sollen helfen, den Baumbestand zu schützen und auszubauen. Intakte Bäume spielen eine
+      wesentliche Rolle bei der Bindung von Kohlenstoff, der Reduktion des städtischen Wärmeinseleffekts und der
+      Verbesserung der Luftqualität. [NEWLINE]
+
+      Viele städtische Bäume sind jedoch in einem schlechten Zustand, leiden z.B. an Hitzestress. [NEWLINE]
+
+      Ein Baumschutzkonzept analysiert den Bestand und definiert Ausbaupfade. Gleichzeitig enthält er Maßnahmen
+      zum akuten Baumschutz.
+      `,
+    },
+    {
+      title: "Energieautarker Betrieb der Kläranlagen",
+      sector: "Abfallwirtschaft",
+      priority: 3,
+      code: "TOP001",
+      description: `
+      Kommunen können den Betrieb von Kläranlagen auf vielseitige Weise energetisch optimieren: [NEWLINE]
+
+      • Energieeffizienz: Reduktion des Energieverbrauchs durch effizientere Technologien und
+      Prozessoptimierung. [NEWLINE]
+
+      • Erneuerbare Energien: Installation von Solaranlagen zur Stromerzeugung [NEWLINE]
+
+      • Biogasproduktion: Gewinnung von Biogas durch anaerobe Behandlung von Klärschlamm, das zur Stromund Wärmeerzeugung genutzt wird. [NEWLINE]
+
+      • Wärmerückgewinnung: Verwendung der bei der Abwasserbehandlung entstehenden Abwärme.
+      Für die Aktivitäten können Kommunen Fördergelder des Bundes beantragen.
+      `,
+    },
+    {
+      title: "Optimierte Deponieerfassung",
+      sector: "Abfallwirtschaft",
+      priority: 3,
+      code: "TOP002",
+      description: `
+      Deponiegas, bestehend aus Methan (CH4) und Kohlenstoffdioxid (CO2), entsteht hauptsächlich durch den
+      Abbau von organischen Inhaltsstoffen im Abfall bzw. Hausmüll. [NEWLINE]
+
+      Die Ausgasung erstreckt sich über viele Jahre. Kommunen können über unterschiedliche öffentlich geförderte
+      Maßnahmen wie Gasreinigung und -aufbereitung oder eine verbesserte Fassung und Behandlung der Gase, die
+      Emissionen deutlich reduzieren.
+      `,
+    },
+    {
+      title:
+        "Verbesserte Nutzung von Grünschnitt und Bioabfall zur Erzeugung von erneuerbaren Energien und bei der Abfallbehandlung",
+      sector: "Abfallwirtschaft",
+      priority: 3,
+      code: "TOP003",
+      description: `
+      Je nachdem wie effizient die in der Biomasse gespeicherte Energie im Abfall genutzt wird, trägt die
+      Bioabfallbehandlung mehr oder weniger zum Klimaschutz bei. [NEWLINE]
+
+      • > 50% der Bioabfälle werden derzeit einfach kompostiert, wobei die enthaltene Energie nicht genutzt wird [NEWLINE]
+
+      • die Kommunen sollten den Anteil der Vergärung durch Biogasgewinnung erhöhen, v.a. für Bioabfälle aus
+      Haushalten
+      `,
+    },
+    {
+      title: "Herstellung von Pflanzenkohle durch Pyrolyse",
+      sector: "Abfallwirtschaft",
+      priority: 3,
+      code: "TOP004",
+      description: `
+      Bei der Pyrolyse werden Grünabfälle wie Gartenabfälle, Holzreste etc. verkohlt. Der Kohlenstoff wird dabei
+      langfristig in der Biomasse gespeichert und fungiert so als Kohlenstoffsenke. Gleichzeitig kann die bei der
+      Verkohlung entstehende Wärme z.B. für ein Wärmenetz genutzt werden. [NEWLINE]
+
+      • Kommunaler und privater Grünschnitt kann für die Herstellung von Pflanzenkohle gesammelt werden. Dafür
+      muss im ersten Schritt eine Bestandsaufnahme (Monitoring) der kommunal verfügbaren Biomasse-Abfälle
+      erfolgen. [NEWLINE]
+
+      • Die Kommune kann gemeinsam mit dem Abfallbetrieb den Aufbau einer Pyrolyseanlage prüfen, ggf. eignet
+      sich auch eine Anlage auf Landkreisebene. [NEWLINE]
+
+      • Die Pflanzenkohle kann im Stadtgebiet als Dünger eingesetzt werden, sie eignet sich außerdem zur
+      Speicherung von Wasser und Nährstoffen.
+      `,
+    },
+    {
+      title: "Aufbau lokaler Klimaschutz-Allianzen",
+      sector: "Industrie/Wirtschaft",
+      priority: 3,
+      code: "TOP001",
+      description: `
+      • Lokales Unternehmensnetzwerk von Unternehmen zum Thema Klimaschutz gründen, z.B. Unternehmensnetzwerk
+      für Klimaneutralität 2030. [NEWLINE]
+
+      • Durch gute lokale Vernetzung werden Potentiale sichtbar, die Unternehmen gemeinsam heben können (z.B. kann
+      die Abwärme des einen Betriebs im anderen Betrieb genutzt werden, etc.) [NEWLINE]
+
+      • Austausch über korrekte CO2 Bilanzierung und Tools für Monitoring [NEWLINE]
+
+      • Gemeinsame Lobbyarbeit: Was brauchen die Unternehmen vom Stadtrat / Gemeinderat, damit Sie klimaneutral
+      werden können? [NEWLINE]
+
+      • Auch eine vertrauliche Runde, in der Unternehmensvertreter sich vertraulich austauschen können, kann hilfreich
+      sein (Beispiel Mannheim)
+      `,
+    },
+    {
+      title:
+        "Energieverbrauch kommunaler Krankenhäuser (oder anderer kommunaler Liegenschaften) senken",
+      sector: "Industrie/Wirtschaft",
+      priority: 3,
+      code: "TOP002",
+      description: `
+      • Krankenhäuser werden teilweise von den Kommunen selbst betrieben, die Kommune und die entsprechende
+      Verwaltung hat hier großen Einfluss und Gestaltungsspielraum. [NEWLINE]
+
+      • Klimaschutzmanagement und Energiemanagement einführen, damit relevante Maßnahmen erkannt und priorisiert
+      werden können [NEWLINE]
+
+      • Energieverbrauch senken durch effizientere Geräte (z.B. Waschmaschinen und Wäschetrockner),
+      Gebäudemodernisierung (Dämmung) oder intelligentere Steuerungen (Lichter und andere Geräte ausschalten)
+      `,
+    },
+    {
+      title: "Koordinierte Beratung für Unternehmen und Industrie",
+      sector: "Industrie/Wirtschaft",
+      priority: 3,
+      code: "TOP003",
+      description: `
+      • Eine von der Kommune angebotene "offizielle" Energieberatung genießt ein hohes Vertrauen in Industrie und
+      Betrieben [NEWLINE]
+
+      • Energieberatung gezielt für Unternehmen anbieten [NEWLINE]
+
+      • Auf entsprechende Fördermöglichkeiten aus Bundesmitteln hinweisen/ diese konsequent nutzen [NEWLINE]
+
+      • Bildungsarbeit leisten, um Hemmnisse für Investitionen in Energiesparmaßnahmen und Klimaschutzmaßnahmen zu
+      reduzieren
+      `,
+    },
+    {
+      title: "Kreislaufwirtschaft und nachhaltige Baustoffe im Baubereich",
+      sector: "Industrie/Wirtschaft",
+      priority: 2,
+      code: "TOP004",
+      description: `
+      Der Bausektor gehört zu den ressourcenintensivsten Wirtschaftssektoren: 2018 fielen etwa 219 Millionen Tonnen
+      Bauabfälle an – und machten damit mehr als die Hälfte des Gesamtabfallaufkommens in Deutschland aus. [NEWLINE]
+
+      • Anpassung kommunaler Vergabeverfahren [NEWLINE]
+
+      • Einführung ökologischer Richtlinien für Baustoffe [NEWLINE]
+
+      • Dokumentation der Lebenszyklen von in Gebäuden verbauten Materialien bei großen öffentlichen
+      Neubauvorhaben und bei selektivem Rückbau, zum Beispiel in einem Gebäudepass
+      `,
+    },
+    {
+      title:
+        "Einrichtung von Materiallagern und Bauteilkatalogen für gebrauchte Bauteile",
+      sector: "Industrie/Wirtschaft",
+      priority: 2,
+      code: "TOP005",
+      description: `
+      Der Bausektor gehört zu den ressourcenintensivsten Wirtschaftssektoren: 2018 fielen etwa 219 Millionen Tonnen
+      Bauabfälle an – und machten damit mehr als die Hälfte des Gesamtabfallaufkommens in Deutschland aus. [NEWLINE]
+
+      • Einrichtung von Materiallagern und Bauteilkatalogen für gebrauchte Bauteile (aus dem Bausektor) [NEWLINE]
+
+      • Kommune richtet Lager für Stahlträger etc. ein [NEWLINE]
+
+      • Durch wiederholtes einsetzen der Bauteile werden Ressourcen und Emissionen gespart [NEWLINE]
+
+      • Bauteile, die normal neu produziert werden müssten, können wiederverwendet werden
       `,
     },
   ];
