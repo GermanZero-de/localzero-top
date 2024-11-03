@@ -80,7 +80,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
             "Verkehr",
             "Landwirtschaft",
             "LULUCF",
-            "Abdallwirtschaft",
+            "Abfallwirtschaft",
             "Industrie/Wirtschaft",
           ].map((sector) => (
             <div key={sector} className="filter-option">
