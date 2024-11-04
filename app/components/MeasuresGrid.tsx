@@ -81,7 +81,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Kommune bezieht für alle eigenen Liegenschaften nur noch qualifizierten Ökostrom",
       sector: "Strom",
-      priority: 3,
+      priority: 2,
       code: "TOP004",
       description: `
       Die Verwaltung stellt ihren Strombezug zum nächstmöglichen Zeitpunkt auf die Nutzung von qualifiziertem
@@ -98,7 +98,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Förderprogramme für PV-Ausbau",
       sector: "Strom",
-      priority: 3,
+      priority: 2,
       code: "TOP005",
       description: `
       Die Kommune legt Förderprogramme für PV-Anlagen auf, die mind. folgende Punkte umfassen: [NEWLINE]
@@ -118,7 +118,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Beratungs- und Unterstützungsangebote für Private und Unternehmen",
       sector: "Strom",
-      priority: 3,
+      priority: 2,
       code: "TOP006",
       description: `
       Nicht nur die finanzielle Förderung für den Ausbau von Solaranlagen ist wichtig. Private und KMU (kleine und
@@ -138,7 +138,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "100 Prozent qualifizierter Ökostrom als Angebot der Stadtwerke",
       sector: "Strom",
-      priority: 2,
+      priority: 1,
       code: "TOP007",
       description: `
       Die Kommune erwirkt als Eigentümerin oder Anteilseignerin die Umstellung des Stromangebots der
@@ -148,7 +148,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Einrichtung eines kommunalen Energiemanagements",
       sector: "Strom",
-      priority: 2,
+      priority: 1,
       code: "TOP008",
       description: `
       Das kommunale Energiemanagement ermöglicht es, den Energieverbrauch in kommunalen Liegenschaften
@@ -164,7 +164,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Start von wirksamen Kampagnen",
       sector: "Strom",
-      priority: 2,
+      priority: 1,
       code: "TOP009",
       description: `
       Die Kommune kann durch verschieden Kampagnen den Ausbau der erneuerbaren Energien und die Rate der
@@ -182,7 +182,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Unterstützung/ Aufbau von oder Zusammenarbeit mit Energiegenossenschaften",
       sector: "Strom",
-      priority: 2,
+      priority: 1,
       code: "TOP010",
       description: `
       Energiegenossenschaften können wichtige Akteure für den Bau und Betrieb von erneuerbaren Strom- und
@@ -197,7 +197,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Bau von Agri-PV ermöglichen und unterstützen",
       sector: "Strom",
-      priority: 2,
+      priority: 1,
       code: "TOP011",
       description: `
       • Potenzielle Ausbauflächen identifizieren (kommunale oder private landwirtschaftliche Flächen)
@@ -271,7 +271,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Umsetzung von Effizienzmaßnahmen in Wärmenetzen (u.a. Temperaturreduzierung, hydraulische Optimierung)",
       sector: "Wärme",
-      priority: 2,
+      priority: 3,
       code: "TOP003",
       description: `
       Erneuerbar betriebene Wärmenetze haben in der Regel ein niedrigeres Temperaturniveau, weil die
@@ -284,7 +284,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Beratung und Motivation zur Verdichtung und Erweiterung von Wärmenetzen in bestehenden Wohngebieten bzw. Anschluss- und Benutzungszwang",
       sector: "Wärme",
-      priority: 3,
+      priority: 2,
       code: "TOP004",
       description: `
       Wärmenetze können effizienter sein als die Umstellung der individuellen Heizung. Daher kann es sinnvoll sein,
@@ -357,7 +357,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Energetische Quartierssanierung",
       sector: "Gebäude",
-      priority: 3,
+      priority: 2,
       code: "TOP003",
       description: `
       • Quartierssanierung lenkt den Blick vom Einzelgebäude auf ein Quartier [NEWLINE]
@@ -413,7 +413,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Klimaneutrale Energieversorgung durch Bauleitplanung und städtebauliche Verträge",
       sector: "Gebäude",
-      priority: 3,
+      priority: 2,
       code: "TOP005",
       description: `
       Kommunen können die Bauleitplanung und bei der Verabschiedung von städtebaulichen Verträgen mit Investor:innen
@@ -437,7 +437,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Ambitionierte Leitlinien für kommunale Neubauten und Sanierung",
       sector: "Gebäude",
-      priority: 2,
+      priority: 1,
       code: "TOP006",
       description: `
       • Ambitionierte Leitlinien für Neubauten und Sanierung von kommunalen Gebäuden als verbindlichen Standard
@@ -473,7 +473,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Einführung von Geschwindigkeitsbegrenzungen",
       sector: "Verkehr",
-      priority: 3,
+      priority: 2,
       code: "TOP002",
       description: `
       Die Reduktion der innerstädtischen Höchstgeschwindigkeit kann teilweise von der Kommune auf Tempo 20
@@ -488,7 +488,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Ausbau Radverkehr",
       sector: "Verkehr",
-      priority: 3,
+      priority: 2,
       code: "TOP003",
       description: `
       Ausbau Radverkehr als Teil der Mobilitätsplanung. Zu einem konsequenten Radausbau gehören z.B. diese
@@ -539,7 +539,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Reduktion der Flächen für den Individualverkehr",
       sector: "Verkehr",
-      priority: 3,
+      priority: 2,
       code: "TOP006",
       description: `
       Die Verkehrswende gelingt durch die Kombination von sogenannten push- und pull-Maßnahmen. Ohne die
@@ -562,7 +562,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Umstellung kommunaler Fuhrpark und Angebote für Mitarbeiter:innen",
       sector: "Verkehr",
-      priority: 3,
+      priority: 2,
       code: "TOP007",
       description: `
       Die Verwaltung sollte Vorbild für andere Akteure der Stadtgesellschaft sein und ihr Mobilitätsverhalten nach den
@@ -581,7 +581,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Unterstützung und Begleitung des betrieblichen Mobilitätsmanagements",
       sector: "Verkehr",
-      priority: 2,
+      priority: 1,
       code: "TOP008",
       description: `
       Unternehmen und Arbeitgeber:innen haben großen Einfluss darauf, wie die Angestellten zur Arbeit kommen. Die
@@ -599,7 +599,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Schaffung von Anreizen für reduzierte PKW-Nutzung",
       sector: "Verkehr",
-      priority: 2,
+      priority: 1,
       code: "TOP009",
       description: `
       Das eigene Auto ist und bleibt ein sehr attraktives Verkehrsmittel. Daher kann die Kommune zusätzlich den
@@ -613,7 +613,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Ausbau e-Ladestruktur",
       sector: "Verkehr",
-      priority: 2,
+      priority: 1,
       code: "TOP010",
       description: `
       Nicht nur der kommunale Verkehr muss elektrifiziert werden. Um einen privaten flächendeckenden Umstieg auf
@@ -645,7 +645,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Aufbau einer Wissensplattform für Landwirt:innen über klimaschonende Praktiken",
       sector: "Landwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP002",
       description: `
       • Schaffung einer umfangreichen Wissenssammlung zu klimaschonenden Praktiken in der LW (Düngen,
@@ -663,7 +663,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Beratungs- und Förderangebote zur Umstellung auf ökologische und regenerative Landwirtschaft",
       sector: "Landwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP003",
       description: `
       • konkrete Maßnahmenfeststellung und -umsetzungsberatung zur Treibhausgaseinsparung
@@ -682,7 +682,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Aufbau eines Dialogforums zwischen Landwirtschaft und Stadtgesellschaft",
       sector: "Landwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP004",
       description: `
       • Ansprache und Sensibilisierung von Landwirt:innen, Stadtgesellschaft und Entscheidungsträger:innen aus
@@ -701,7 +701,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Ökologische (Weiter-)Erschließung von Pachtflächen",
       sector: "Landwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP005",
       description: `
       • Einbeziehung von Ökolandbau bzw. regenerativer Praktiken in Vergabe von landwirtschaftlichen
@@ -717,7 +717,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Kommune fördert urbane Landwirtschaft und zivilgesellschaftliche Initiativen",
       sector: "Landwirtschaft",
-      priority: 2,
+      priority: 1,
       code: "TOP006",
       description: `
       • Aktivierung der Stadtgesellschaft zur Sensibilisierung von landwirtschaftlicher Praxis , z.B. durch Umsetzung
@@ -781,7 +781,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Flächenschonende Stadtentwicklung",
       sector: "LULUCF",
-      priority: 3,
+      priority: 2,
       code: "TOP003",
       description: `
       Nutzung formelle und informelle Instrumente der Stadtplanung [NEWLINE]
@@ -801,7 +801,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Schaffung von Biotopverbünden",
       sector: "LULUCF",
-      priority: 2,
+      priority: 1,
       code: "TOP004",
       description: `
       • Konkrete Umsetzung und Sicherung der landesweiten Biotopverbundkonzepte: Ausgestaltung der
@@ -855,7 +855,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Optimierte Deponieerfassung",
       sector: "Abfallwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP002",
       description: `
       Deponiegas, bestehend aus Methan (CH4) und Kohlenstoffdioxid (CO2), entsteht hauptsächlich durch den
@@ -870,7 +870,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Verbesserte Nutzung von Grünschnitt und Bioabfall zur Erzeugung von erneuerbaren Energien und bei der Abfallbehandlung",
       sector: "Abfallwirtschaft",
-      priority: 3,
+      priority: 1,
       code: "TOP003",
       description: `
       Je nachdem wie effizient die in der Biomasse gespeicherte Energie im Abfall genutzt wird, trägt die
@@ -885,7 +885,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Herstellung von Pflanzenkohle durch Pyrolyse",
       sector: "Abfallwirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP004",
       description: `
       Bei der Pyrolyse werden Grünabfälle wie Gartenabfälle, Holzreste etc. verkohlt. Der Kohlenstoff wird dabei
@@ -928,7 +928,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Energieverbrauch kommunaler Krankenhäuser (oder anderer kommunaler Liegenschaften) senken",
       sector: "Industrie/Wirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP002",
       description: `
       • Krankenhäuser werden teilweise von den Kommunen selbst betrieben, die Kommune und die entsprechende
@@ -944,7 +944,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Koordinierte Beratung für Unternehmen und Industrie",
       sector: "Industrie/Wirtschaft",
-      priority: 3,
+      priority: 2,
       code: "TOP003",
       description: `
       • Eine von der Kommune angebotene "offizielle" Energieberatung genießt ein hohes Vertrauen in Industrie und
@@ -961,7 +961,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title: "Kreislaufwirtschaft und nachhaltige Baustoffe im Baubereich",
       sector: "Industrie/Wirtschaft",
-      priority: 2,
+      priority: 1,
       code: "TOP004",
       description: `
       Der Bausektor gehört zu den ressourcenintensivsten Wirtschaftssektoren: 2018 fielen etwa 219 Millionen Tonnen
@@ -979,7 +979,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       title:
         "Einrichtung von Materiallagern und Bauteilkatalogen für gebrauchte Bauteile",
       sector: "Industrie/Wirtschaft",
-      priority: 2,
+      priority: 1,
       code: "TOP005",
       description: `
       Der Bausektor gehört zu den ressourcenintensivsten Wirtschaftssektoren: 2018 fielen etwa 219 Millionen Tonnen
