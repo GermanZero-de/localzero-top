@@ -5,6 +5,7 @@ import FilterPanel from './components/FilterPanel';
 import MeasuresGrid from './components/MeasuresGrid';
 import './styles/styles.scss';
 import Footer from '@/app/components/Footer';
+import Navbar from './components/navbar';
 
 // Define the type for the filter change handler
 interface FilterChangeHandler {
@@ -31,6 +32,8 @@ const Pages = () => {
 
   return (
     <div className='d-flex flex-column flex-grow-1'>
+      <Navbar />
+
       <div className='app flex-grow-1'>
         <div className='sidebar'>
           <FilterPanel onFilterChange={handleFilterChange} />
