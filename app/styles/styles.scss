@@ -376,6 +376,7 @@ footer {
 
 footer a {
     color: white;
+    background-color: transparent;
 }
 
 footer a:hover {
@@ -390,11 +391,6 @@ footer a:hover {
     list-style: none;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
-    background-color: transparent;
-}
 
 .row {
     display: flex;
