@@ -3,16 +3,17 @@
 }
 
 .sidebar {
-  width: 300px; // From second file
+  width: 300px;
   height: 100vh;
   overflow-y: auto;
   position: sticky;
   left: 0;
   top: 0;
-  padding: 13px; // From first file
-  background-color: #ffffff; // From first file
+  padding: 13px; 
+  background-color: #ffffff; 
   display: flex;
   flex-direction: column; // Ensure the filter content stacks vertically
+  margin-top: 5px;
 
   &::after {
     content: "";
@@ -28,8 +29,8 @@
 
 .main-content {
   flex: 1;
-  padding: 80px; // From first file
-  padding-left: 30px; // From second file
+  padding: 80px;
+  padding-left: 30px;
   width: 100%;
   margin-top: -65px; // Preserving first file's margin
 }
@@ -147,17 +148,17 @@ h1 {
 .arrow-button {
   background-color: transparent;
   border: none;
-  font-size: 55px; // From second file
+  font-size: 55px;
   cursor: pointer;
   z-index: 1;
   position: absolute;
   right: -5px;
   bottom: -15px;
-  color: #4a0a78; // From first file
+  color: #4a0a78;
 }
 
 .filter-panel {
-  width: 250px; // From second file
+  width: 250px; 
   padding: 20px;
   background-color: white;
 
