@@ -15,7 +15,7 @@
   flex-direction: column; // Ensure the filter content stacks vertically
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 121px;
     left: 283px;
@@ -100,7 +100,7 @@ h1 {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     right: 0;
@@ -223,7 +223,7 @@ h1 {
     align-items: center;
     gap: 8px;
 
-    input[type="checkbox"] {
+    input[type='checkbox'] {
       width: 16px;
       height: 16px;
       margin: 0;
@@ -250,7 +250,7 @@ h1 {
 
   .filter-divider {
     height: 1px;
-    background-color: #46c20d;
+    background-color: #a3d869;
     margin: 20px 80px 20px 40px;
   }
 
@@ -364,39 +364,38 @@ h1 {
 }
 
 footer {
-    background-color: #011633;
-    padding: 50px 0 35px 0;
-    color: white !important;
-    font-family: FabrikatNormal;
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    line-height: 1.75;
+  background-color: #011633;
+  padding: 50px 0 35px 0;
+  color: white !important;
+  font-family: FabrikatNormal;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  line-height: 1.75;
 }
 
 footer a {
-    color: white;
-    background-color: transparent;
+  color: white;
+  background-color: transparent;
 }
 
 footer a:hover {
-    color: unset;
-    text-decoration-color: #ffc80c;
-    text-decoration-thickness: 5px;
-    text-underline-offset: 2px;
+  color: unset;
+  text-decoration-color: #ffc80c;
+  text-decoration-thickness: 5px;
+  text-underline-offset: 2px;
 }
 
 .list-unstyled {
-    padding-left: 0;
-    list-style: none;
+  padding-left: 0;
+  list-style: none;
 }
 
-
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
 }
 
 .filter-panel {
@@ -512,9 +511,35 @@ footer a:hover {
     margin-right: 10px;
   }
 
+  .focus-button {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:hover {
+      filter: brightness(1.1);
+    }
+
+    .check-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ffffff;
+    }
+  }
+
   .focus-label {
     font-size: 14px;
     flex-grow: 1;
+    margin-left: 10px;
   }
 
   .filter-icon-image {
@@ -538,5 +563,11 @@ footer a:hover {
 
   .filter-options .stars {
     font-size: 22px;
+  }
+
+  .bookmark-button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
   }
 }
