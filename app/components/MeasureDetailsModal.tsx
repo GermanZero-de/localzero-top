@@ -5,13 +5,13 @@ interface Measure {
   title: string;
   code: string;
   sector: string;
-  priority: number; // Assuming priority is a number, adjust if it's a different type
+  priority: number;
   description: string;
 }
 
 interface MeasureDetailsModalProps {
-  measure: Measure | null; // Use null if no measure is selected
-  onClose: () => void; // Function to call when closing the modal
+  measure: Measure | null;
+  onClose: () => void;
 }
 
 const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
@@ -34,15 +34,11 @@ const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
           <strong>Priority:</strong> {"★".repeat(measure.priority)}
         </p>
 
-        {/* Additional info about the measure */}
+        {/* Render description with HTML for line breaks */}
         <div>
           <strong>Description:</strong>
-          {measure.description.split("[NEWLINE]").map((line, index) => (
-            <p key={index}>{line.trim()}</p>
-          ))}
+          <p dangerouslySetInnerHTML={{ __html: measure.description }} />
         </div>
-
-        {/* Add more detailed information as needed */}
 
         <button className="close-button" onClick={onClose}>
           Close
