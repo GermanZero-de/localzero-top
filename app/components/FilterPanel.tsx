@@ -51,9 +51,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     'Gebäude',
     'Verkehr',
     'Landwirtschaft',
-    'LULUCF',
+    'Land & Natur',
     'Abfallwirtschaft',
     'Industrie/Wirtschaft',
+    'Governance',
+    'Finanzierung',
   ];
 
   const focusOptions = [
