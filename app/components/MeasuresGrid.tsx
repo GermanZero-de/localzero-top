@@ -732,7 +732,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     },
     {
       title: "Aufforstung als Klimawald ermöglichen und unterstützen",
-      sector: "LULUCF",
+      sector: "Land & Natur",
       priority: 3,
       code: "TOP001",
       description: `
@@ -757,7 +757,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     {
       title:
         "Unterstützung bei der Wiedervernässung von Mooren und organischen Böden",
-      sector: "LULUCF",
+      sector: "Land & Natur",
       priority: 3,
       code: "TOP002",
       description: `
@@ -780,7 +780,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     },
     {
       title: "Flächenschonende Stadtentwicklung",
-      sector: "LULUCF",
+      sector: "Land & Natur",
       priority: 2,
       code: "TOP003",
       description: `
@@ -800,7 +800,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     },
     {
       title: "Schaffung von Biotopverbünden",
-      sector: "LULUCF",
+      sector: "Land & Natur",
       priority: 1,
       code: "TOP004",
       description: `
@@ -819,7 +819,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     },
     {
       title: "Beschluss Baumschutzkonzept",
-      sector: "LULUCF",
+      sector: "Land & Natur",
       priority: 2,
       code: "TOP005",
       description: `
