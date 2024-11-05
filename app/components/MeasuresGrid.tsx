@@ -991,7 +991,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
 
       • Durch wiederholtes einsetzen der Bauteile werden Ressourcen und Emissionen gespart [NEWLINE]
 
-      • Bauteile, die normal neu produziert werden müssten, können wiederverwendet werden
+      • Bauteile, die normal neu produziert werden müssten, können wiederverwendet werden [NEWLINE]
       `,
     },
   ];
