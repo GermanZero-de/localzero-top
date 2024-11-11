@@ -10,14 +10,14 @@
   position: sticky;
   left: 0;
   top: 0;
-  padding: 13px; 
-  background-color: #ffffff; 
+  padding: 13px;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column; // Ensure the filter content stacks vertically
   margin-top: 5px;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 121px;
     left: 283px;
@@ -45,10 +45,7 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(380px, 1fr)
-  ); // From first file
+  grid-template-columns: auto auto auto;
   gap: 20px;
 }
 
@@ -102,7 +99,7 @@ h1 {
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: 0;
@@ -159,7 +156,7 @@ h1 {
 }
 
 .filter-panel {
-  width: 250px; 
+  width: 250px;
   padding: 20px;
   background-color: white;
 
@@ -225,7 +222,7 @@ h1 {
     align-items: center;
     gap: 8px;
 
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       width: 16px;
       height: 16px;
       margin: 0;
@@ -474,7 +471,7 @@ footer a:hover {
     align-items: center;
     gap: 8px;
 
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       width: 16px;
       height: 16px;
       margin: 0;
@@ -571,5 +568,104 @@ footer a:hover {
     border: none;
     cursor: pointer;
     background-color: transparent;
+  }
+}
+
+//Width could be changed
+@media only screen and (max-width: 1350px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  .measures-grid {
+    grid-template-columns: auto auto; // Measures on two columns when screen width less than 1350px
+  }
+}
+
+// Width could be changed
+@media only screen and (max-width: 1150px) {
+  h1 {
+    font-size: 29px;
+  }
+
+  .measures-grid {
+    display: flex; // Make the measure be on one column when screen width less than 1150px
+    flex-direction: column;
+  }
+
+  .measure-card {
+    padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-left: 8px;
+    height: 250px;
+    margin-bottom: 30px;
+
+    h5 {
+      font-size: 23px;
+      font-weight: bold;
+      margin-top: -10px;
+      margin-left: 4px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-bottom: 90px solid #fff;
+      border-left: 91px solid transparent;
+    }
+  }
+
+  .card-body {
+    flex: 1;
+  }
+
+  .sector {
+    font-size: 18px;
+    margin-left: 4px;
+    margin-top: -6px;
+  }
+
+  .code {
+    position: absolute;
+    bottom: -7px;
+    left: 12px;
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  .card-header,
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stars {
+    font-size: 40px;
+    margin-right: 40px;
+  }
+
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    font-size: 55px;
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    right: -5px;
+    bottom: -15px;
+  }
+}
+
+// Remove filtering panel when screen width less than 700px
+@media only screen and (max-width: 700px) {
+  .filter-panel,
+  .sidebar {
+    display: none;
   }
 }
