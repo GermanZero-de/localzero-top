@@ -8,6 +8,9 @@
   height: calc(100vh - 110px);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 
   @media (max-width: 1024px) {
     width: 240px;
@@ -112,11 +115,11 @@
           .info-tooltip {
             visibility: hidden;
             position: absolute;
-            right: 24px;
-            top: 50%;
+            right: 17px;
+            top: 17%;
             transform: translateY(-50%);
             width: max-content;
-            max-width: 250px;
+            max-width: 180px;
             background-color: white;
             border: 1px solid #e5e7eb;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

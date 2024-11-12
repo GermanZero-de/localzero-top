@@ -41,6 +41,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         complete: (results) => {
           const formattedData = results.data.map((measure) => ({
             ...measure,
+            priority: Number(measure.priority), // Ensure priority is a number
             description: measure.description.replace(/\[NEWLINE\]/g, "<br>"),
           }));
           setMeasures(formattedData);
