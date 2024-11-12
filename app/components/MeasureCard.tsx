@@ -31,7 +31,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       <div className="card-body">
         <h5>{title}</h5>
         <div className="code">
-          <p>{code}</p> {/* Keep the p here without additional class */}
+          <p>{code}</p>
         </div>
       </div>
       <div className="card-footer">
@@ -43,7 +43,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
               sector,
               priority,
               code,
-              description: "hello",
+              description: "Full description to be handled in MeasuresGrid",
             })
           }
         >
