@@ -1,5 +1,5 @@
 // src/components/MeasureCard.tsx
-import React from "react";
+import React from 'react';
 
 interface MeasureCardProps {
   title: string;
@@ -23,27 +23,27 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   onOpenDetails,
 }) => {
   return (
-    <div className="measure-card">
-      <div className="card-header">
-        <span className="sector">{sector}</span>
-        <div className="stars">{"★".repeat(priority)}</div>
+    <div className={`measure-card priority-${priority}`}>
+      <div className='card-header'>
+        <span className='sector'>{sector}</span>
+        <div className='stars'>{'★'.repeat(priority)}</div>
       </div>
-      <div className="card-body">
+      <div className='card-body'>
         <h5>{title}</h5>
-        <div className="code">
+        <div className='code'>
           <p>{code}</p>
         </div>
       </div>
-      <div className="card-footer">
+      <div className='card-footer'>
         <button
-          className="arrow-button"
+          className='arrow-button'
           onClick={() =>
             onOpenDetails({
               title,
               sector,
               priority,
               code,
-              description: "Full description to be handled in MeasuresGrid",
+              description: 'Full description to be handled in MeasuresGrid',
             })
           }
         >
