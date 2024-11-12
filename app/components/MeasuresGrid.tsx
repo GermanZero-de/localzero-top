@@ -30,7 +30,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
 
   useEffect(() => {
     const fetchMeasures = async () => {
-      const response = await fetch("/measures.csv");
+      const response = await fetch("https://docs.google.com/spreadsheets/d/1SrQfj9-wJWQRd5ysSHpOWbXXC1zYLV5Iax13IxxBqMs/export?format=csv");
       const reader = response.body?.getReader();
       const result = await reader?.read();
       const csvData = new TextDecoder("utf-8").decode(result?.value);
