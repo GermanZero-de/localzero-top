@@ -9,7 +9,7 @@ interface FilterPanelProps {
   onFilterChange: (
     priorities: number[],
     sectors: string[],
-    focus: string
+    focus: string[]
   ) => void;
 }
 
@@ -23,14 +23,14 @@ interface FilterOptions {
 const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
   const [selectedPriorities, setSelectedPriorities] = useState<number[]>([]);
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
-  const [selectedFocus, setSelectedFocus] = useState<string>('');
+  const [selectedFocuses, setSelectedFocuses] = useState<string[]>([]);
 
   const handlePriorityChange = (priority: number) => {
     const updatedPriorities = selectedPriorities.includes(priority)
       ? selectedPriorities.filter((p) => p !== priority)
       : [...selectedPriorities, priority];
     setSelectedPriorities(updatedPriorities);
-    onFilterChange(updatedPriorities, selectedSectors, selectedFocus);
+    onFilterChange(updatedPriorities, selectedSectors, selectedFocuses);
   };
 
   const handleSectorChange = (sector: string) => {
@@ -38,21 +38,23 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       ? selectedSectors.filter((s) => s !== sector)
       : [...selectedSectors, sector];
     setSelectedSectors(updatedSectors);
-    onFilterChange(selectedPriorities, updatedSectors, selectedFocus);
+    onFilterChange(selectedPriorities, updatedSectors, selectedFocuses);
   };
 
   const handleFocusChange = (focus: string) => {
-    const updatedFocus = selectedFocus === focus ? '' : focus;
-    setSelectedFocus(updatedFocus);
-    onFilterChange(selectedPriorities, selectedSectors, updatedFocus);
+    const updatedFocuses = selectedFocuses.includes(focus)
+      ? selectedFocuses.filter((f) => f !== focus)
+      : [...selectedFocuses, focus];
+    setSelectedFocuses(updatedFocuses);
+    onFilterChange(selectedPriorities, selectedSectors, updatedFocuses);
   };
 
   // Handle clearing filters
   const handleClearFilters = () => {
     setSelectedPriorities([]); // Reset priorities
     setSelectedSectors([]); // Reset sectors
-    setSelectedFocus(''); // Reset focus
-    onFilterChange([], [], ''); // Clear filters
+    setSelectedFocuses([]); // Reset focus
+    onFilterChange([], [], []); // Clear filters
   };
 
   const sectorOptions: FilterOptions[] = [
@@ -188,9 +190,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                 checked={selectedPriorities.includes(label as number)}
                 onChange={() => handlePriorityChange(label as number)}
               />
-              <label className='stars' htmlFor={`priority${label}`}>
-                {'★'.repeat(label as number)}
-              </label>
+              <label className='stars'>{'★'.repeat(label as number)}</label>
               <span className='info-icon'>
                 i <div className='info-tooltip'>{tooltip}</div>
               </span>
@@ -206,14 +206,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
         <h4>Sektoren</h4>
         <div className='filter-options'>
           {sectorOptions.map(({ label, tooltip }) => (
-            <div key={label.toString()} className='filter-option'>
+            <div key={label} className='filter-option'>
               <input
                 type='checkbox'
                 id={`sector${label}`}
                 checked={selectedSectors.includes(label as string)}
                 onChange={() => handleSectorChange(label as string)}
               />
-              <label htmlFor={`sector${label}`}>{label}</label>
+              <label>{label}</label>
               <span className='info-icon'>
                 i <div className='info-tooltip'>{tooltip}</div>
               </span>
@@ -235,7 +235,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                 onClick={() => handleFocusChange(label as string)}
                 style={{ backgroundColor: color }}
               >
-                {selectedFocus.includes(label as string) && (
+                {selectedFocuses.includes(label as string) && (
                   <span className='check-icon'>✓</span>
                 )}
               </button>
