@@ -1,0 +1,211 @@
+.filter-panel {
+  width: 280px;
+  background-color: white;
+  padding: 1rem;
+  border-right: 1px solid #46c20d;
+  position: sticky;
+  top: 90px;
+  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+
+  @media (max-width: 1024px) {
+    width: 240px;
+    padding: 0.75rem;
+  }
+
+  @media (max-width: 768px) {
+    width: 200px;
+    padding: 0.5rem;
+  }
+
+  .filter-header {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .filter-icon {
+      .filter-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+
+        h3 {
+          font-size: clamp(0.9rem, 2vw, 1.1rem);
+          font-weight: bold;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .clear-filters-button {
+      background: none;
+      border: none;
+    }
+  }
+
+  .filter-section {
+    margin-bottom: 10px;
+
+    h4 {
+      color: #374151;
+      font-size: clamp(16px, 1.5vw, 20px);
+      margin-bottom: 10px;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+
+      .filter-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: relative;
+
+        input[type='checkbox'] {
+          width: 1rem;
+          height: 1rem;
+          border: 1px solid #d1d5db;
+          border-radius: 3px;
+          cursor: pointer;
+
+          &:checked {
+            background-color: #2563eb;
+            border-color: #2563eb;
+          }
+        }
+
+        label {
+          color: #4b5563;
+          cursor: pointer;
+          font-size: clamp(13px, 1.2vw, 15px);
+
+          &.stars {
+            color: #4b0082;
+            margin-right: 40px;
+            font-size: clamp(20px, 2vw, 25px);
+          }
+        }
+
+        .info-icon {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: 1px solid #9ca3af;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.75rem;
+          color: #9ca3af;
+          cursor: pointer;
+          margin-left: auto;
+          position: relative;
+
+          .info-tooltip {
+            visibility: hidden;
+            position: absolute;
+            right: 17px;
+            top: 17%;
+            transform: translateY(-50%);
+            width: max-content;
+            max-width: 180px;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+            z-index: 1;
+          }
+
+          &:hover .info-tooltip {
+            visibility: visible;
+          }
+        }
+
+        .focus-button {
+          width: 1rem;
+          height: 1rem;
+          border-radius: 50%;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+
+          .check-icon {
+            color: white;
+            font-size: 0.875rem;
+          }
+        }
+
+        .focus-label {
+          font-size: 0.9rem;
+          color: #4b5563;
+        }
+      }
+    }
+  }
+
+  .filter-divider {
+    margin: 10px 50px 10px 30px;
+    height: 1px;
+    background-color: #46c20d;
+    padding: 0.5px;
+    @media (max-width: 768px) {
+      margin: 10px 40px 8px 15px;
+    }
+  }
+
+  .bookmark-button {
+    flex-shrink: 0;
+
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    margin-left: -15px;
+
+    h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #adaeaf;
+      font-weight: bold;
+      margin: 0;
+      font-size: clamp(13px, 1.2vw, 15px);
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .filter-icon-image {
+    /*
+    Adjust the filter values to change the color.
+    - invert(69%): Inverts the black to white. Adjusting this changes the "base" color before hue manipulation.
+    - sepia(29%): Adds a slight sepia tone to get more natural colors. You can increase this if you want more of a warm tone.
+    - saturate(500%): Boosts the intensity of the colors. Increase this for more vibrant blue.
+    - hue-rotate(173deg): Shifts the hue towards the blue spectrum. Adjust this to get different shades of blue.
+    - brightness(120%): Makes the color brighter. Increase this to make it even brighter.
+    - contrast(100%): Controls the contrast between dark and light areas. Increase this for more distinction.
+  */
+    filter: invert(69%) sepia(29%) saturate(900%) hue-rotate(173deg)
+      brightness(100%) contrast(90%);
+  }
+}

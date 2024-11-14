@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import filterIcon from '../photos/filterPlaceholder.png';
+import bookmarkIcon from '../photos/bookmarkIcon.png';
+import clearIcon from '../photos/clearIcon.png';
+import '../styles/Filterpanel.scss';
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -8,6 +11,12 @@ interface FilterPanelProps {
     sectors: string[],
     focus: string
   ) => void;
+}
+
+//For additional information shown when hovering over the info icons
+interface PriorityOption {
+  stars: number;
+  tooltip: string;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
@@ -68,6 +77,21 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     { label: 'Benefits für die Allgemeinheit', color: '#bbb2c5' },
   ];
 
+  const priorityOptions: PriorityOption[] = [
+    {
+      stars: 3,
+      tooltip: 'Placeholder information for 3 star priority',
+    },
+    {
+      stars: 2,
+      tooltip: 'Placeholder information for 2 star priority',
+    },
+    {
+      stars: 1,
+      tooltip: 'Placeholder information for 1 star priority',
+    },
+  ];
+
   return (
     <div className='filter-panel'>
       <div className='filter-header'>
@@ -83,9 +107,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
             <h3>Filter</h3>
           </button>
         </div>
-        {/* Add a Clear Filters Button */}
         <button className='clear-filters-button' onClick={handleClearFilters}>
-          🗑
+          <Image
+            src={clearIcon}
+            alt='Clear Filters Icon'
+            width={32}
+            height={32}
+          />
         </button>
       </div>
 
@@ -93,7 +121,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       <div className='filter-section'>
         <h4>Priorität</h4>
         <div className='filter-options'>
-          {[3, 2, 1].map((stars) => (
+          {priorityOptions.map(({ stars, tooltip }) => (
             <div key={stars} className='filter-option'>
               <input
                 type='checkbox'
@@ -104,7 +132,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
               <label className='stars' htmlFor={`priority${stars}`}>
                 {'★'.repeat(stars)}
               </label>
-              <span className='info-icon'>i</span>
+              <span className='info-icon'>
+                i <div className='info-tooltip'>{tooltip}</div>
+              </span>
             </div>
           ))}
         </div>
@@ -158,7 +188,16 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       <div className='filter-divider'></div>
       <div className='filter-section'>
         <button className='bookmark-button'>
-          <h4>🔖 Merkzettel</h4>
+          <h4>
+            {' '}
+            <Image
+              src={bookmarkIcon}
+              alt='Bookmark Icon'
+              width={40}
+              height={40}
+            ></Image>{' '}
+            Merkzettel
+          </h4>
         </button>
       </div>
     </div>
