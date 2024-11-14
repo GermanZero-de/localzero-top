@@ -209,3 +209,9 @@
       brightness(100%) contrast(90%);
   }
 }
+
+.filter-panel {
+   @media (max-width:645px){
+    display: none;
+   }
+  }
