@@ -45,7 +45,7 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 33% 33% 33%;
   gap: 20px;
 }
 
@@ -578,12 +578,12 @@ footer a:hover {
   }
 
   .measures-grid {
-    grid-template-columns: auto auto; // Measures on two columns when screen width less than 1350px
+    grid-template-columns: 50% 50%; // Measures on two columns when screen width less than 1350px
   }
 }
 
 // Width could be changed
-@media only screen and (max-width: 1150px) {
+@media only screen and (max-width: 1000px) {
   h1 {
     font-size: 29px;
   }
@@ -591,18 +591,14 @@ footer a:hover {
   .measures-grid {
     display: flex; // Make the measure be on one column when screen width less than 1150px
     flex-direction: column;
+    align-items: center;
   }
 
   .measure-card {
-    padding-top: 0px;
-    padding-right: 8px;
-    padding-bottom: 0px;
-    padding-left: 8px;
-    height: 250px;
-    margin-bottom: 30px;
+    //width: 50%;
 
     h5 {
-      font-size: 23px;
+      font-size: 20px;
       font-weight: bold;
       margin-top: -10px;
       margin-left: 4px;
@@ -646,7 +642,7 @@ footer a:hover {
   }
 
   .stars {
-    font-size: 40px;
+    font-size: 30px;
     margin-right: 40px;
   }
 
@@ -663,7 +659,7 @@ footer a:hover {
 }
 
 // Remove filtering panel when screen width less than 700px
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 790px) {
   .filter-panel,
   .sidebar {
     display: none;
