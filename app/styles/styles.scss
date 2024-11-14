@@ -34,10 +34,7 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(380px, 1fr)
-  ); // From first file
+  grid-template-columns: 33% 33% 33%;
   gap: 20px;
 }
 
