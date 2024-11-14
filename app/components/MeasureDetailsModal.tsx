@@ -1,14 +1,6 @@
 // src/components/MeasureDetailsModal.tsx
 import React from "react";
-
-interface Measure {
-  title: string;
-  code: string;
-  sector: string;
-  priority: number;
-  focuses: string[];
-  description: string;
-}
+import {Measure} from "@/app/Redo/Measure";
 
 interface MeasureDetailsModalProps {
   measure: Measure | null;

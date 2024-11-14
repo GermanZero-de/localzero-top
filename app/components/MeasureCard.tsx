@@ -2,39 +2,27 @@
 import React from 'react';
 import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
+import {Measure} from "@/app/Redo/Measure";
 
 interface MeasureCardProps {
-  title: string;
-  sector: string;
-  priority: number;
-  focuses: string[];
-  code: string;
+  measure: Measure;
   onOpenDetails: (measure: {
-    title: string;
-    sector: string;
-    priority: number;
-    focuses: string[];
-    code: string;
-    description: string;
+    measure: Measure;
   }) => void;
 }
 
 const MeasureCard: React.FC<MeasureCardProps> = ({
-  title,
-  sector,
-  priority,
-  focuses,
-  code,
+  measure,
   onOpenDetails,
 }) => {
-    const focuseBalls = focuses.map((focus, index) => {
-        const [_, hexColor] = focus.split('::');
-        if (focus.trim().length === 0) return <div></div>;
+    const {title, sector, priority, focuses, code, cities} = measure;
+
+    const focuseBalls = focuses.map((_focus, index) => {
         return (
             <div key={index} className="focus-item">
                 <div
                     className="color-ball"
-                    style={{backgroundColor: hexColor}}
+                    style={{backgroundColor: "#4b0082"}} // todo
                 ></div>
             </div>
         );
@@ -43,7 +31,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   return (
     <div className={`measure-card priority-${priority}`}>
       <div className='card-header'>
-        <span className='sector'>{sector}</span>
+        <span className='sector'>{sector.title}</span>
         <div className='stars'>{'★'.repeat(priority)}</div>
       </div>
         <div className='card-body'>
@@ -60,12 +48,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 className='arrow-button'
                 onClick={() =>
                     onOpenDetails({
-                        title,
-                        sector,
-                        priority,
-                        focuses,
-                        code,
-                        description: 'Full description to be handled in MeasuresGrid',
+                        measure: measure
                     })
                 }
             >
