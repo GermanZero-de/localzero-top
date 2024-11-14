@@ -13,6 +13,16 @@ interface Measure {
   description: string;
 }
 
+// Format how data comes from csv
+interface MeasureRaw {
+  title: string;
+  sector: string;
+  priority: number;
+  focuses: string;
+  code: string;
+  description: string;
+}
+
 interface MeasuresGridProps {
   selectedPriorities: number[];
   selectedSectors: string[];
@@ -36,12 +46,13 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       const result = await reader?.read();
       const csvData = new TextDecoder("utf-8").decode(result?.value);
 
-      Papa.parse<Measure>(csvData, {
+      Papa.parse<MeasureRaw>(csvData, {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
           const formattedData = results.data.map((measure) => ({
             ...measure,
+             focuses: measure.focuses ? measure.focuses.split(",").map((focus: string) => focus.trim()) : [],
             priority: Number(measure.priority), // Ensure priority is a number
             description: measure.description.replace(/\[NEWLINE\]/g, "<br>"),
           }));

@@ -6,6 +6,7 @@ interface Measure {
   code: string;
   sector: string;
   priority: number;
+  focuses: string[];
   description: string;
 }
 

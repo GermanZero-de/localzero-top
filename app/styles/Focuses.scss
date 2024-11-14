@@ -1,0 +1,19 @@
+.focuses {
+    display: flex;
+    flex-direction: row;  /* Change this to row to display items in a row */
+    gap: 10px;  /* Space between items */
+    flex-wrap: wrap;  /* Allow items to wrap to the next line if they overflow */
+}
+
+.focus-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-ball {
+    width: 20px;  /* Size of the ball */
+    height: 20px;
+    border-radius: 50%;  /* Makes it a circle */
+    background-color: #000;  /* Default color if no hex is provided */
+}
