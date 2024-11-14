@@ -9,27 +9,28 @@ interface FilterPanelProps {
   onFilterChange: (
     priorities: number[],
     sectors: string[],
-    focus: string
+    focus: string[]
   ) => void;
 }
 
 //For additional information shown when hovering over the info icons
-interface PriorityOption {
-  stars: number;
+interface FilterOptions {
+  label: string | number;
+  color?: string;
   tooltip: string;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
   const [selectedPriorities, setSelectedPriorities] = useState<number[]>([]);
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
-  const [selectedFocus, setSelectedFocus] = useState<string>('');
+  const [selectedFocuses, setSelectedFocuses] = useState<string[]>([]);
 
   const handlePriorityChange = (priority: number) => {
     const updatedPriorities = selectedPriorities.includes(priority)
       ? selectedPriorities.filter((p) => p !== priority)
       : [...selectedPriorities, priority];
     setSelectedPriorities(updatedPriorities);
-    onFilterChange(updatedPriorities, selectedSectors, selectedFocus);
+    onFilterChange(updatedPriorities, selectedSectors, selectedFocuses);
   };
 
   const handleSectorChange = (sector: string) => {
@@ -37,57 +38,117 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       ? selectedSectors.filter((s) => s !== sector)
       : [...selectedSectors, sector];
     setSelectedSectors(updatedSectors);
-    onFilterChange(selectedPriorities, updatedSectors, selectedFocus);
+    onFilterChange(selectedPriorities, updatedSectors, selectedFocuses);
   };
 
   const handleFocusChange = (focus: string) => {
-    const updatedFocus = selectedFocus === focus ? '' : focus;
-    setSelectedFocus(updatedFocus);
-    onFilterChange(selectedPriorities, selectedSectors, updatedFocus);
+    const updatedFocuses = selectedFocuses.includes(focus)
+      ? selectedFocuses.filter((f) => f !== focus)
+      : [...selectedFocuses, focus];
+    setSelectedFocuses(updatedFocuses);
+    onFilterChange(selectedPriorities, selectedSectors, updatedFocuses);
   };
 
   // Handle clearing filters
   const handleClearFilters = () => {
     setSelectedPriorities([]); // Reset priorities
     setSelectedSectors([]); // Reset sectors
-    setSelectedFocus(''); // Reset focus
-    onFilterChange([], [], ''); // Clear filters
+    setSelectedFocuses([]); // Reset focus
+    onFilterChange([], [], []); // Clear filters
   };
 
-  const filterOptions = [
-    'Strom',
-    'Wärme',
-    'Gebäude',
-    'Verkehr',
-    'Landwirtschaft',
-    'Land & Natur',
-    'Abfallwirtschaft',
-    'Industrie/Wirtschaft',
-    'Governance',
-    'Finanzierung',
-  ];
-
-  const focusOptions = [
-    { label: 'THG-Einsparpotenzial', color: '#e588b7' },
-    { label: 'Wirtschaftlichkeit', color: '#f2a58b' },
-    { label: 'Einfache Umsetzung', color: '#f3cb5c' },
-    { label: 'Kommune als Vorbild', color: '#d8d300' },
-    { label: 'Akzeptanzförderung', color: '#87cd49' },
-    { label: 'Multiplikatoreffekt', color: '#6eafc1' },
-    { label: 'Benefits für die Allgemeinheit', color: '#bbb2c5' },
-  ];
-
-  const priorityOptions: PriorityOption[] = [
+  const sectorOptions: FilterOptions[] = [
     {
-      stars: 3,
+      label: 'Abfallwirtschaft',
+      tooltip: 'Placeholder information for Abfallwirtschaft',
+    },
+    {
+      label: 'Finanzierung',
+      tooltip: 'Placeholder information for Finanzierung',
+    },
+    {
+      label: 'Gebäude',
+      tooltip: 'Placeholder information for Gebäude',
+    },
+    {
+      label: 'Governance',
+      tooltip: 'Placeholder information for Governance',
+    },
+    {
+      label: 'Industrie/Wirtschaft',
+      tooltip: 'Placeholder information for Industrie/Wirtschaft',
+    },
+    {
+      label: 'Land & Natur',
+      tooltip: 'Placeholder information for Land & Natur',
+    },
+    {
+      label: 'Landwirtschaft',
+      tooltip: 'Placeholder information for Landwirtschaft',
+    },
+    {
+      label: 'Strom',
+      tooltip: 'Placeholder information for Strom',
+    },
+    {
+      label: 'Verkehr',
+      tooltip: 'Placeholder information for Verkehr',
+    },
+    {
+      label: 'Wärme',
+      tooltip: 'Placeholder information for Wärme',
+    },
+  ];
+
+  const focusOptions: FilterOptions[] = [
+    {
+      label: 'THG-Einsparpotenzial',
+      color: '#e588b7',
+      tooltip: 'Placeholder information for THG-Einsparpotenzial',
+    },
+    {
+      label: 'Wirtschaftlichkeit',
+      color: '#f2a58b',
+      tooltip: 'Placeholder information for Wirtschaftlichkeit',
+    },
+    {
+      label: 'Einfache Umsetzung',
+      color: '#f3cb5c',
+      tooltip: 'Placeholder information for Einfache Umsetzung',
+    },
+    {
+      label: 'Kommune als Vorbild',
+      color: '#d8d300',
+      tooltip: 'Placeholder information for Kommune als Vorbild',
+    },
+    {
+      label: 'Akzeptanzförderung',
+      color: '#87cd49',
+      tooltip: 'Placeholder information for Akzeptanzförderung',
+    },
+    {
+      label: 'Multiplikatoreffekt',
+      color: '#6eafc1',
+      tooltip: 'Placeholder information for Multiplikatoreffekt',
+    },
+    {
+      label: 'Benefits für die Allgemeinheit',
+      color: '#bbb2c5',
+      tooltip: 'Placeholder information for Benefits für die Allgemeinheit',
+    },
+  ];
+
+  const starOptions: FilterOptions[] = [
+    {
+      label: 3,
       tooltip: 'Placeholder information for 3 star priority',
     },
     {
-      stars: 2,
+      label: 2,
       tooltip: 'Placeholder information for 2 star priority',
     },
     {
-      stars: 1,
+      label: 1,
       tooltip: 'Placeholder information for 1 star priority',
     },
   ];
@@ -117,21 +178,19 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
         </button>
       </div>
 
-      {/* Priority Filter */}
+      {/* Priority Star Filter */}
       <div className='filter-section'>
         <h4>Priorität</h4>
         <div className='filter-options'>
-          {priorityOptions.map(({ stars, tooltip }) => (
-            <div key={stars} className='filter-option'>
+          {starOptions.map(({ label, tooltip }) => (
+            <div key={label} className='filter-option'>
               <input
                 type='checkbox'
-                id={`priority${stars}`}
-                checked={selectedPriorities.includes(stars)}
-                onChange={() => handlePriorityChange(stars)}
+                id={`priority${label}`}
+                checked={selectedPriorities.includes(label as number)}
+                onChange={() => handlePriorityChange(label as number)}
               />
-              <label className='stars' htmlFor={`priority${stars}`}>
-                {'★'.repeat(stars)}
-              </label>
+              <label className='stars'>{'★'.repeat(label as number)}</label>
               <span className='info-icon'>
                 i <div className='info-tooltip'>{tooltip}</div>
               </span>
@@ -146,16 +205,18 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       <div className='filter-section'>
         <h4>Sektoren</h4>
         <div className='filter-options'>
-          {filterOptions.map((sector) => (
-            <div key={sector} className='filter-option'>
+          {sectorOptions.map(({ label, tooltip }) => (
+            <div key={label} className='filter-option'>
               <input
                 type='checkbox'
-                id={`sector${sector}`}
-                checked={selectedSectors.includes(sector)}
-                onChange={() => handleSectorChange(sector)}
+                id={`sector${label}`}
+                checked={selectedSectors.includes(label as string)}
+                onChange={() => handleSectorChange(label as string)}
               />
-              <label htmlFor={`sector${sector}`}>{sector}</label>
-              <span className='info-icon'>i</span>
+              <label>{label}</label>
+              <span className='info-icon'>
+                i <div className='info-tooltip'>{tooltip}</div>
+              </span>
             </div>
           ))}
         </div>
@@ -167,19 +228,21 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       <div className='filter-section'>
         <h4>Fokus</h4>
         <div className='filter-options'>
-          {focusOptions.map(({ label, color }) => (
+          {focusOptions.map(({ label, color, tooltip }) => (
             <div key={label} className='filter-option'>
               <button
                 className='focus-button'
-                onClick={() => handleFocusChange(label)}
+                onClick={() => handleFocusChange(label as string)}
                 style={{ backgroundColor: color }}
               >
-                {selectedFocus.includes(label) && (
+                {selectedFocuses.includes(label as string) && (
                   <span className='check-icon'>✓</span>
                 )}
               </button>
               <span className='focus-label'>{label}</span>
-              <span className='info-icon'>i</span>
+              <span className='info-icon'>
+                i <div className='info-tooltip'>{tooltip}</div>
+              </span>
             </div>
           ))}
         </div>
@@ -189,13 +252,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
       <div className='filter-section'>
         <button className='bookmark-button'>
           <h4>
-            {' '}
             <Image
               src={bookmarkIcon}
               alt='Bookmark Icon'
               width={40}
               height={40}
-            ></Image>{' '}
+            ></Image>
             Merkzettel
           </h4>
         </button>

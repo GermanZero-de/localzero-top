@@ -41,26 +41,6 @@ h1 {
   gap: 20px;
 }
 
-.button-container {
-  grid-column: 2; /* Middle column */
-  display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  justify-content: center; /* Center horizontally */
-  align-items: center;
-  position: relative;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.load-more-button,
-.hide-button {
-  background-color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin: 0 10px; /* Add some space between the buttons */
-}
-
 .arrow-icon {
   width: 100px; // Adjust the width to your desired size
   height: 100px; // Adjust the height to maintain aspect ratio or set a specific height
@@ -91,7 +71,7 @@ h1 {
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     right: 0;
