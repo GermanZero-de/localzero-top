@@ -20,6 +20,9 @@ const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
 }) => {
   if (!measure) return null;
 
+  // Replace [NEWLINE] with <br /> for HTML line breaks in the description
+  const formattedDescription = measure.description.replace(/\[NEWLINE\]/g, "<br />");
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -34,15 +37,13 @@ const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
           <strong>Priority:</strong> {"★".repeat(measure.priority)}
         </p>
 
-        {/* Render description with HTML for line breaks */}
+        {/* Render formattedDescription with HTML for line breaks */}
         <div>
           <strong>Description:</strong>
-          <p dangerouslySetInnerHTML={{ __html: measure.description }} />
+          <p dangerouslySetInnerHTML={{ __html: formattedDescription }} />
         </div>
 
-        <button className="close-button" onClick={onClose}>
-          Close
-        </button>
+        <button className="close-button" onClick={onClose}>Close</button>
         <button className="share-button">Share</button>
         <button className="add-button">Add</button>
       </div>

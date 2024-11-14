@@ -1,2 +1,12 @@
+# Jetbrains
+build/
+.idea
+.gradle
+local.properties
+*.iml
+
+# node.js/next
 node_modules
 .next
+npm-debug.log
+yarn-error.log

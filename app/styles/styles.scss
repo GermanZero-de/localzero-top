@@ -78,6 +78,19 @@ h1 {
     border-bottom: 90px solid #fff;
     border-left: 91px solid transparent;
   }
+
+  &.priority-1 {
+    background-color: #e5f7fb;
+  }
+  &.priority-2 {
+    background-color: #cceef7;
+  }
+  &.priority-3 {
+    background-color: #9adfef;
+  }
+  &.priority-default {
+    background-color: #9adfef;
+  }
 }
 
 .card-body {

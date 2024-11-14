@@ -9,6 +9,7 @@ interface Measure {
   title: string;
   sector: string;
   priority: number;
+  focuses: string[];
   code: string;
   description: string;
 }
@@ -49,6 +50,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         complete: (results) => {
           const formattedData = results.data.map((measure) => ({
             ...measure,
+            priority: Number(measure.priority), // Ensure priority is a number
             description: measure.description.replace(/\[NEWLINE\]/g, "<br>"),
           }));
           setMeasures(formattedData);
@@ -88,6 +90,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
           title={measure.title}
           sector={measure.sector}
           priority={measure.priority}
+          focuses={measure.focuses}
           code={measure.code}
           onOpenDetails={() => setSelectedMeasure(measure)} // Open the modal with this measure's details
         />
