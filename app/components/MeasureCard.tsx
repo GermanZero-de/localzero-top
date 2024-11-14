@@ -1,5 +1,6 @@
 // src/components/MeasureCard.tsx
 import React from 'react';
+import ArrowRight from "@/app/components/Arrow-Right";
 
 interface MeasureCardProps {
   title: string;
@@ -48,13 +49,13 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
               title,
               sector,
               priority,
-                focuses,
+              focuses,
               code,
               description: 'Full description to be handled in MeasuresGrid',
             })
           }
         >
-          🡺
+        <ArrowRight color='#4b0082' style={{height: 55, width: 55}} />
         </button>
       </div>
     </div>
