@@ -75,7 +75,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   // Load more measures whenever `inView` is true
   useEffect(() => {
     if (inView) {
-      setVisibleCount((prevCount) => prevCount + 9);
+      setVisibleCount((prevCount) => prevCount + 18);
     }
   }, [inView]);
 
@@ -94,7 +94,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       ))}
 
       {/* Sentinel div to trigger loading more measures */}
-      <div ref={sentinelRef} style={{ height: "1px" }} />
+      <div ref={sentinelRef} style={{ height: "50px" }} />
 
       {/* Modal to show measure details */}
       {selectedMeasure && (
