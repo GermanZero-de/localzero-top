@@ -34,10 +34,7 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(380px, 1fr)
-  ); // From first file
+  grid-template-columns: 33% 33% 33%;
   gap: 20px;
 }
 
@@ -238,3 +235,52 @@ footer a:hover {
   margin-right: -15px;
   margin-left: -15px;
 }
+
+@media only screen and (max-width: 1320px) {
+  .measures-grid {
+    grid-template-columns: 50% 50%;
+  }
+
+  }
+
+@media only screen and (max-width: 1150px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .measure-card {
+    h5 {
+      font-size: 20px;
+    }
+  }
+
+  .sector {
+
+  }
+
+  .stars {
+    font-size: 30px;
+  }
+
+  .code {
+    p {
+      font-size: 20px;
+    }
+  }
+
+
+}
+
+@media only screen and (max-width: 870px) {
+  .measures-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
