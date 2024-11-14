@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useInView } from "react-intersection-observer";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
 import Papa from "papaparse";
@@ -9,6 +10,16 @@ interface Measure {
   sector: string;
   priority: number;
   focuses: string[];
+  code: string;
+  description: string;
+}
+
+// Format how data comes from csv
+interface MeasureRaw {
+  title: string;
+  sector: string;
+  priority: number;
+  focuses: string;
   code: string;
   description: string;
 }
@@ -24,24 +35,32 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
 }) => {
   const [measures, setMeasures] = useState<Measure[]>([]);
   const [selectedMeasure, setSelectedMeasure] = useState<Measure | null>(null);
-  const [visibleCount, setVisibleCount] = useState(9); // Number of measures to show
+  const [visibleCount, setVisibleCount] = useState(9);
 
   // Initial number of measures to display (for reset purposes)
   const INITIAL_VISIBLE_COUNT = 9;
 
+  // Use `useInView` to observe the sentinel element
+  const { ref: sentinelRef, inView } = useInView({
+    threshold: 1.0, // Trigger when 100% of the element is in view
+  });
+
   useEffect(() => {
     const fetchMeasures = async () => {
-      const response = await fetch("https://docs.google.com/spreadsheets/d/1SrQfj9-wJWQRd5ysSHpOWbXXC1zYLV5Iax13IxxBqMs/export?format=csv");
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/1SrQfj9-wJWQRd5ysSHpOWbXXC1zYLV5Iax13IxxBqMs/export?format=csv"
+      );
       const reader = response.body?.getReader();
       const result = await reader?.read();
       const csvData = new TextDecoder("utf-8").decode(result?.value);
 
-      Papa.parse<Measure>(csvData, {
+      Papa.parse<MeasureRaw>(csvData, {
         header: true,
         skipEmptyLines: true,
         complete: (results) => {
           const formattedData = results.data.map((measure) => ({
             ...measure,
+             focuses: measure.focuses ? measure.focuses.split(",").map((focus: string) => focus.trim()) : [],
             priority: Number(measure.priority), // Ensure priority is a number
             description: measure.description.replace(/\[NEWLINE\]/g, "<br>"),
           }));
@@ -66,15 +85,12 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     return priorityMatch && sectorMatch;
   });
 
-  // Load more measures
-  const loadMoreMeasures = () => {
-    setVisibleCount((prevCount) => prevCount + 9); // Increase visible count by 9
-  };
-
-  // Hide measures to initial count
-  const hideMeasures = () => {
-    setVisibleCount(INITIAL_VISIBLE_COUNT); // Reset to initial visible count
-  };
+  // Load more measures whenever `inView` is true
+  useEffect(() => {
+    if (inView) {
+      setVisibleCount((prevCount) => prevCount + 18);
+    }
+  }, [inView]);
 
   return (
     <div className="measures-grid">
@@ -91,23 +107,8 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         />
       ))}
 
-      {/* Button container to position in the bottom center */}
-      <div className="button-container">
-        {visibleCount > INITIAL_VISIBLE_COUNT && (
-          <button className="hide-button" onClick={hideMeasures}>
-            <img src="/images/arrow_up.png" alt="Hide" className="arrow-icon" />
-          </button>
-        )}
-        {visibleCount < filteredMeasures.length && (
-          <button className="load-more-button" onClick={loadMoreMeasures}>
-            <img
-              src="/images/arrow_down.png"
-              alt="Load More"
-              className="arrow-icon"
-            />
-          </button>
-        )}
-      </div>
+      {/* Sentinel div to trigger loading more measures */}
+      <div ref={sentinelRef} style={{ height: "50px" }} />
 
       {/* Modal to show measure details */}
       {selectedMeasure && (
