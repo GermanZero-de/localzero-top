@@ -17,13 +17,13 @@ interface FilterChangeHandler {
 const Pages = () => {
   const [selectedPriorities, setSelectedPriorities] = useState<number[]>([]);
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
-  const [selectedFocuses, setSelectedFocus] = useState<string>('');
+  const [selectedFocuses, setSelectedFocus] = useState<string[]>([]);
 
   // Handle changes from the FilterPanel for both priorities and sectors
   const handleFilterChange = (
     priorities: number[],
     sectors: string[],
-    focus: string
+    focus: string[]
   ) => {
     setSelectedPriorities(priorities);
     setSelectedSectors(sectors);
