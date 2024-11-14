@@ -79,6 +79,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                                         onChange={() => handleChange(priority, undefined, undefined)}
                                     />
                                     <label className='stars'>{'★'.repeat(priority)}</label>
+                                    <span className='info-icon'>
+                                        i <div className='info-tooltip'>{"todo"}</div>
+                                    </span>
                                 </div>
                             ))
                         }
@@ -101,6 +104,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                                         onChange={() => handleChange(undefined, sector, undefined)}
                                     />
                                     <label>{sector.title}</label>
+                                    <span className='info-icon'>
+                                     i <div className='info-tooltip'>{sector.tooltip}</div>
+                                    </span>
                                 </div>
                             ))
                         }
@@ -110,25 +116,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                 <div className='filter-divider'></div>
 
                 {/* Focus Filter */}
-                {/*
-          {focusOptions.map(({ label, color, tooltip }) => (
-            <div key={label} className='filter-option'>
-              <button
-                className='focus-button'
-                onClick={() => handleFocusChange(label as string)}
-                style={{ backgroundColor: color }}
-              >
-                {selectedFocuses.includes(label as string) && (
-                  <span className='check-icon'>✓</span>
-                )}
-              </button>
-              <span className='focus-label'>{label}</span>
-              <span className='info-icon'>
-                i <div className='info-tooltip'>{tooltip}</div>
-              </span>
-            </div>
-          ))}
-                */}
                 <div className='filter-section'>
                     <h4>Fokus</h4>
                     <div className='filter-options'>
