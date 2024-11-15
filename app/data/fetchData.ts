@@ -10,13 +10,9 @@ import {RawBlueprint} from "@/app/models/rawBlueprint";
 export const fetchSheetsData = async () => {
     //Can be autoparsed
     const prioritys = await fetchPageAndParse<Priority>("1339549110");
-    console.log("parsed: ", prioritys);
     const sectors = await fetchPageAndParse<Sector>("1227125832");
-    console.log("parsed: ", sectors);
     const focuses = await fetchPageAndParse<Focus>("1437521198");
-    console.log("parsed: ", focuses);
     const cities = await fetchPageAndParse<City>("593066774");
-    console.log("parsed: ", cities);
     // Needs to be manually parsed
     const rawBluePrintData = await fetchPage("0");
     const blueprints = await parseBlueprints(rawBluePrintData, prioritys, sectors, focuses, cities);

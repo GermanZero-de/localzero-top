@@ -28,11 +28,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data}
             const updatedPriorities = priority !== undefined ? toggleItem(filters.prioritys, priority) : filters.prioritys;
             const updatedSectors = sector !== undefined ? toggleItem(filters.sectors, sector) : filters.sectors;
             const updatedFocuses = focus !== undefined ? toggleItem(filters.focuses, focus) : filters.focuses;
-
-            console.log("Showing updated priorities: ", updatedPriorities);
-            console.log("Showing updated sectors: ", updatedSectors);
-            console.log("Showing updated focuses: ", updatedFocuses);
-
             onFilterChange(updatedPriorities, updatedSectors, updatedFocuses);
         };
 
