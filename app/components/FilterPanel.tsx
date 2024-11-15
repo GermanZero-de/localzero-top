@@ -81,7 +81,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data}
                                     />
                                     <label className='stars'>{'★'.repeat(priority.stars)}</label>
                                     <span className='info-icon'>
-                                        i <div className='info-tooltip'>{"todo"}</div>
+                                        i <div className='info-tooltip'>{priority.tooltip}</div>
                                     </span>
                                 </div>
                             ))
