@@ -12,16 +12,6 @@
   scrollbar-width: none;
   scroll-behavior: smooth;
 
-  @media (max-width: 1024px) {
-    width: 240px;
-    padding: 0.75rem;
-  }
-
-  @media (max-width: 768px) {
-    width: 200px;
-    padding: 0.5rem;
-  }
-
   .filter-header {
     flex-shrink: 0;
     display: flex;
@@ -54,7 +44,12 @@
   }
 
   .filter-section {
-    margin-bottom: 10px;
+    margin: 10px 0;
+
+    button {
+      background: none;
+      border: none;
+    }
 
     h4 {
       color: #374151;
@@ -63,17 +58,22 @@
     }
 
     .filter-options {
-      display: flex;
+      display: none;
       flex-direction: column;
       gap: 0.5em;
+
+      &.show-filter {
+        display: flex; // Show when the class is toggled
+      }
 
       .filter-option {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         position: relative;
+        margin-left: 8px;
 
-        input[type='checkbox'] {
+        input[type="checkbox"] {
           width: 1rem;
           height: 1rem;
           border: 1px solid #d1d5db;
@@ -161,7 +161,7 @@
   }
 
   .filter-divider {
-    margin: 10px 50px 10px 30px;
+    margin: 10px 60px 10px 10px;
     height: 1px;
     background-color: #46c20d;
     padding: 0.5px;
@@ -179,7 +179,6 @@
     cursor: pointer;
     text-align: left;
     padding: 0;
-    margin-left: -15px;
 
     h4 {
       display: flex;

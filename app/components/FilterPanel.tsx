@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import filterIcon from '../photos/filterPlaceholder.png';
-import bookmarkIcon from '../photos/bookmarkIcon.png';
-import clearIcon from '../photos/clearIcon.png';
-import '../styles/Filterpanel.scss';
+import React, { useState } from "react";
+import Image from "next/image";
+import filterIcon from "../photos/filterPlaceholder.png";
+import bookmarkIcon from "../photos/bookmarkIcon.png";
+import clearIcon from "../photos/clearIcon.png";
+import "../styles/Filterpanel.scss";
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -57,99 +57,104 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     onFilterChange([], [], []); // Clear filters
   };
 
+  const showFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const filterOptions = e.currentTarget.nextElementSibling as HTMLElement;
+    filterOptions.classList.toggle("show-filter");
+  };
+
   const sectorOptions: FilterOptions[] = [
     {
-      label: 'Abfallwirtschaft',
-      tooltip: 'Placeholder information for Abfallwirtschaft',
+      label: "Abfallwirtschaft",
+      tooltip: "Placeholder information for Abfallwirtschaft",
     },
     {
-      label: 'Finanzierung',
-      tooltip: 'Placeholder information for Finanzierung',
+      label: "Finanzierung",
+      tooltip: "Placeholder information for Finanzierung",
     },
     {
-      label: 'Gebäude',
-      tooltip: 'Placeholder information for Gebäude',
+      label: "Gebäude",
+      tooltip: "Placeholder information for Gebäude",
     },
     {
-      label: 'Governance',
-      tooltip: 'Placeholder information for Governance',
+      label: "Governance",
+      tooltip: "Placeholder information for Governance",
     },
     {
-      label: 'Industrie/Wirtschaft',
-      tooltip: 'Placeholder information for Industrie/Wirtschaft',
+      label: "Industrie/Wirtschaft",
+      tooltip: "Placeholder information for Industrie/Wirtschaft",
     },
     {
-      label: 'Land & Natur',
-      tooltip: 'Placeholder information for Land & Natur',
+      label: "Land & Natur",
+      tooltip: "Placeholder information for Land & Natur",
     },
     {
-      label: 'Landwirtschaft',
-      tooltip: 'Placeholder information for Landwirtschaft',
+      label: "Landwirtschaft",
+      tooltip: "Placeholder information for Landwirtschaft",
     },
     {
-      label: 'Strom',
-      tooltip: 'Placeholder information for Strom',
+      label: "Strom",
+      tooltip: "Placeholder information for Strom",
     },
     {
-      label: 'Verkehr',
-      tooltip: 'Placeholder information for Verkehr',
+      label: "Verkehr",
+      tooltip: "Placeholder information for Verkehr",
     },
     {
-      label: 'Wärme',
-      tooltip: 'Placeholder information for Wärme',
+      label: "Wärme",
+      tooltip: "Placeholder information for Wärme",
     },
   ];
 
   const focusOptions: FilterOptions[] = [
     {
-      label: 'THG-Einsparpotenzial',
-      color: '#e588b7',
-      tooltip: 'Placeholder information for THG-Einsparpotenzial',
+      label: "THG-Einsparpotenzial",
+      color: "#e588b7",
+      tooltip: "Placeholder information for THG-Einsparpotenzial",
     },
     {
-      label: 'Wirtschaftlichkeit',
-      color: '#f2a58b',
-      tooltip: 'Placeholder information for Wirtschaftlichkeit',
+      label: "Wirtschaftlichkeit",
+      color: "#f2a58b",
+      tooltip: "Placeholder information for Wirtschaftlichkeit",
     },
     {
-      label: 'Einfache Umsetzung',
-      color: '#f3cb5c',
-      tooltip: 'Placeholder information for Einfache Umsetzung',
+      label: "Einfache Umsetzung",
+      color: "#f3cb5c",
+      tooltip: "Placeholder information for Einfache Umsetzung",
     },
     {
-      label: 'Kommune als Vorbild',
-      color: '#d8d300',
-      tooltip: 'Placeholder information for Kommune als Vorbild',
+      label: "Kommune als Vorbild",
+      color: "#d8d300",
+      tooltip: "Placeholder information for Kommune als Vorbild",
     },
     {
-      label: 'Akzeptanzförderung',
-      color: '#87cd49',
-      tooltip: 'Placeholder information for Akzeptanzförderung',
+      label: "Akzeptanzförderung",
+      color: "#87cd49",
+      tooltip: "Placeholder information for Akzeptanzförderung",
     },
     {
-      label: 'Multiplikatoreffekt',
-      color: '#6eafc1',
-      tooltip: 'Placeholder information for Multiplikatoreffekt',
+      label: "Multiplikatoreffekt",
+      color: "#6eafc1",
+      tooltip: "Placeholder information for Multiplikatoreffekt",
     },
     {
-      label: 'Benefits für die Allgemeinheit',
-      color: '#bbb2c5',
-      tooltip: 'Placeholder information for Benefits für die Allgemeinheit',
+      label: "Benefits für die Allgemeinheit",
+      color: "#bbb2c5",
+      tooltip: "Placeholder information for Benefits für die Allgemeinheit",
     },
   ];
 
   const starOptions: FilterOptions[] = [
     {
       label: 3,
-      tooltip: 'Placeholder information for 3 star priority',
+      tooltip: "Placeholder information for 3 star priority",
     },
     {
       label: 2,
-      tooltip: 'Placeholder information for 2 star priority',
+      tooltip: "Placeholder information for 2 star priority",
     },
     {
       label: 1,
-      tooltip: 'Placeholder information for 1 star priority',
+      tooltip: "Placeholder information for 1 star priority",
     },
   ];
 
@@ -180,7 +185,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
 
       {/* Priority Star Filter */}
       <div className='filter-section'>
-        <h4>Priorität</h4>
+        <button className='display-filter-button' onClick={showFilter}>
+          <h4>Priorität</h4>
+        </button>
         <div className='filter-options'>
           {starOptions.map(({ label, tooltip }) => (
             <div key={label} className='filter-option'>
@@ -190,7 +197,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
                 checked={selectedPriorities.includes(label as number)}
                 onChange={() => handlePriorityChange(label as number)}
               />
-              <label className='stars'>{'★'.repeat(label as number)}</label>
+              <label className='stars'>{"★".repeat(label as number)}</label>
               <span className='info-icon'>
                 i <div className='info-tooltip'>{tooltip}</div>
               </span>
@@ -203,7 +210,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
 
       {/* Sector Filter */}
       <div className='filter-section'>
-        <h4>Sektoren</h4>
+        <button className='display-filter-button' onClick={showFilter}>
+          <h4>Sektoren</h4>
+        </button>
         <div className='filter-options'>
           {sectorOptions.map(({ label, tooltip }) => (
             <div key={label} className='filter-option'>
@@ -224,9 +233,34 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
 
       <div className='filter-divider'></div>
 
+      {/* City Filter */}
+      <div className='filter-section'>
+        <button className='display-filter-button' onClick={showFilter}>
+          <h4>Städte</h4>
+        </button>
+        <div className='filter-options'>
+          <div className='filter-option'>
+            <input type='checkbox' id='city1' />
+            <label>Stadt 1</label>
+          </div>
+          <div className='filter-option'>
+            <input type='checkbox' id='city2' />
+            <label>Stadt 2</label>
+          </div>
+          <div className='filter-option'>
+            <input type='checkbox' id='city3' />
+            <label>Stadt 3</label>
+          </div>
+        </div>
+      </div>
+
+      <div className='filter-divider'></div>
+
       {/* Focus Filter */}
       <div className='filter-section'>
-        <h4>Fokus</h4>
+        <button className='display-filter-button' onClick={showFilter}>
+          <h4>Fokus</h4>
+        </button>
         <div className='filter-options'>
           {focusOptions.map(({ label, color, tooltip }) => (
             <div key={label} className='filter-option'>
