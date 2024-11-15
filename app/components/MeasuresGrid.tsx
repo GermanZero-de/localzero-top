@@ -2,26 +2,16 @@ import React, {useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
-import {Measure} from "@/app/Redo/Measure";
-
-// Format how data comes from csv
-interface MeasureRaw {
-  title: string;
-  sector: string;
-  priority: number;
-  focuses: string;
-  code: string;
-  description: string;
-}
+import {Blueprint} from "@/app/models/blueprint";
 
 interface MeasuresGridProps {
-  measureCards: Measure[];
+  blueprints: Blueprint[];
 }
 
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
-  measureCards,
+  blueprints,
 }) => {
-  const [selectedMeasure, setSelectedMeasure] = useState<Measure | null>(null);
+  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
 
   // Initial number of measures to display (for reset purposes)
@@ -42,11 +32,11 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   return (
     <div className="measures-grid">
       {/* Display only the visible measures */}
-      {measureCards.slice(0, visibleCount).map((measure, index) => (
+      {blueprints.slice(0, visibleCount).map((blueprint, index) => (
         <MeasureCard
           key={index}
-          measure={measure}
-          onOpenDetails={() => setSelectedMeasure(measure)} // Open the modal with this measure's details
+          blueprint={blueprint}
+          onOpenDetails={() => setSelectedMeasure(blueprint)} // Open the modal with this blueprint's details
         />
       ))}
 
@@ -56,7 +46,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       {/* Modal to show measure details */}
       {selectedMeasure && (
         <MeasureDetailsModal
-          measure={selectedMeasure}
+          blueprint={selectedMeasure}
           onClose={() => setSelectedMeasure(null)} // Close modal
         />
       )}

@@ -1,33 +1,33 @@
 // src/components/MeasureDetailsModal.tsx
 import React from "react";
-import {Measure} from "@/app/Redo/Measure";
+import {Blueprint} from "@/app/models/blueprint";
 
 interface MeasureDetailsModalProps {
-  measure: Measure | null;
+  blueprint: Blueprint | null;
   onClose: () => void;
 }
 
 const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
-  measure,
+  blueprint,
   onClose,
 }) => {
-  if (!measure) return null;
+  if (!blueprint) return null;
 
   // Replace [NEWLINE] with <br /> for HTML line breaks in the description
-  const formattedDescription = measure.description.replace(/\[NEWLINE\]/g, "<br />");
+  const formattedDescription = blueprint.description.replace(/\[NEWLINE\]/g, "<br />");
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>{measure.title}</h2>
+        <h2>{blueprint.title}</h2>
         <p>
-          <strong>Code:</strong> {measure.code}
+          <strong>Code:</strong> {blueprint.code}
         </p>
         <p>
-          <strong>Sector:</strong> {measure.sector}
+          <strong>Sector:</strong> {blueprint.sector.title}
         </p>
         <p>
-          <strong>Priority:</strong> {"★".repeat(measure.priority)}
+          <strong>Priority:</strong> {"★".repeat(blueprint.priority.stars)}
         </p>
 
         {/* Render formattedDescription with HTML for line breaks */}

@@ -2,37 +2,37 @@
 import React from 'react';
 import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
-import {Measure} from "@/app/Redo/Measure";
+import {Blueprint} from "@/app/models/blueprint";
 
 interface MeasureCardProps {
-  measure: Measure;
+  blueprint: Blueprint;
   onOpenDetails: (measure: {
-    measure: Measure;
+    blueprint: Blueprint;
   }) => void;
 }
 
 const MeasureCard: React.FC<MeasureCardProps> = ({
-  measure,
+  blueprint,
   onOpenDetails,
 }) => {
-    const {title, sector, priority, focuses, code, cities} = measure;
+    const {title, sector, priority, focuses, code, cities} = blueprint;
 
-    const focuseBalls = focuses.map((_focus, index) => {
+    const focuseBalls = focuses.map((focus, index) => {
         return (
             <div key={index} className="focus-item">
                 <div
                     className="color-ball"
-                    style={{backgroundColor: "#4b0082"}} // todo
+                    style={{backgroundColor: focus.color}}
                 ></div>
             </div>
         );
     })
 
   return (
-    <div className={`measure-card priority-${priority}`}>
+    <div className={`measure-card priority-${priority.stars}`}>
       <div className='card-header'>
         <span className='sector'>{sector.title}</span>
-        <div className='stars'>{'★'.repeat(priority)}</div>
+        <div className='stars'>{'★'.repeat(priority.stars)}</div>
       </div>
         <div className='card-body'>
             <h5>{title}</h5>
@@ -48,7 +48,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 className='arrow-button'
                 onClick={() =>
                     onOpenDetails({
-                        measure: measure
+                        blueprint: blueprint
                     })
                 }
             >

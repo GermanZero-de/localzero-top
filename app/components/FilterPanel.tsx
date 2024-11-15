@@ -4,26 +4,27 @@ import filterIcon from '../photos/filterPlaceholder.png';
 import bookmarkIcon from '../photos/bookmarkIcon.png';
 import clearIcon from '../photos/clearIcon.png';
 import '../styles/Filterpanel.scss';
-import {Filter} from "@/app/Redo/Filter";
-import {Sector} from "@/app/Redo/Sector";
-import {Focus} from "@/app/Redo/Focus";
-import {FilterOpt} from "@/app/Redo/FilterOpt";
+import {Filter} from "@/app/models/Filter";
+import {Sector} from "@/app/models/sector";
+import {Focus} from "@/app/models/focus";
+import {AppData} from "@/app/models/appData";
+import {Priority} from "@/app/models/priority";
 
 interface FilterPanelProps {
     onFilterChange: (
-        priorities: number[],
+        priorities: Priority[],
         sectors: Sector[],
         focuses: Focus[]
     ) => void,
     filters: Filter,
-    filterOpt: FilterOpt
+    data: AppData
 }
 
-const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filterOpt}) => {
+const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data}) => {
         const toggleItem = <T, >(array: T[], item: T) =>
             array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
 
-        const handleChange = (priority?: number, sector?: Sector, focus?: Focus) => {
+        const handleChange = (priority?: Priority, sector?: Sector, focus?: Focus) => {
             const updatedPriorities = priority !== undefined ? toggleItem(filters.prioritys, priority) : filters.prioritys;
             const updatedSectors = sector !== undefined ? toggleItem(filters.sectors, sector) : filters.sectors;
             const updatedFocuses = focus !== undefined ? toggleItem(filters.focuses, focus) : filters.focuses;
@@ -70,15 +71,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                     <h4>Priorität</h4>
                     <div className='filter-options'>
                         {
-                            filterOpt.prioritys.map((priority) => (
-                                <div key={priority} className='filter-option'>
+                            data.priorities.map((priority) => (
+                                <div key={priority.stars} className='filter-option'>
                                     <input
                                         type='checkbox'
                                         id={`priority${priority}`}
                                         checked={filters.prioritys.includes(priority)}
                                         onChange={() => handleChange(priority, undefined, undefined)}
                                     />
-                                    <label className='stars'>{'★'.repeat(priority)}</label>
+                                    <label className='stars'>{'★'.repeat(priority.stars)}</label>
                                     <span className='info-icon'>
                                         i <div className='info-tooltip'>{"todo"}</div>
                                     </span>
@@ -95,7 +96,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                     <h4>Sektoren</h4>
                     <div className='filter-options'>
                         {
-                            filterOpt.sectors.map((sector) => (
+                            data.sectors.map((sector) => (
                                 <div key={sector.title} className='filter-option'>
                                     <input
                                         type='checkbox'
@@ -120,7 +121,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, filte
                     <h4>Fokus</h4>
                     <div className='filter-options'>
                         {
-                            filterOpt.focuses.map((focus) => (
+                            data.focuses.map((focus) => (
                                 <div key={focus.title} className='filter-option'>
                                     <button
                                         className='focus-button'
