@@ -1,16 +1,15 @@
+// FilterPanel.tsx
 import React, { useState } from 'react';
 import Image from 'next/image';
 import filterIcon from '../photos/filterPlaceholder.png';
-import bookmarkIcon from '../photos/bookmarkIcon.png';
 import clearIcon from '../photos/clearIcon.png';
 import '../styles/Filterpanel.scss';
+import bookmarkIcon from '../photos/bookmarkIcon.png';
 
 interface FilterPanelProps {
-  onFilterChange: (
-    priorities: number[],
-    sectors: string[],
-    focus: string[]
-  ) => void;
+  onFilterChange: (priorities: number[], sectors: string[], focus: string[]) => void;
+  onClose: () => void;
+  isOverlay?: boolean;
 }
 
 //For additional information shown when hovering over the info icons
@@ -20,7 +19,7 @@ interface FilterOptions {
   tooltip: string;
 }
 
-const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
+const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, onClose, isOverlay = false }) => {
   const [selectedPriorities, setSelectedPriorities] = useState<number[]>([]);
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
   const [selectedFocuses, setSelectedFocuses] = useState<string[]>([]);
@@ -49,12 +48,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
     onFilterChange(selectedPriorities, selectedSectors, updatedFocuses);
   };
 
-  // Handle clearing filters
+  // Function to clear all filters
   const handleClearFilters = () => {
-    setSelectedPriorities([]); // Reset priorities
-    setSelectedSectors([]); // Reset sectors
-    setSelectedFocuses([]); // Reset focus
-    onFilterChange([], [], []); // Clear filters
+    setSelectedPriorities([]);
+    setSelectedSectors([]);
+    setSelectedFocuses([]);
+    onFilterChange([], [], []);
   };
 
   const sectorOptions: FilterOptions[] = [
@@ -154,27 +153,19 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange }) => {
   ];
 
   return (
-    <div className='filter-panel'>
+    <div className={`filter-panel ${isOverlay ? 'overlay' : ''}`}>
       <div className='filter-header'>
         <div className='filter-icon'>
-          <button className='filter-button'>
-            <Image
-              src={filterIcon}
-              alt='Filter Icon'
-              width={32}
-              height={32}
-              className='filter-icon-image'
-            />
-            <h3>Filter</h3>
-          </button>
+          <Image src={filterIcon} alt='Filter Icon' width={32} height={32} />
+          {/* <h3>Filter</h3> */}
         </div>
-        <button className='clear-filters-button' onClick={handleClearFilters}>
-          <Image
-            src={clearIcon}
-            alt='Clear Filters Icon'
-            width={32}
-            height={32}
-          />
+
+        <button className='clear-filters-button large-screen-icon' onClick={handleClearFilters}>
+          <Image src={clearIcon} alt='Clear Filters Icon' width={32} height={32} />
+        </button>
+
+        <button className='close-overlay-button small-screen-icon' onClick={onClose}>
+          &times;
         </button>
       </div>
 

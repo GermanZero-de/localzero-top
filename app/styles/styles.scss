@@ -20,7 +20,7 @@
 .main-content {
   flex: 1;
   padding: 80px;
-  padding-left: 30px;
+  padding-left: 10px;
   width: 100%;
   margin-top: -65px; // Preserving first file's margin
 }
@@ -234,4 +234,69 @@ footer a:hover {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+}
+
+@media only screen and (max-width: 1320px) {
+  .measures-grid {
+    grid-template-columns: 50% 50%;
+  }
+
+  }
+
+@media only screen and (max-width: 1150px) {
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .measure-card {
+    h5 {
+      font-size: 20px;
+    }
+  }
+
+  .stars {
+    font-size: 30px;
+  }
+
+  .code {
+    p {
+      font-size: 20px;
+    }
+  }
+
+
+}
+
+@media only screen and (max-width: 900px) {
+  .measures-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+}
+
+
+@media only screen and (min-width: 676px) {
+  .measures-card.priority-3 {
+    background-color: #92d1ef;
+    padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 330px;
+    width: 460px;
+    font-weight: bold;
+    overflow: hidden;
+    margin-bottom: 30px;
+
+    margin-left: 30px;
+  }
 }
