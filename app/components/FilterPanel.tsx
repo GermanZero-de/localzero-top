@@ -22,13 +22,6 @@ interface FilterPanelProps {
     isOverlay?: boolean;
 }
 
-//For additional information shown when hovering over the info icons
-interface FilterOptions {
-  label: string | number;
-  color?: string;
-  tooltip: string;
-}
-
 const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data, onClose, isOverlay = false}) => {
         const toggleItem = <T, >(array: T[], item: T) =>
             array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
