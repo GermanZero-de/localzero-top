@@ -1,40 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useInView } from "react-intersection-observer";
+import React, {useEffect, useState} from "react";
+import {useInView} from "react-intersection-observer";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
-import Papa from "papaparse";
-
-// Define types for props
-interface Measure {
-  title: string;
-  sector: string;
-  priority: number;
-  focuses: string[];
-  code: string;
-  description: string;
-}
-
-// Format how data comes from csv
-interface MeasureRaw {
-  title: string;
-  sector: string;
-  priority: number;
-  focuses: string;
-  code: string;
-  description: string;
-}
+import {Blueprint} from "@/app/models/blueprint";
 
 interface MeasuresGridProps {
-  selectedPriorities: number[];
-  selectedSectors: string[];
+  blueprints: Blueprint[];
 }
 
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
-  selectedPriorities,
-  selectedSectors,
+  blueprints,
 }) => {
-  const [measures, setMeasures] = useState<Measure[]>([]);
-  const [selectedMeasure, setSelectedMeasure] = useState<Measure | null>(null);
+  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
 
   // Initial number of measures to display (for reset purposes)
@@ -43,46 +20,6 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   // Use `useInView` to observe the sentinel element
   const { ref: sentinelRef, inView } = useInView({
     threshold: 1.0, // Trigger when 100% of the element is in view
-  });
-
-  useEffect(() => {
-    const fetchMeasures = async () => {
-      const response = await fetch(
-        "https://docs.google.com/spreadsheets/d/1SrQfj9-wJWQRd5ysSHpOWbXXC1zYLV5Iax13IxxBqMs/export?format=csv"
-      );
-      const reader = response.body?.getReader();
-      const result = await reader?.read();
-      const csvData = new TextDecoder("utf-8").decode(result?.value);
-
-      Papa.parse<MeasureRaw>(csvData, {
-        header: true,
-        skipEmptyLines: true,
-        complete: (results) => {
-          const formattedData = results.data.map((measure) => ({
-            ...measure,
-             focuses: measure.focuses ? measure.focuses.split(",").map((focus: string) => focus.trim()) : [],
-            priority: Number(measure.priority), // Ensure priority is a number
-            description: measure.description.replace(/\[NEWLINE\]/g, "<br>"),
-          }));
-          setMeasures(formattedData);
-        },
-      });
-    };
-
-    fetchMeasures();
-  }, []);
-
-  // Filter measures based on selected priorities and sectors
-  const filteredMeasures = measures.filter((measure) => {
-    const priorityMatch = selectedPriorities.length
-      ? selectedPriorities.includes(measure.priority)
-      : true;
-
-    const sectorMatch = selectedSectors.length
-      ? selectedSectors.includes(measure.sector)
-      : true;
-
-    return priorityMatch && sectorMatch;
   });
 
   // Load more measures whenever `inView` is true
@@ -95,15 +32,11 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   return (
     <div className="measures-grid">
       {/* Display only the visible measures */}
-      {filteredMeasures.slice(0, visibleCount).map((measure, index) => (
+      {blueprints.slice(0, visibleCount).map((blueprint, index) => (
         <MeasureCard
           key={index}
-          title={measure.title}
-          sector={measure.sector}
-          priority={measure.priority}
-          focuses={measure.focuses}
-          code={measure.code}
-          onOpenDetails={() => setSelectedMeasure(measure)} // Open the modal with this measure's details
+          blueprint={blueprint}
+          onOpenDetails={() => setSelectedMeasure(blueprint)} // Open the modal with this blueprint's details
         />
       ))}
 
@@ -113,7 +46,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
       {/* Modal to show measure details */}
       {selectedMeasure && (
         <MeasureDetailsModal
-          measure={selectedMeasure}
+          blueprint={selectedMeasure}
           onClose={() => setSelectedMeasure(null)} // Close modal
         />
       )}

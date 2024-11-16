@@ -2,49 +2,37 @@
 import React from 'react';
 import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
+import {Blueprint} from "@/app/models/blueprint";
 
 interface MeasureCardProps {
-  title: string;
-  sector: string;
-  priority: number;
-  focuses: string[];
-  code: string;
+  blueprint: Blueprint;
   onOpenDetails: (measure: {
-    title: string;
-    sector: string;
-    priority: number;
-    focuses: string[];
-    code: string;
-    description: string;
+    blueprint: Blueprint;
   }) => void;
 }
 
 const MeasureCard: React.FC<MeasureCardProps> = ({
-  title,
-  sector,
-  priority,
-  focuses,
-  code,
+  blueprint,
   onOpenDetails,
 }) => {
+    const {title, sector, priority, focuses, code, cities} = blueprint;
+
     const focuseBalls = focuses.map((focus, index) => {
-        const [_, hexColor] = focus.split('::');
-        if (focus.trim().length === 0) return <div></div>;
         return (
             <div key={index} className="focus-item">
                 <div
                     className="color-ball"
-                    style={{backgroundColor: hexColor}}
+                    style={{backgroundColor: focus.color}}
                 ></div>
             </div>
         );
     })
 
   return (
-    <div className={`measure-card priority-${priority}`}>
+    <div className={`measure-card priority-${priority.stars}`}>
       <div className='card-header'>
-        <span className='sector'>{sector}</span>
-        <div className='stars'>{'★'.repeat(priority)}</div>
+        <span className='sector'>{sector.title}</span>
+        <div className='stars'>{'★'.repeat(priority.stars)}</div>
       </div>
         <div className='card-body'>
             <h5>{title}</h5>
@@ -60,12 +48,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 className='arrow-button'
                 onClick={() =>
                     onOpenDetails({
-                        title,
-                        sector,
-                        priority,
-                        focuses,
-                        code,
-                        description: 'Full description to be handled in MeasuresGrid',
+                        blueprint: blueprint
                     })
                 }
             >

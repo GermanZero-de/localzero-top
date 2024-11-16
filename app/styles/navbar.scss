@@ -69,3 +69,8 @@
   border-radius: 20px;
   cursor: pointer;
 }
+.navbar-links {
+@media (max-width: 768px) {
+  display: none;
+}
+}
