@@ -1,60 +1,55 @@
-// src/pages.tsx
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Correct import for App Directory
 import FilterPanel from './components/FilterPanel';
 import BlueFilterBar from './components/BlueFilterBar';
 import './styles/styles.scss';
 import Footer from '@/app/components/Footer';
 import Navbar from './components/navbar';
-import {Filter} from "@/app/models/Filter";
-import {Sector} from "@/app/models/sector";
-import {Focus} from "@/app/models/focus";
-import {AppData} from "@/app/models/appData";
-import {Blueprint} from "@/app/models/blueprint";
-import {fetchSheetsData} from "@/app/data/fetchData";
-import {Priority} from "@/app/models/priority";
+import { Filter } from "@/app/models/Filter";
+import { Sector } from "@/app/models/sector";
+import { Focus } from "@/app/models/focus";
+import { AppData } from "@/app/models/appData";
+import { Blueprint } from "@/app/models/blueprint";
+import { fetchSheetsData } from "@/app/data/fetchData";
+import { Priority } from "@/app/models/priority";
 import MeasuresGrid from "@/app/components/MeasuresGrid";
 
-
 const Pages = () => {
+  const router = useRouter(); // Correct useRouter for App Directory
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
-    // All measures used only to create filteredMeasures
-    const [data, setData] = useState<AppData>({priorities: [], sectors: [], focuses: [], cities: [], blueprints: []});
-    // Filtered measures
-    const [filteredMeasures, setFilteredMeasures] = useState<Blueprint[]>([]);
-    //All active filters in sidepanel
-    const [activeFilters, setActiveFilters] = useState<Filter>({
-        prioritys: [],
-        sectors: [],
-        focuses: [],
+
+  const [data, setData] = useState<AppData>({ priorities: [], sectors: [], focuses: [], cities: [], blueprints: [] });
+  const [filteredMeasures, setFilteredMeasures] = useState<Blueprint[]>([]);
+  const [activeFilters, setActiveFilters] = useState<Filter>({
+    prioritys: [],
+    sectors: [],
+    focuses: [],
+  });
+
+  useEffect(() => {
+    fetchSheetsData().then((data) => {
+      setData(data);
     });
-    //Fetch measures and set unique filters to allFilters
-    useEffect(() => {
-        fetchSheetsData().then((data) => {
-            setData(data);
-        })
-    }, []);
+  }, []);
 
-    //When measures or activeFilters change, filter the measures
-    useEffect(() => {
-        const applyFilters = (measure: Blueprint) => {
-            const priorityMatch = activeFilters.prioritys.length === 0 || activeFilters.prioritys.includes(measure.priority);
-            const sectorMatch = activeFilters.sectors.length === 0 || activeFilters.sectors.includes(measure.sector);
-            const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some((focus) => measure.focuses.includes(focus));
-            return priorityMatch && sectorMatch && focusMatch;
-        };
-        setFilteredMeasures(data?.blueprints.filter(applyFilters))
-    }, [data, activeFilters]);
+  useEffect(() => {
+    const applyFilters = (measure: Blueprint) => {
+      const priorityMatch = activeFilters.prioritys.length === 0 || activeFilters.prioritys.includes(measure.priority);
+      const sectorMatch = activeFilters.sectors.length === 0 || activeFilters.sectors.includes(measure.sector);
+      const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some((focus) => measure.focuses.includes(focus));
+      return priorityMatch && sectorMatch && focusMatch;
+    };
+    setFilteredMeasures(data?.blueprints.filter(applyFilters));
+  }, [data, activeFilters]);
 
-
-    // Handle changes from the FilterPanel for both priorities and sectors
-    const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[]) => {
-        setActiveFilters({
-            prioritys: priorities,
-            sectors: sectors,
-            focuses: focuses,
-        });
-    }
+  const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[]) => {
+    setActiveFilters({
+      prioritys: priorities,
+      sectors: sectors,
+      focuses: focuses,
+    });
+  };
 
   const toggleFilterPanel = () => {
     setIsFilterPanelVisible(!isFilterPanelVisible);
@@ -64,26 +59,35 @@ const Pages = () => {
     setIsFilterPanelVisible(false);
   };
 
+  const handleGoBack = () => {
+    console.log('Back button clicked'); // Debug log
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  };
+  
   return (
-    <div className='d-flex flex-column flex-grow-1'>
+    <div className="d-flex flex-column flex-grow-1">
       <Navbar />
-      <div className='app flex-grow-1'>
-        <div className='sidebar'>
-           <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel}/>
+      <div className="app flex-grow-1">
+        <div className="sidebar">
+          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel} />
         </div>
-        <div className='main-content'>
+        <div className="main-content">
           <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} />
+          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
           {isFilterPanelVisible && (
             <FilterPanel
-                data={data}
-                filters={activeFilters}
-                onFilterChange={changeFilters}
-                onClose={closeFilterPanel}
-                isOverlay
+              data={data}
+              filters={activeFilters}
+              onFilterChange={changeFilters}
+              onClose={closeFilterPanel}
+              isOverlay
             />
           )}
-          <MeasuresGrid blueprints={filteredMeasures}/>
+          <MeasuresGrid blueprints={filteredMeasures} />
         </div>
       </div>
       <Footer />
