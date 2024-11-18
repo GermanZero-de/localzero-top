@@ -19,10 +19,11 @@
 
 .main-content {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
   padding-left: 10px;
   width: 100%;
   margin-top: 0px;
+  margin-right: 15px;
 }
 
 h1 {
@@ -309,6 +310,7 @@ footer a:hover {
 
  .main-content {
   @media (max-width:645px){
-   margin-left: 10px;;
+   margin-left: 10px;
+   margin-right: -5px;
   }
  }
