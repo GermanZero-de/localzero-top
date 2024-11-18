@@ -15,6 +15,7 @@ export const fetchSheetsData = async () => {
     const cities = await fetchPageAndParse<City>("593066774");
     // Needs to be manually parsed
     const rawBluePrintData = await fetchPage("0");
+    console.log("RawBlueprints data", rawBluePrintData);
     const blueprints = await parseBlueprints(rawBluePrintData, prioritys, sectors, focuses, cities);
     const appData: AppData = {
         priorities: prioritys,
@@ -23,6 +24,8 @@ export const fetchSheetsData = async () => {
         cities: cities,
         blueprints: blueprints
     }
+
+    console.log("blueprints", blueprints);
     return appData
 }
 
@@ -36,6 +39,7 @@ const fetchPage = async (pageName: string) => {
 
 const fetchPageAndParse = async <T>(pageName: string) => {
     const result = await fetchPage(pageName);
+    console.log("Fetched data", result);
     return autoParse<T>(result)
 }
 
@@ -66,11 +70,11 @@ const parseBlueprints = async (
                     // Find the sector by title
                     const sector = sectors.find(s => s.title == blueprint.sector.trim());
                     // Map focus titles to Focus objects
-                    const focusList = blueprint.focuses.split(",").map(focusTitle => {
+                    const focusList = blueprint.focuses?.split(",").map(focusTitle => {
                         return focuses.find(f => f.title == focusTitle.trim());
                     }).filter(focus => focus !== undefined) as Focus[];
                     // Map city titles to City objects
-                    const cityList = blueprint.cities.split(",").map(cityTitle => {
+                    const cityList = blueprint.cities?.split(",").map(cityTitle => {
                         return cities.find(c => c.title == cityTitle.trim());
                     }).filter(city => city !== undefined) as City[];
                     // Return the formatted Blueprint object
@@ -81,7 +85,7 @@ const parseBlueprints = async (
                         sector: sector!,
                         focuses: focusList,
                         cities: cityList,
-                        description: blueprint.description.replace(/\[NEWLINE\]/g, "<br>")
+                        description: blueprint.description
                     };
                 });
                 resolve(blueprints);

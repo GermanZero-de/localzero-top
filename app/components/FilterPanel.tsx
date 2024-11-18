@@ -44,7 +44,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                 <div className='filter-icon'>
                   <button className='filter-button'>
                     <Image src={filterIcon} alt='Filter Icon' width={32} height={32} className='filter-icon-image'/>
-                    <h3>Filter</h3>
+                    {/* <h3>Filter</h3> */}
                   </button>
                 </div>
                 <button className='clear-filters-button large-screen-icon' onClick={handleClearFilters}>
