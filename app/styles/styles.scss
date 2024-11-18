@@ -19,10 +19,11 @@
 
 .main-content {
   flex: 1;
-  padding: 80px;
+  padding: 30px;
   padding-left: 10px;
   width: 100%;
-  margin-top: -65px; // Preserving first file's margin
+  margin-top: 0px;
+  margin-right: 15px;
 }
 
 h1 {
@@ -297,12 +298,19 @@ footer a:hover {
     overflow: hidden;
     margin-bottom: 30px;
 
-    margin-left: 30px;
+    margin-left: 0px;
   }
 }
 
 .sidebar {
   @media (max-width:645px){
    display: none;
+  }
+ }
+
+ .main-content {
+  @media (max-width:645px){
+   margin-left: 10px;
+   margin-right: -5px;
   }
  }
