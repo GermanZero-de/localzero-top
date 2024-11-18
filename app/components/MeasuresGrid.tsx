@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {useInView} from "react-intersection-observer";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
-import {Blueprint} from "@/app/models/blueprint";
+import { Blueprint } from "@/app/models/blueprint";
 
 interface MeasuresGridProps {
   blueprints: Blueprint[];
 }
 
-const MeasuresGrid: React.FC<MeasuresGridProps> = ({
-  blueprints,
-}) => {
-  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(null);
+const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
+  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(
+    null
+  );
   const [visibleCount, setVisibleCount] = useState(9);
 
   // Initial number of measures to display (for reset purposes)
@@ -36,7 +36,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         <MeasureCard
           key={index}
           blueprint={blueprint}
-          onOpenDetails={() => setSelectedMeasure(blueprint)} // Open the modal with this blueprint's details
+          // onOpenDetails={() => setSelectedMeasure(blueprint)} // Open the modal with this blueprint's details
         />
       ))}
 
