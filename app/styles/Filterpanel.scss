@@ -330,15 +330,35 @@
   }
   
   @media (max-width: 768px) {
-    .large-screen-icon {
-      display: none; // hide clear icon on small screens
-    }
+    // .large-screen-icon {
+    //   display: none; // hide clear icon on small screens
+    // }
   
     .small-screen-icon {
       display: inline; // "×" symbol on small screens
     }
   }
+
+  .blue-filter-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #007bff;
   
+    .back-button {
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 16px;
+      cursor: pointer;
+      margin-left: auto; // Push it to the left
+    }
   
-  
-  
+    .filter-icon-button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-left: 0px;
+    }
+  }
