@@ -78,7 +78,7 @@ const MeasureDetailPage = () => {
 
         {/* Middle Column: Description */}
         <div className={styles["description"]}>
-          <p>{measure?.description.replace(/<br>/g, "\n")}</p>{" "}
+          <p>{measure?.description?.replace(/<br>/g, "\n")}</p>{" "}
           {/* Display description with line breaks */}
         </div>
 

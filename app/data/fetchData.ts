@@ -62,8 +62,6 @@ const parseBlueprints = async (
         Papa.parse<RawBlueprint>(data, {
             header: true,
             skipEmptyLines: true,
-            newline: "\n", // Specify newline character
-
             complete: (results) => {
                 const blueprintData = results.data;
                 const blueprints = blueprintData.map((blueprint) => {
@@ -72,11 +70,11 @@ const parseBlueprints = async (
                     // Find the sector by title
                     const sector = sectors.find(s => s.title == blueprint.sector.trim());
                     // Map focus titles to Focus objects
-                    const focusList = blueprint.focuses.split(",").map(focusTitle => {
+                    const focusList = blueprint.focuses?.split(",").map(focusTitle => {
                         return focuses.find(f => f.title == focusTitle.trim());
                     }).filter(focus => focus !== undefined) as Focus[];
                     // Map city titles to City objects
-                    const cityList = blueprint.cities.split(",").map(cityTitle => {
+                    const cityList = blueprint.cities?.split(",").map(cityTitle => {
                         return cities.find(c => c.title == cityTitle.trim());
                     }).filter(city => city !== undefined) as City[];
                     // Return the formatted Blueprint object
