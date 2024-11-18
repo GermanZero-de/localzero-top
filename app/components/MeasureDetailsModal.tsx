@@ -1,24 +1,37 @@
 // src/components/MeasureDetailsModal.tsx
 import React from "react";
-import {Blueprint} from "@/app/models/blueprint";
+import { Blueprint } from "@/app/models/blueprint";
 
 interface MeasureDetailsModalProps {
   blueprint: Blueprint | null;
   onClose: () => void;
+  bookmarks?: Bookmark[];
+  onAddToBookmark?: (bookmarkName: string, measure: Blueprint) => void;
+}
+
+interface Bookmark {
+  name: string;
+  measures: Blueprint[];
 }
 
 const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
   blueprint,
   onClose,
+  bookmarks = [],
+  onAddToBookmark,
 }) => {
-  if (!blueprint) return null;
+  const [showBookmarkDropdown, setShowBookmarkDropdown] = React.useState(false);
 
+  if (!blueprint) return null;
   // Replace [NEWLINE] with <br /> for HTML line breaks in the description
-  const formattedDescription = blueprint.description.replace(/\[NEWLINE\]/g, "<br />");
+  const formattedDescription = blueprint.description.replace(
+    /\[NEWLINE\]/g,
+    "<br />"
+  );
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className='modal-overlay'>
+      <div className='modal-content'>
         <h2>{blueprint.title}</h2>
         <p>
           <strong>Code:</strong> {blueprint.code}
@@ -36,9 +49,38 @@ const MeasureDetailsModal: React.FC<MeasureDetailsModalProps> = ({
           <p dangerouslySetInnerHTML={{ __html: formattedDescription }} />
         </div>
 
-        <button className="close-button" onClick={onClose}>Close</button>
-        <button className="share-button">Share</button>
-        <button className="add-button">Add</button>
+        <button className='close-button' onClick={onClose}>
+          Close
+        </button>
+        <button className='share-button'>Share</button>
+        <button
+          className='add-button'
+          onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
+        >
+          Add
+        </button>
+        {showBookmarkDropdown && (
+          <div className='bookmark-dropdown'>
+            {bookmarks.length === 0 ? (
+              <div className='no-bookmarks'>
+                Create a bookmark group in the sidebar first
+              </div>
+            ) : (
+              bookmarks.map((bookmark) => (
+                <button
+                  key={bookmark.name}
+                  className='bookmark-option'
+                  onClick={() => {
+                    onAddToBookmark(bookmark.name, blueprint);
+                    setShowBookmarkDropdown(false);
+                  }}
+                >
+                  {bookmark.name}
+                </button>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

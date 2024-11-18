@@ -11,6 +11,8 @@ import { AppData } from "@/app/models/appData";
 import { Priority } from "@/app/models/priority";
 import { useState } from "react";
 import { City } from "../models/city";
+import Bookmark from "./Bookmark";
+import { Blueprint } from "@/app/models/blueprint";
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -22,6 +24,9 @@ interface FilterPanelProps {
   data: AppData;
   onClose: () => void;
   isOverlay?: boolean;
+  bookmarks: Bookmark[];
+  onCreateBookmark: (name: string) => void;
+  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
@@ -30,6 +35,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   data,
   onClose,
   isOverlay = false,
+  bookmarks,
+  onCreateBookmark,
+  onAddMeasureToBookmark,
 }) => {
   const toggleItem = <T,>(array: T[], item: T) =>
     array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
@@ -75,8 +83,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     }
     setShowBookmarks(!showBookmarks);
   };
-
-  const testBookmarks: City[] = [data.cities[0], data.cities[1]];
 
   return (
     <div className={`filter-panel ${isOverlay ? "overlay" : ""}`}>
@@ -203,16 +209,15 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             Merkzettel
           </h4>
         </button>
+
         {showBookmarks && (
-          <div className='bookmark-options'>
-            {testBookmarks.map((bookmark) => (
-              <div key={bookmark.title} className='bookmark-option'>
-                <button className='bookmarked-object'>
-                  <h4>{bookmark.title}</h4>
-                </button>
-              </div>
-            ))}
-          </div>
+          <>
+            <Bookmark
+              bookmarks={bookmarks}
+              onCreateBookmark={onCreateBookmark}
+              onAddMeasureToBookmark={onAddMeasureToBookmark}
+            />
+          </>
         )}
       </div>
     </div>

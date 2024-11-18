@@ -1,17 +1,28 @@
-import React, {useEffect, useState} from "react";
-import {useInView} from "react-intersection-observer";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import MeasureCard from "./MeasureCard";
 import MeasureDetailsModal from "./MeasureDetailsModal";
-import {Blueprint} from "@/app/models/blueprint";
+import { Blueprint } from "@/app/models/blueprint";
+
+interface Bookmark {
+  name: string;
+  measures: Blueprint[];
+}
 
 interface MeasuresGridProps {
   blueprints: Blueprint[];
+  bookmarks: Bookmark[];
+  onAddToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   blueprints,
+  bookmarks,
+  onAddToBookmark,
 }) => {
-  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(null);
+  const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(
+    null
+  );
   const [visibleCount, setVisibleCount] = useState(9);
 
   // Initial number of measures to display (for reset purposes)
@@ -30,7 +41,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   }, [inView]);
 
   return (
-    <div className="measures-grid">
+    <div className='measures-grid'>
       {/* Display only the visible measures */}
       {blueprints.slice(0, visibleCount).map((blueprint, index) => (
         <MeasureCard
@@ -48,6 +59,8 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         <MeasureDetailsModal
           blueprint={selectedMeasure}
           onClose={() => setSelectedMeasure(null)} // Close modal
+          bookmarks={bookmarks}
+          onAddToBookmark={onAddToBookmark}
         />
       )}
     </div>
