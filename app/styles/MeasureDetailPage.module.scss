@@ -1,0 +1,29 @@
+// src/styles/MeasureDetailPage.module.scss
+
+.measure-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Three columns: left 1fr, middle 2fr, right 1fr */
+  gap: 20px; /* Add space between the columns */
+  margin-top: 20px;
+
+  /* Add responsiveness */
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 2fr; /* Two columns on medium screens */
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr; /* One column on small screens */
+  }
+}
+
+.measure-card {
+  /* Optional: Add styling for MeasureCard if needed */
+}
+
+.description {
+  /* Optional: Add styles for description text if needed */
+}
+
+.next-feature {
+  /* Optional: Add styles for the next feature if needed */
+}

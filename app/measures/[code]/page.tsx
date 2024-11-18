@@ -9,6 +9,7 @@ import { Blueprint } from "@/app/models/blueprint";
 import Layout from "@/app/components/Layout";
 import MeasureCard from "@/app/components/MeasureCard"; // Import MeasureCard component
 import { fetchSheetsData } from "@/app/data/fetchData";
+import styles from "../../styles/MeasureDetailPage.module.scss"; // Import the correct SCSS file
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -69,12 +70,24 @@ const MeasureDetailPage = () => {
       closeFilterPanel={() => {}}
     >
       <h1>{measure?.title}</h1>
-      <div style={{ marginBottom: "20px" }}>
-        {/* Render MeasureCard with the selected measure */}
-        {measure && <MeasureCard blueprint={measure} />}
+      <div className={styles["measure-detail-container"]}>
+        {/* Left Column: Measure Card */}
+        <div className={styles["measure-card"]}>
+          {measure && <MeasureCard blueprint={measure} />}
+        </div>
+
+        {/* Middle Column: Description */}
+        <div className={styles["description"]}>
+          <p>{measure?.description.replace(/<br>/g, "\n")}</p>{" "}
+          {/* Display description with line breaks */}
+        </div>
+
+        {/* Right Column: Next Feature */}
+        <div className={styles["next-feature"]}>
+          {/* Placeholder for the next feature */}
+          <p>Next feature will go here</p>
+        </div>
       </div>
-      <p>{measure?.description.replace(/<br>/g, "\n")}</p>{" "}
-      {/* Display description with line breaks */}
     </Layout>
   );
 };
