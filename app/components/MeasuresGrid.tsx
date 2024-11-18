@@ -11,6 +11,7 @@ interface MeasuresGridProps {
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   blueprints,
 }) => {
+  console.log("Blueprints", blueprints);
   const [selectedMeasure, setSelectedMeasure] = useState<Blueprint | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
 
@@ -19,13 +20,13 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
 
   // Use `useInView` to observe the sentinel element
   const { ref: sentinelRef, inView } = useInView({
-    threshold: 1.0, // Trigger when 100% of the element is in view
+    threshold: 0.5, // Trigger when 100% of the element is in view
   });
 
   // Load more measures whenever `inView` is true
   useEffect(() => {
     if (inView) {
-      setVisibleCount((prevCount) => prevCount + 18);
+      setVisibleCount((prevCount) => prevCount + 3);
     }
   }, [inView]);
 

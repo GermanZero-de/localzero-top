@@ -15,6 +15,7 @@ export const fetchSheetsData = async () => {
     const cities = await fetchPageAndParse<City>("593066774");
     // Needs to be manually parsed
     const rawBluePrintData = await fetchPage("0");
+    console.log("RawBlueprints data", rawBluePrintData);
     const blueprints = await parseBlueprints(rawBluePrintData, prioritys, sectors, focuses, cities);
     const appData: AppData = {
         priorities: prioritys,
@@ -23,6 +24,8 @@ export const fetchSheetsData = async () => {
         cities: cities,
         blueprints: blueprints
     }
+
+    console.log("blueprints", blueprints);
     return appData
 }
 
@@ -36,6 +39,7 @@ const fetchPage = async (pageName: string) => {
 
 const fetchPageAndParse = async <T>(pageName: string) => {
     const result = await fetchPage(pageName);
+    console.log("Fetched data", result);
     return autoParse<T>(result)
 }
 
@@ -58,6 +62,8 @@ const parseBlueprints = async (
         Papa.parse<RawBlueprint>(data, {
             header: true,
             skipEmptyLines: true,
+            newline: "\n", // Specify newline character
+
             complete: (results) => {
                 const blueprintData = results.data;
                 const blueprints = blueprintData.map((blueprint) => {
@@ -81,7 +87,7 @@ const parseBlueprints = async (
                         sector: sector!,
                         focuses: focusList,
                         cities: cityList,
-                        description: blueprint.description.replace(/\[NEWLINE\]/g, "<br>")
+                        description: blueprint.description
                     };
                 });
                 resolve(blueprints);
