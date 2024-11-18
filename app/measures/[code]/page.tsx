@@ -7,13 +7,11 @@ import { useParams } from "next/navigation"; // Use useParams to get dynamic rou
 import { AppData } from "@/app/models/appData";
 import { Blueprint } from "@/app/models/blueprint";
 import Layout from "@/app/components/Layout";
+import MeasureCard from "@/app/components/MeasureCard"; // Import MeasureCard component
 import { fetchSheetsData } from "@/app/data/fetchData";
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
-
-  // Log the code to check if it's extracted correctly
-  console.log("Extracted code:", code);
 
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
   const [loading, setLoading] = useState<boolean>(true); // Loading state
@@ -70,11 +68,13 @@ const MeasureDetailPage = () => {
       toggleFilterPanel={() => {}}
       closeFilterPanel={() => {}}
     >
-      <h1>{measure?.title}</h1>{" "}
-      {/* Display the title of the selected measure */}
-      <p>{measure?.description}</p>{" "}
-      {/* Display the description of the selected measure */}
-      {/* Render other measure details here as needed */}
+      <h1>{measure?.title}</h1>
+      <div style={{ marginBottom: "20px" }}>
+        {/* Render MeasureCard with the selected measure */}
+        {measure && <MeasureCard blueprint={measure} />}
+      </div>
+      <p>{measure?.description.replace(/<br>/g, "\n")}</p>{" "}
+      {/* Display description with line breaks */}
     </Layout>
   );
 };
