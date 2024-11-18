@@ -15,6 +15,14 @@ interface LayoutProps {
   toggleFilterPanel?: () => void; // Make toggleFilterPanel optional
   closeFilterPanel?: () => void; // Make closeFilterPanel optional
 }
+const handleGoBack = () => {
+  if (typeof window !== 'undefined' && window.history.length > 1) {
+    window.history.back(); // Navigate back in browser history
+  } else {
+    console.log("No previous page in browser history");
+  }
+};
+
 
 const Layout: React.FC<LayoutProps> = ({
   children,
@@ -46,7 +54,7 @@ const Layout: React.FC<LayoutProps> = ({
           )}
         </div>
         <div className="main-content">
-          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} />
+        <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
           {isFilterPanelVisible && (
             <FilterPanel
               data={data}
