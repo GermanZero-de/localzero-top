@@ -9,12 +9,14 @@ import {Sector} from "@/app/models/sector";
 import {Focus} from "@/app/models/focus";
 import {AppData} from "@/app/models/appData";
 import {Priority} from "@/app/models/priority";
+import {City} from "@/app/models/city";
 
 interface FilterPanelProps {
     onFilterChange: (
         priorities: Priority[],
         sectors: Sector[],
-        focuses: Focus[]
+        focuses: Focus[],
+        cities: City[]
     ) => void;
     filters: Filter;
     data: AppData;
@@ -26,17 +28,24 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
         const toggleItem = <T, >(array: T[], item: T) =>
             array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
 
-        const handleChange = (priority?: Priority, sector?: Sector, focus?: Focus) => {
+        const handleChange = (priority?: Priority, sector?: Sector, focus?: Focus, city?: City) => {
             const updatedPriorities = priority !== undefined ? toggleItem(filters.prioritys, priority) : filters.prioritys;
             const updatedSectors = sector !== undefined ? toggleItem(filters.sectors, sector) : filters.sectors;
             const updatedFocuses = focus !== undefined ? toggleItem(filters.focuses, focus) : filters.focuses;
-            onFilterChange(updatedPriorities, updatedSectors, updatedFocuses);
+            const updatedCities = city !== undefined ? toggleItem(filters.cities, city) : filters.cities;
+            onFilterChange(updatedPriorities, updatedSectors, updatedFocuses, updatedCities);
         };
 
         // Handle clearing filters
         const handleClearFilters = () => {
-            onFilterChange([], [], []); // Clear filters
+            onFilterChange([], [], [], []); // Clear filters
         };
+
+        const [showFilter, setShowFilter] = React.useState(false);
+
+        const toggleFilter = () => {
+          setShowFilter(!showFilter);
+        }
 
         return (
             <div className={`filter-panel ${isOverlay ? 'overlay' : ''}`}>
@@ -67,7 +76,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                               type='checkbox'
                               id={`priority${priority}`}
                               checked={filters.prioritys.includes(priority)}
-                              onChange={() => handleChange(priority, undefined, undefined)}
+                              onChange={() => handleChange(priority, undefined, undefined, undefined)}
                           />
                           <label className='stars'>{'★'.repeat(priority.stars)}</label>
                           <span className='info-icon'>
@@ -92,7 +101,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                               type='checkbox'
                               id={`sector${sector.title}`}
                               checked={filters.sectors.includes(sector)}
-                              onChange={() => handleChange(undefined, sector, undefined)}
+                              onChange={() => handleChange(undefined, sector, undefined, undefined)}
                           />
                           <label>{sector.title}</label>
                           <span className='info-icon'>
@@ -106,6 +115,39 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
 
               <div className='filter-divider'></div>
 
+              {/* City Filter */}
+              <div className='filter-section'>
+                <button className='filter-button' onClick={toggleFilter}>
+                <h4>Städte</h4>
+                </button>
+                {showFilter && (
+                <div className='filter-options'>
+                  {
+                    data.cities.map((city) => (
+                        <div key={city.title} className='filter-option'>
+                          <input
+                              type='checkbox'
+                              id={`city${city.title}`}
+                              checked={filters.cities.includes(city)}
+                              onChange={() => handleChange(undefined, undefined, undefined, city)}
+                          />
+                          <label>{city.title}</label>
+                          {
+                          /* Tooltips for cities if needed
+                          <span className='info-icon'>
+                                        i <div className='info-tooltip'>{""}</div>
+                                    </span>
+                          */
+                          }
+                        </div>
+                    ))
+                  }
+                </div>
+                )}
+              </div>
+
+              <div className='filter-divider'></div>
+
               {/* Focus Filter */}
               <div className='filter-section'>
                 <h4>Fokus</h4>
@@ -115,7 +157,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                         <div key={focus.title} className='filter-option'>
                           <button
                               className='focus-button'
-                              onClick={() => handleChange(undefined, undefined, focus)}
+                              onClick={() => handleChange(undefined, undefined, focus, undefined)}
                               style={{backgroundColor: focus.color}}
                           >
                             {filters.focuses.includes(focus)
@@ -133,6 +175,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
               </div>
 
               <div className='filter-divider'></div>
+
               <div className='filter-section'>
                 <button className='bookmark-button'>
                   <h4>
