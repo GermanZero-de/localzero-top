@@ -132,9 +132,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                               onChange={() => handleChange(undefined, undefined, undefined, city)}
                           />
                           <label>{city.title}</label>
+                          {
+                          /* Tooltips for cities if needed
                           <span className='info-icon'>
                                         i <div className='info-tooltip'>{""}</div>
                                     </span>
+                          */
+                          }
                         </div>
                     ))
                   }
