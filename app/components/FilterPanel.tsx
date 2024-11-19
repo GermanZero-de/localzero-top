@@ -41,6 +41,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
             onFilterChange([], [], [], []); // Clear filters
         };
 
+        const [showFilter, setShowFilter] = React.useState(false);
+
+        const toggleFilter = () => {
+          setShowFilter(!showFilter);
+        }
+
         return (
             <div className={`filter-panel ${isOverlay ? 'overlay' : ''}`}>
               <div className='filter-header'>
@@ -111,7 +117,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
 
               {/* City Filter */}
               <div className='filter-section'>
+                <button className='filter-button' onClick={toggleFilter}>
                 <h4>Städte</h4>
+                </button>
+                {showFilter && (
                 <div className='filter-options'>
                   {
                     data.cities.map((city) => (
@@ -130,6 +139,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                     ))
                   }
                 </div>
+                )}
               </div>
 
               <div className='filter-divider'></div>

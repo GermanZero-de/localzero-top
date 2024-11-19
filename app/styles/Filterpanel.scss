@@ -62,6 +62,11 @@
       margin-bottom: 10px;
     }
 
+    .filter-button {
+      background: none;
+      border: none;
+    }
+
     .filter-options {
       display: flex;
       flex-direction: column;
@@ -226,7 +231,7 @@
     background-color: #00aaff; // Set the blue background color
     padding: 0.5rem 1rem;
     margin-bottom: 1rem;
-  
+
     .filter-icon-button,
     .bookmark-icon-button {
       background: none;
@@ -242,7 +247,7 @@
 
     .main-content {
       .blue-filter-bar {
-        display: flex; 
+        display: flex;
 
       }
     }
@@ -253,11 +258,11 @@
     .main-content {
       .blue-filter-bar {
         display: none; // Ensure the blue bar shows up on small screens
-        
+
       }
     }
   }
-  
+
   .filter-panel.overlay {
     position: fixed;
     top: 0;
@@ -271,28 +276,28 @@
     display: flex;
     flex-direction: column;
     color: white;
-  
+
     .filter-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: white;
-  
+
       .clear-filters-button {
         background: none;
         border: none;
         cursor: pointer;
       }
     }
-  
+
     .filter-section {
-      color: white; 
+      color: white;
     }
-  
+
     .filter-option label {
       color: white;
     }
-  
+
     .focus-button {
       color: white;
     }
@@ -306,13 +311,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  
+
     .large-screen-icon {
       display: inline;
       margin-right: 20px;
     }
   }
-  
+
   .close-overlay-button {
     background: none;
     border: none;
@@ -328,12 +333,12 @@
       display: none;
     }
   }
-  
+
   @media (max-width: 768px) {
     // .large-screen-icon {
     //   display: none; // hide clear icon on small screens
     // }
-  
+
     .small-screen-icon {
       display: inline; // "×" symbol on small screens
     }
@@ -344,7 +349,7 @@
     align-items: center;
     padding: 8px;
     background-color: #007bff;
-  
+
     .back-button {
       background: none;
       border: 1px solid white;
@@ -353,7 +358,7 @@
       cursor: pointer;
       margin-left: auto; // Push it to the left
     }
-  
+
     .filter-icon-button {
       background: none;
       border: none;
