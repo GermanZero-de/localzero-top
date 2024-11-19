@@ -110,6 +110,31 @@ h1 {
   }
 }
 
+  .cities {
+      position: relative;
+      display: inline-block;
+
+      .cities-icon {
+        cursor: pointer;
+      }
+
+      .cities-list {
+        display: none;
+        flex-direction: column;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        text-wrap: wrap;
+      }
+
+            &:hover .cities-list {
+        display: flex;
+      }
+
+  }
+
 .card-header,
 .card-footer {
   display: flex;
