@@ -122,14 +122,13 @@ h1 {
         display: none;
         flex-direction: column;
         background-color: #fff;
-        border: 1px solid #ccc;
         padding: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         z-index: 1;
         text-wrap: wrap;
+        border: 1px solid #000000;
       }
 
-            &:hover .cities-list {
+      &:hover .cities-list {
         display: flex;
       }
 

@@ -3,6 +3,8 @@ import Link from "next/link";
 import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
 import { Blueprint } from "@/app/models/blueprint";
+import Image from "next/image";
+import cityIcon from "../photos/cityIcon.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
@@ -34,7 +36,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
           <p>{code}</p>
         </div>
         <div className="cities">
-          <span className="cities-icon">●</span>
+          <Image src={cityIcon} alt="City Icon" width={32} height={32}/>
           <div className="cities-list">
             {cities.map((city) => (
               <span key={city.title}>{city.title}</span>
