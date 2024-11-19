@@ -9,6 +9,7 @@ import Navbar from './components/navbar';
 import { Filter } from "@/app/models/Filter";
 import { Sector } from "@/app/models/sector";
 import { Focus } from "@/app/models/focus";
+import { City } from "@/app/models/city";
 import { AppData } from "@/app/models/appData";
 import { Blueprint } from "@/app/models/blueprint";
 import { fetchSheetsData } from "@/app/data/fetchData";
@@ -25,6 +26,7 @@ const Pages = () => {
     prioritys: [],
     sectors: [],
     focuses: [],
+    cities: [],
   });
 
   useEffect(() => {
@@ -38,16 +40,18 @@ const Pages = () => {
       const priorityMatch = activeFilters.prioritys.length === 0 || activeFilters.prioritys.includes(measure.priority);
       const sectorMatch = activeFilters.sectors.length === 0 || activeFilters.sectors.includes(measure.sector);
       const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some((focus) => measure.focuses.includes(focus));
-      return priorityMatch && sectorMatch && focusMatch;
+      const cityMatch = activeFilters.cities.length === 0 || activeFilters.cities.some((city) => measure.cities.includes(city));
+      return priorityMatch && sectorMatch && focusMatch && cityMatch;
     };
     setFilteredMeasures(data?.blueprints.filter(applyFilters));
   }, [data, activeFilters]);
 
-  const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[]) => {
+  const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[], cities: City[]) => {
     setActiveFilters({
       prioritys: priorities,
       sectors: sectors,
       focuses: focuses,
+      cities: cities,
     });
   };
 
@@ -67,7 +71,7 @@ const Pages = () => {
       router.push('/');
     }
   };
-  
+
   return (
     <div className="d-flex flex-column flex-grow-1">
       <Navbar />
