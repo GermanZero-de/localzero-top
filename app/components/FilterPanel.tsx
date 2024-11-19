@@ -76,7 +76,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                               type='checkbox'
                               id={`priority${priority}`}
                               checked={filters.prioritys.includes(priority)}
-                              onChange={() => handleChange(priority, undefined, undefined)}
+                              onChange={() => handleChange(priority, undefined, undefined, undefined)}
                           />
                           <label className='stars'>{'★'.repeat(priority.stars)}</label>
                           <span className='info-icon'>
@@ -101,7 +101,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                               type='checkbox'
                               id={`sector${sector.title}`}
                               checked={filters.sectors.includes(sector)}
-                              onChange={() => handleChange(undefined, sector, undefined)}
+                              onChange={() => handleChange(undefined, sector, undefined, undefined)}
                           />
                           <label>{sector.title}</label>
                           <span className='info-icon'>
@@ -157,7 +157,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                         <div key={focus.title} className='filter-option'>
                           <button
                               className='focus-button'
-                              onClick={() => handleChange(undefined, undefined, focus)}
+                              onClick={() => handleChange(undefined, undefined, focus, undefined)}
                               style={{backgroundColor: focus.color}}
                           >
                             {filters.focuses.includes(focus)
