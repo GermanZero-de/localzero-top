@@ -26,6 +26,14 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
     <div className={`measure-card priority-${priority.stars}`}>
       <div className="card-header">
         <span className="sector">{sector.title}</span>
+        <div className="cities">
+          <Image src={cityIcon} alt="City Icon" width={32} height={32}/>
+          <div className="cities-list">
+            {cities.map((city) => (
+              <span key={city.title}>{city.title}</span>
+            ))}
+            </div>
+        </div>
         <div className="stars">{"★".repeat(priority.stars)}</div>
 
       </div>
@@ -34,14 +42,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
         <div className="focuses">{focuseBalls}</div>
         <div className="code">
           <p>{code}</p>
-        </div>
-        <div className="cities">
-          <Image src={cityIcon} alt="City Icon" width={32} height={32}/>
-          <div className="cities-list">
-            {cities.map((city) => (
-              <span key={city.title}>{city.title}</span>
-            ))}
-            </div>
         </div>
       </div>
       <div className="card-footer">

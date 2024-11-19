@@ -110,35 +110,33 @@ h1 {
   }
 }
 
-  .cities {
-      position: relative;
-      display: inline-block;
-
-      .cities-icon {
-        cursor: pointer;
-      }
-
-      .cities-list {
-        display: none;
-        flex-direction: column;
-        background-color: #fff;
-        padding: 5px;
-        z-index: 1;
-        text-wrap: wrap;
-        border: 1px solid #000000;
-      }
-
-      &:hover .cities-list {
-        display: flex;
-      }
-
-  }
 
 .card-header,
 .card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .cities {
+    display: inline-block;
+    margin-top: 5px;
+
+    .cities-list {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background-color: #fff;
+      padding: 5px;
+      z-index: 10;
+      text-wrap: wrap;
+      border: 1px solid #000000;
+      font-size: 14px;
+    }
+
+    &:hover .cities-list {
+      display: flex;
+    }
+  }
 }
 
 .stars {
