@@ -4,7 +4,7 @@ import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
 import { Blueprint } from "@/app/models/blueprint";
 import Image from "next/image";
-import cityIcon from "../photos/cityIcon.png";
+import cityIcon from "../photos/cityIconAlt.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
