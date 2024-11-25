@@ -82,13 +82,13 @@ const parseLocalMeasures = async (
         const localMeasures = localMeasureData.map((rawLocalMeasure) => {
           // Find the sector by title
           const sector = sectors.find(
-            (sector) => sector.title == rawLocalMeasure.sector,
+            (sector) => sector.title == rawLocalMeasure.sector.trim(),
           );
           if (rawLocalMeasure.sector == undefined || sector == undefined) {
             throw new Error('Sector is undefined for LocalMeasure');
           }
           const city = cities.find(
-            (city) => city.title == rawLocalMeasure.city,
+            (city) => city.title == rawLocalMeasure.city.trim(),
           );
           if (rawLocalMeasure.city == undefined || city == undefined) {
             throw new Error('City is undefined for LocalMeasure');
@@ -140,14 +140,14 @@ const parseBlueprints = async (
             );
           }
           // Find the sector by title
-          const sector = sectors.find((s) => s.title == blueprint.sector);
+          const sector = sectors.find((s) => s.title == blueprint.sector.trim());
           if (blueprint.sector == undefined || sector == undefined) {
             throw new Error(
               'Sector is undefined for blueprint: ' + blueprint.code,
             );
           }
           // Map focus titles to Focus objects
-          const splitRawFocuses = blueprint.focuses?.split(',');
+          const splitRawFocuses = blueprint.focuses?.trim().split(',');
           const focusList = focuses.filter((focus) =>
             splitRawFocuses.includes(focus.title),
           );
@@ -157,10 +157,11 @@ const parseBlueprints = async (
             );
           }
           // Map city titles to City objects
-          const splitRawCities = blueprint.cities.split(',');
-          const cityList = cities.filter((city) =>
-            splitRawCities.includes(city.title),
-          );
+          const splitRawCities = blueprint.cities?.trim().split(',').map((city) => city.trim());
+          const cityList = cities.filter((city) => {
+              return splitRawCities.find((cityTitle) => cityTitle.trim() == city.title.trim());
+          });
+
           if (blueprint.cities == undefined || cityList == undefined) {
             throw new Error(
               'Cities is undefined for blueprint: ' + blueprint.code,
