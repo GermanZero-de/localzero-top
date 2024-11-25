@@ -11,6 +11,15 @@ import MeasureCard from "@/app/components/MeasureCard"; // Import MeasureCard co
 import { fetchSheetsData } from "@/app/data/fetchData";
 import styles from "../../styles/MeasureDetailPage.module.scss"; // Import the correct SCSS file
 
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .trim() // Remove leading and trailing whitespace
+    .replace(/\s+/g, '-') // Replace spaces with dashes
+    .replace(/ü/g, 'u')
+    .replace(/ä/g, 'a')
+    .replace(/ö/g, 'o')
+
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
 
@@ -83,10 +92,26 @@ const MeasureDetailPage = () => {
         </div>
 
         {/* Right Column: Next Feature */}
-        <div className={styles["next-feature"]}>
-          {/* Placeholder for the next feature */}
-          <p>Next feature will go here</p>
+         <div className={styles["cities-overlay"]}>
+          <h2>Städte</h2>
+          <div className={styles["cities-list"]}>
+            {measure?.cities?.length ? (
+              measure.cities.map((city) => (
+                <div key={city.title} className={styles["city-item"]}>
+                  <a
+                    href={`https://monitoring.localzero.net/${slugify(city.title)}/massnahmen`}
+                    target="_blank"
+                  >
+                    {city.title}
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p>No cities available for this measure.</p>
+            )}
+          </div>
         </div>
+
       </div>
     </Layout>
   );
