@@ -73,7 +73,7 @@ const MeasureDetailPage = () => {
       <div className={styles["measure-detail-container"]}>
         {/* Left Column: Measure Card */}
         <div className={styles["measure-card"]}>
-          {measure && <MeasureCard blueprint={measure} hideArrow={true} />} {/* Pass hideArrow */}
+          {measure && <MeasureCard blueprint={measure} hideArrow={true} hideCities={true} />} {/* Pass hideArrow */}
         </div>
 
         {/* Middle Column: Description */}

@@ -8,10 +8,11 @@ import cityIcon from "../photos/cityIconAlt.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
-  hideArrow?: boolean; // New optional prop to control the visibility of the arrow
+  hideArrow?: boolean; // Optional prop to control the visibility of the arrow
+  hideCities?: boolean; // Optional prop to control the visibility of the cities
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow }) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCities }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
 
   const focuseBalls = focuses.map((focus, index) => (
@@ -32,16 +33,21 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow }) => {
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
-        <div className="cities">
-          <Image src={cityIcon} alt="City Icon" width={32} height={32} />
-          <div className="cities-list">
-            {cities.map((city) => (
-              <div key={city.title} className="city-separator">
-                <span>{city.title}</span>
-              </div>
-            ))}
+
+        {/* Conditionally render the cities section based on the hideCities prop */}
+        {!hideCities && (
+          <div className="cities">
+            <Image src={cityIcon} alt="City Icon" width={32} height={32} />
+            <div className="cities-list">
+              {cities.map((city) => (
+                <div key={city.title} className="city-separator">
+                  <span>{city.title}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
         <div className="code">
           <p>{code}</p>
         </div>
