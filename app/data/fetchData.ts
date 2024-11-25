@@ -56,7 +56,7 @@ export const fetchSheetsData = async () => {
     sectors: sectors,
     focuses: focuses,
     cities: cities,
-    blueprints: blueprints,
+    blueprints: shuffle(blueprints),
     localMeasures: localMeasures,
   };
 
@@ -208,4 +208,12 @@ const autoParse = <T>(data: string): T[] => {
 const fetchPageAndParse = async <T>(pageName: string) => {
   const result = await fetchPage(pageName);
   return autoParse<T>(result);
+};
+
+const shuffle = <T>(array: T[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 };
