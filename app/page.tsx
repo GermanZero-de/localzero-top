@@ -20,7 +20,7 @@ const Pages = () => {
   const router = useRouter(); // Correct useRouter for App Directory
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
 
-  const [data, setData] = useState<AppData>({ priorities: [], sectors: [], focuses: [], cities: [], blueprints: [] });
+  const [data, setData] = useState<AppData>({ priorities: [], sectors: [], focuses: [], cities: [], blueprints: [], localMeasures: [] });
   const [filteredMeasures, setFilteredMeasures] = useState<Blueprint[]>([]);
   const [activeFilters, setActiveFilters] = useState<Filter>({
     prioritys: [],
