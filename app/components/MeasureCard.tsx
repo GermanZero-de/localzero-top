@@ -8,9 +8,10 @@ import cityIcon from "../photos/cityIconAlt.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
+  hideArrow?: boolean; // New optional prop to control the visibility of the arrow
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
 
   const focuseBalls = focuses.map((focus, index) => (
@@ -32,7 +33,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
         <div className="cities">
-          <Image src={cityIcon} alt="City Icon" width={32} height={32}/>
+          <Image src={cityIcon} alt="City Icon" width={32} height={32} />
           <div className="cities-list">
             {cities.map((city) => (
               <div key={city.title} className="city-separator">
@@ -46,12 +47,14 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
         </div>
       </div>
       <div className="card-footer">
-        <Link href={`/measures/${code}`}>
-          {/* Wrapping the ArrowRight in a button to ensure consistent styling */}
-          <button className="arrow-button">
-            <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
-          </button>
-        </Link>
+        {/* Conditionally render the arrow button based on the hideArrow prop */}
+        {!hideArrow && (
+          <Link href={`/measures/${code}`}>
+            <button className="arrow-button">
+              <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

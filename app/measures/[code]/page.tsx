@@ -64,7 +64,7 @@ const MeasureDetailPage = () => {
         cities: [], // Pass empty array for cities
         blueprints: measure ? [measure] : [], // Pass the selected measure in blueprints
       }}
-      activeFilters={{ prioritys: [], sectors: [], focuses: [] }} // Pass filters if necessary
+      activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
       isFilterPanelVisible={false} // Filter panel visibility (you can manage this state as needed)
       toggleFilterPanel={() => {}}
       closeFilterPanel={() => {}}
@@ -73,7 +73,7 @@ const MeasureDetailPage = () => {
       <div className={styles["measure-detail-container"]}>
         {/* Left Column: Measure Card */}
         <div className={styles["measure-card"]}>
-          {measure && <MeasureCard blueprint={measure} />}
+          {measure && <MeasureCard blueprint={measure} hideArrow={true} />} {/* Pass hideArrow */}
         </div>
 
         {/* Middle Column: Description */}
