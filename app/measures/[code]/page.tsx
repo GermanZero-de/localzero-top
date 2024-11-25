@@ -63,6 +63,7 @@ const MeasureDetailPage = () => {
         focuses: [], // Pass empty array for focuses
         cities: [], // Pass empty array for cities
         blueprints: measure ? [measure] : [], // Pass the selected measure in blueprints
+        localMeasures: [], // Pass empty array for localMeasures
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
       isFilterPanelVisible={false} // Filter panel visibility (you can manage this state as needed)

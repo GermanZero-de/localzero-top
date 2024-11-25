@@ -32,6 +32,7 @@ const Layout: React.FC<LayoutProps> = ({
     focuses: [],
     cities: [],
     blueprints: [],
+    localMeasures: [],
   }, // Default values for optional props
   activeFilters = { prioritys: [], sectors: [], focuses: [] },
   isFilterPanelVisible = false,
