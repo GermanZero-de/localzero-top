@@ -60,7 +60,7 @@ const MeasureDetailPage = () => {
   }, [code]); // Fetch measure data when code changes
 
   // Show loading, error message, or measure content
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Lädt..</p>;
   if (error) return <p>{error}</p>;
 
   // Layout rendering with the selected measure data passed to the Layout component
@@ -93,26 +93,29 @@ const MeasureDetailPage = () => {
         </div>
 
         {/* Right Column: Next Feature */}
-         <div className={styles["cities-overlay"]}>
-          <h2>Städte</h2>
-          <div className={styles["cities-list"]}>
-            {measure?.cities?.length ? (
-              measure.cities.map((city) => (
-                <div key={city.title} className={styles["city-item"]}>
-                  <a
-                    href={`https://monitoring.localzero.net/${slugify(city.title)}/massnahmen`}
-                    target="_blank"
-                  >
-                    {city.title}
-                  </a>
-                </div>
-              ))
-            ) : (
-              <p>No cities available for this measure.</p>
-            )}
-          </div>
+        <div className={styles["cities-overlay"]}>
+  <h2>Städte</h2>
+  {/* Display the count of cities */}
+  <p>
+    {measure?.cities?.length
+      ? `This measure is linked to ${measure.cities.length} city/cities.`
+      : "No cities available for this measure."}
+  </p>
+  <div className={styles["cities-list"]}>
+    {measure?.cities?.length ? (
+      measure.cities.map((city) => (
+        <div key={city.title} className={styles["city-item"]}>
+          <a
+            href={`https://monitoring.localzero.net/${slugify(city.title)}/massnahmen`}
+            target="_blank"
+          >
+            {city.title}
+          </a>
         </div>
-
+      ))
+    ) : null}
+  </div>
+</div>
       </div>
     </Layout>
   );

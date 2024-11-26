@@ -134,11 +134,11 @@ const Pages = () => {
           <h1>TOP-MASSNAHMEN</h1>
           <BlueFilterBar onToggleFilterPanel={() => {}} onGoBack={handleGoBack} />
           {isLoading ? (
-            <p>Loading...</p>
+            <p>Lädt...</p>
           ) : filteredMeasures.length > 0 ? (
             <MeasuresGrid blueprints={filteredMeasures} />
           ) : (
-            <p>No matches found</p>
+            <p>Keine Treffer gefunden</p>
           )}
         </div>
       </div>
