@@ -71,6 +71,7 @@ const Pages = () => {
   });
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false); // Restored state
 
   useEffect(() => {
     fetchSheetsData().then((fetchedData: AppData) => {
@@ -78,7 +79,7 @@ const Pages = () => {
 
       const filtersFromQuery = parseQueryParams(new URLSearchParams(searchParams.toString()), fetchedData);
       setActiveFilters(filtersFromQuery);
-
+      
       // End loading state after data and filters are processed
       setIsLoading(false);
     });
@@ -97,6 +98,14 @@ const Pages = () => {
       setFilteredMeasures(data.blueprints.filter(applyFilters));
     }
   }, [data, activeFilters]);
+
+  const toggleFilterPanel = () => {
+    setIsFilterPanelVisible(!isFilterPanelVisible);
+  };
+
+  const closeFilterPanel = () => {
+    setIsFilterPanelVisible(false);
+  };
 
   const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[], cities: City[]) => {
     setActiveFilters({
@@ -128,11 +137,20 @@ const Pages = () => {
       <Navbar />
       <div className="app flex-grow-1">
         <div className="sidebar">
-          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={() => {}} />
+          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel} />
         </div>
         <div className="main-content">
           <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar onToggleFilterPanel={() => {}} onGoBack={handleGoBack} />
+          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
+          {isFilterPanelVisible && (
+            <FilterPanel
+              data={data}
+              filters={activeFilters}
+              onFilterChange={changeFilters}
+              onClose={closeFilterPanel}
+              isOverlay
+            />
+          )}
           {isLoading ? (
             <p>Lädt...</p>
           ) : filteredMeasures.length > 0 ? (
