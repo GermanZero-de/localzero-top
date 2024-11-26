@@ -67,7 +67,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
       }
     );
   };
-1
+  
   const [showFilter, setShowFilter] = React.useState(false);
   const toggleFilter = () => setShowFilter(!showFilter);
 
@@ -84,7 +84,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
           <Image src={clearIcon} alt="Clear Filters Icon" width={32} height={32} />
         </button>
         <button className="share-filters" onClick={handleShare}>
-          Share link
+          Link teilen
         </button>
         <button className="close-overlay-button small-screen-icon" onClick={onClose}>
           &times;
