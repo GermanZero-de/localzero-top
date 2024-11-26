@@ -56,6 +56,18 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
     router.push('/'); // Clear URL query params
   };
 
+  const handleShare = () => {
+    const currentURL = window.location.href; // Get the current URL
+    navigator.clipboard.writeText(currentURL).then(
+      () => {
+        alert('Link copied to clipboard');
+      },
+      (err) => {
+        console.error('Failed to copy the link: ', err);
+      }
+    );
+  };
+1
   const [showFilter, setShowFilter] = React.useState(false);
   const toggleFilter = () => setShowFilter(!showFilter);
 
@@ -71,6 +83,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
         <button className="clear-filters-button large-screen-icon" onClick={handleClearFilters}>
           <Image src={clearIcon} alt="Clear Filters Icon" width={32} height={32} />
         </button>
+        <button className="share-filters" onClick={handleShare}>
+          Share link
+        </button>
         <button className="close-overlay-button small-screen-icon" onClick={onClose}>
           &times;
         </button>
@@ -80,12 +95,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
       <div className="filter-section">
         <h4>Priorität</h4>
         <div className="filter-options">
-          {data.priorities.map((priority) => (
+        {data.priorities.map((priority) => (
             <div key={priority.stars} className="filter-option">
               <input
                 type="checkbox"
-                id={`priority${priority}`}
-                checked={filters.prioritys.includes(priority)}
+                id={`priority${priority.stars}`}
+                checked={filters.prioritys.some((p) => p.stars === priority.stars)} // Match by stars
                 onChange={() => handleChange(priority, undefined, undefined, undefined)}
               />
               <label className="stars">{'★'.repeat(priority.stars)}</label>
@@ -143,7 +158,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ onFilterChange, filters, data
                 <input
                   type="checkbox"
                   id={`city${city.title}`}
-                  checked={filters.cities.includes(city)}
+                  checked={filters.cities.some((c) => c.title === city.title)}
                   onChange={() => handleChange(undefined, undefined, undefined, city)}
                 />
                 <label>{city.title}</label>
