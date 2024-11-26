@@ -3,20 +3,22 @@ import Link from "next/link";
 import ArrowRight from "@/app/components/Arrow-Right";
 import "../styles/Focuses.scss";
 import { Blueprint } from "@/app/models/blueprint";
+import Image from "next/image";
+import cityIcon from "../photos/cityIconAlt.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
+  hideArrow?: boolean;
+  hideCities?: boolean;
+  currentFilters?: string; // Include current filters to persist
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
-  const { title, sector, priority, focuses, code } = blueprint;
+const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCities, currentFilters }) => {
+  const { title, sector, priority, focuses, code, cities } = blueprint;
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
-      <div
-        className="color-ball"
-        style={{ backgroundColor: focus.color }}
-      ></div>
+      <div className="color-ball" style={{ backgroundColor: focus.color }}></div>
     </div>
   ));
 
@@ -29,17 +31,30 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint }) => {
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
+        {!hideCities && (
+          <div className="cities">
+            <Image src={cityIcon} alt="City Icon" width={32} height={32} />
+            <div className="cities-list">
+              {cities.map((city) => (
+                <div key={city.title} className="city-separator">
+                  <span>{city.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="code">
           <p>{code}</p>
         </div>
       </div>
       <div className="card-footer">
-        <Link href={`/measures/${code}`}>
-          {/* Wrapping the ArrowRight in a button to ensure consistent styling */}
-          <button className="arrow-button">
-            <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
-          </button>
-        </Link>
+        {!hideArrow && (
+          <Link href={`/measures/${code}?${currentFilters || ""}`}>
+            <button className="arrow-button">
+              <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

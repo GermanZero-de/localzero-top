@@ -86,13 +86,46 @@ h1 {
   &.priority-3 {
     background-color: #9adfef;
   }
-  &.priority-default {
-    background-color: #9adfef;
-  }
 }
 
 .card-body {
   flex: 1;
+
+    .cities {
+    position: absolute;
+    right: 10px;
+    bottom: 85px;
+    display: flex;
+    align-items: center;
+
+    .cities-list {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background-color: #fff;
+      padding: 5px 10px;
+      z-index: 10;
+      border: 1px solid #000000;
+      font-size: 14px;
+      max-height: 95px;
+      max-width: 150px;
+      overflow-y:auto;
+      right: 25px;
+      overflow-x: hidden;
+
+      span {
+        margin-right: 12px;
+      }
+
+      .city-separator:not(:last-child) {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    &:hover .cities-list {
+      display: flex;
+    }
+  }
 }
 
 .sector {
@@ -112,6 +145,7 @@ h1 {
     font-size: 20px;
   }
 }
+
 
 .card-header,
 .card-footer {
