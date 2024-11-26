@@ -8,19 +8,17 @@ import cityIcon from "../photos/cityIconAlt.png";
 
 interface MeasureCardProps {
   blueprint: Blueprint;
-  hideArrow?: boolean; // Optional prop to control the visibility of the arrow
-  hideCities?: boolean; // Optional prop to control the visibility of the cities
+  hideArrow?: boolean;
+  hideCities?: boolean;
+  currentFilters?: string; // Include current filters to persist
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCities }) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCities, currentFilters }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
-      <div
-        className="color-ball"
-        style={{ backgroundColor: focus.color }}
-      ></div>
+      <div className="color-ball" style={{ backgroundColor: focus.color }}></div>
     </div>
   ));
 
@@ -33,8 +31,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCit
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
-
-        {/* Conditionally render the cities section based on the hideCities prop */}
         {!hideCities && (
           <div className="cities">
             <Image src={cityIcon} alt="City Icon" width={32} height={32} />
@@ -47,15 +43,13 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCit
             </div>
           </div>
         )}
-
         <div className="code">
           <p>{code}</p>
         </div>
       </div>
       <div className="card-footer">
-        {/* Conditionally render the arrow button based on the hideArrow prop */}
         {!hideArrow && (
-          <Link href={`/measures/${code}`}>
+          <Link href={`/measures/${code}?${currentFilters || ""}`}>
             <button className="arrow-button">
               <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
             </button>
