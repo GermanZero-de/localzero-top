@@ -1,5 +1,5 @@
 export interface Focus {
     title: string;
     color?: string;
-    // tooltip: string;
+    tooltip: string;
 }
