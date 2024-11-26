@@ -115,6 +115,34 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
 
               <div className='filter-divider'></div>
 
+              {/* Focus Filter */}
+              <div className='filter-section'>
+                <h4>Fokus</h4>
+                <div className='filter-options'>
+                  {
+                    data.focuses.map((focus) => (
+                        <div key={focus.title} className='filter-option'>
+                          <button
+                              className='focus-button'
+                              onClick={() => handleChange(undefined, undefined, focus, undefined)}
+                              style={{backgroundColor: focus.color}}
+                          >
+                            {filters.focuses.includes(focus)
+                                && (<span className='check-icon'>✓</span>)
+                            }
+                          </button>
+                          <span className='focus-label'>{focus.title}</span>
+                          <span className='info-icon'>
+                                        i<div className='info-tooltip'>{focus.tooltip}</div>
+                                     </span>
+                        </div>
+                    ))
+                  }
+                </div>
+              </div>
+
+              <div className='filter-divider'></div>
+
               {/* City Filter */}
               <div className='filter-section'>
                 <button className='filter-button' onClick={toggleFilter}>
@@ -144,34 +172,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({onFilterChange, filters, data,
                   }
                 </div>
                 )}
-              </div>
-
-              <div className='filter-divider'></div>
-
-              {/* Focus Filter */}
-              <div className='filter-section'>
-                <h4>Fokus</h4>
-                <div className='filter-options'>
-                  {
-                    data.focuses.map((focus) => (
-                        <div key={focus.title} className='filter-option'>
-                          <button
-                              className='focus-button'
-                              onClick={() => handleChange(undefined, undefined, focus, undefined)}
-                              style={{backgroundColor: focus.color}}
-                          >
-                            {filters.focuses.includes(focus)
-                                && (<span className='check-icon'>✓</span>)
-                            }
-                          </button>
-                          <span className='focus-label'>{focus.title}</span>
-                          <span className='info-icon'>
-                                        i<div className='info-tooltip'>{focus.tooltip}</div>
-                                     </span>
-                        </div>
-                    ))
-                  }
-                </div>
               </div>
 
               <div className='filter-divider'></div>
