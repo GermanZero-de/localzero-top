@@ -1,26 +1,67 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Correct import for App Directory
+import { useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from './components/FilterPanel';
 import BlueFilterBar from './components/BlueFilterBar';
 import './styles/styles.scss';
 import Footer from '@/app/components/Footer';
 import Navbar from './components/navbar';
 import { Filter } from "@/app/models/Filter";
+import { AppData } from "@/app/models/appData";
+import { Priority } from "@/app/models/priority";
 import { Sector } from "@/app/models/sector";
 import { Focus } from "@/app/models/focus";
 import { City } from "@/app/models/city";
-import { AppData } from "@/app/models/appData";
 import { Blueprint } from "@/app/models/blueprint";
 import { fetchSheetsData } from "@/app/data/fetchData";
-import { Priority } from "@/app/models/priority";
 import MeasuresGrid from "@/app/components/MeasuresGrid";
 
-const Pages = () => {
-  const router = useRouter(); // Correct useRouter for App Directory
-  const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
+const parseQueryParams = (searchParams: URLSearchParams, data: AppData): Filter => {
+  const priorities = searchParams.get('priorities')
+    ?.split(',')
+    .map((star) => {
+      const parsedStar = parseInt(star.trim());
+      const matchedPriority = data.priorities.find((p) => parseInt(p.stars as unknown as string) === parsedStar);
+      return matchedPriority;
+    })
+    .filter((p): p is Priority => p !== undefined) || [];
 
-  const [data, setData] = useState<AppData>({ priorities: [], sectors: [], focuses: [], cities: [], blueprints: [], localMeasures: [] });
+  const sectors = searchParams.get('sectors')
+    ?.split(',')
+    .map(title => data.sectors.find(s => s.title.trim() === title.trim()))
+    .filter((s): s is Sector => s !== undefined) || [];
+
+  const focuses = searchParams.get('focuses')
+    ?.split(',')
+    .map(title => data.focuses.find(f => f.title.trim() === title.trim()))
+    .filter((f): f is Focus => f !== undefined) || [];
+
+  const cities = searchParams.get('cities')
+    ?.split(',')
+    .map(title => data.cities.find(c => c.title.trim() === title.trim()))
+    .filter((c): c is City => c !== undefined) || [];
+
+  return {
+    prioritys: priorities,
+    sectors: sectors,
+    focuses: focuses,
+    cities: cities,
+  };
+};
+
+const Pages = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [data, setData] = useState<AppData>({
+    priorities: [],
+    sectors: [],
+    focuses: [],
+    cities: [],
+    blueprints: [],
+    localMeasures: [],
+  });
+
   const [filteredMeasures, setFilteredMeasures] = useState<Blueprint[]>([]);
   const [activeFilters, setActiveFilters] = useState<Filter>({
     prioritys: [],
@@ -29,9 +70,17 @@ const Pages = () => {
     cities: [],
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    fetchSheetsData().then((data) => {
-      setData(data);
+    fetchSheetsData().then((fetchedData: AppData) => {
+      setData(fetchedData);
+
+      const filtersFromQuery = parseQueryParams(new URLSearchParams(searchParams.toString()), fetchedData);
+      setActiveFilters(filtersFromQuery);
+
+      // End loading state after data and filters are processed
+      setIsLoading(false);
     });
   }, []);
 
@@ -39,11 +88,14 @@ const Pages = () => {
     const applyFilters = (measure: Blueprint) => {
       const priorityMatch = activeFilters.prioritys.length === 0 || activeFilters.prioritys.includes(measure.priority);
       const sectorMatch = activeFilters.sectors.length === 0 || activeFilters.sectors.includes(measure.sector);
-      const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some((focus) => measure.focuses.includes(focus));
-      const cityMatch = activeFilters.cities.length === 0 || activeFilters.cities.some((city) => measure.cities.includes(city));
+      const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some(f => measure.focuses.includes(f));
+      const cityMatch = activeFilters.cities.length === 0 || activeFilters.cities.some(c => measure.cities.includes(c));
       return priorityMatch && sectorMatch && focusMatch && cityMatch;
     };
-    setFilteredMeasures(data?.blueprints.filter(applyFilters));
+
+    if (data.blueprints.length) {
+      setFilteredMeasures(data.blueprints.filter(applyFilters));
+    }
   }, [data, activeFilters]);
 
   const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[], cities: City[]) => {
@@ -53,18 +105,17 @@ const Pages = () => {
       focuses: focuses,
       cities: cities,
     });
-  };
 
-  const toggleFilterPanel = () => {
-    setIsFilterPanelVisible(!isFilterPanelVisible);
-  };
+    const queryParams = new URLSearchParams();
+    if (priorities.length) queryParams.append('priorities', priorities.map(p => p.stars).join(','));
+    if (sectors.length) queryParams.append('sectors', sectors.map(s => s.title).join(','));
+    if (focuses.length) queryParams.append('focuses', focuses.map(f => f.title).join(','));
+    if (cities.length) queryParams.append('cities', cities.map(c => c.title).join(','));
 
-  const closeFilterPanel = () => {
-    setIsFilterPanelVisible(false);
+    router.push(`?${queryParams.toString()}`);
   };
 
   const handleGoBack = () => {
-    console.log('Back button clicked'); // Debug log
     if (window.history.length > 1) {
       router.back();
     } else {
@@ -77,21 +128,18 @@ const Pages = () => {
       <Navbar />
       <div className="app flex-grow-1">
         <div className="sidebar">
-          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel} />
+          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={() => {}} />
         </div>
         <div className="main-content">
           <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
-          {isFilterPanelVisible && (
-            <FilterPanel
-              data={data}
-              filters={activeFilters}
-              onFilterChange={changeFilters}
-              onClose={closeFilterPanel}
-              isOverlay
-            />
+          <BlueFilterBar onToggleFilterPanel={() => {}} onGoBack={handleGoBack} />
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : filteredMeasures.length > 0 ? (
+            <MeasuresGrid blueprints={filteredMeasures} />
+          ) : (
+            <p>No matches found</p>
           )}
-          <MeasuresGrid blueprints={filteredMeasures} />
         </div>
       </div>
       <Footer />
