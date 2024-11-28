@@ -1,5 +1,3 @@
-// src/app/measures/[code]/page.tsx
-
 'use client'; // Mark the component as a client component
 
 import React, { useState, useEffect } from 'react';
@@ -10,6 +8,7 @@ import Layout from '@/app/components/Layout';
 import MeasureCard from '@/app/components/MeasureCard'; // Import MeasureCard component
 import { fetchSheetsData } from '@/app/data/fetchData';
 import styles from '../../styles/MeasureDetailPage.module.scss'; // Import the correct SCSS file
+import ArrowRight from '@/app/components/Arrow-Right';
 
 const slugify = (str: string) =>
   str
@@ -26,6 +25,16 @@ const MeasureDetailPage = () => {
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const [error, setError] = useState<string | null>(null); // Error state
+  const [dropdownStates, setDropdownStates] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const toggleDropdown = (cityTitle: string) => {
+    setDropdownStates((prevState) => ({
+      ...prevState,
+      [cityTitle]: !prevState[cityTitle], // Toggle the state for the specific city
+    }));
+  };
 
   // Fetch measure data once the code is available
   useEffect(() => {
@@ -89,14 +98,12 @@ const MeasureDetailPage = () => {
               hideArrow={true}
               hideCities={true}
             />
-          )}{' '}
-          {/* Pass hideArrow */}
+          )}
         </div>
 
         {/* Middle Column: Description */}
         <div className={styles['description']}>
-          <p>{measure?.description?.replace(/<br>/g, '\n')}</p>{' '}
-          {/* Display description with line breaks */}
+          <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
         </div>
 
         {/* Right Column: Cities and Dropdown */}
@@ -110,33 +117,54 @@ const MeasureDetailPage = () => {
           </p>
           <div className={styles['cities-list']}>
             {measure?.cities?.length
-              ? measure.cities.map((city) =>
-                  city.title === 'No city' ? ( // Skip rendering if city name is "No city"
-                    <p key={city.title} className={styles['city-item']}>
-                      No city has implemented this measure.
-                    </p>
-                  ) : (
+              ? measure.cities.map((city) => {
+                  if (city.title === 'No city') {
+                    return (
+                      <p key={city.title} className={styles['city-item']}>
+                        No city has implemented this measure.
+                      </p>
+                    );
+                  }
+
+                  const isOpen = dropdownStates[city.title] || false; // Get the open/close state for this city
+
+                  return (
                     <div key={city.title} className={styles['city-item']}>
-                      <span>{city.title}</span>
-                      <select
-                        onChange={(e) => {
-                          if (e.target.value)
-                            window.open(e.target.value, '_blank');
-                          e.target.value = ''; // Reset the dropdown to "Select a link"
-                        }}
-                      >
-                        <option value="">Select a link</option>
-                        <option
-                          value={`https://monitoring.localzero.net/${slugify(
-                            city.title,
-                          )}/massnahmen`}
+                      <div onClick={() => toggleDropdown(city.title)}>
+                        <a
+                          href={`#${city.title}`}
+                          className={styles['city-item-link']}
                         >
-                          Link to Monitoring
-                        </option>
-                      </select>
+                          {city.title}
+                        </a>
+                        <ArrowRight
+                          color="#4a0a78"
+                          className={`${styles['arrow-button']} ${
+                            isOpen
+                              ? styles['arrow-down']
+                              : styles['arrow-right']
+                          }`}
+                        />
+                      </div>
+
+                      {/* When the dropdown is open, show the link below the city name */}
+                      {isOpen && (
+                        <div className={styles['dropdown-menu']}>
+                          <a
+                            href={`https://monitoring.localzero.net/${slugify(
+                              city.title,
+                            )}/massnahmen`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles['city-link']}
+                          >
+                            Local Monitoring
+                          </a>
+                        </div>
+                      )}
                     </div>
-                  ),
-                )
+                  );
+                })
               : null}
           </div>
         </div>

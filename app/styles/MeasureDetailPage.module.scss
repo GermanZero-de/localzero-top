@@ -35,20 +35,62 @@
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
 
-    h2 {
-      color: #4a0a78;
-      margin-top: 1rem;
-    }
+  h2 {
+    color: #4a0a78;
+    margin-top: 1rem;
+  }
 }
 
-.city-item a {
+.city-item {
+  display: flex;
+  flex-direction: column; /* Change to column layout so city name and arrow stack vertically */
+  align-items: flex-start; /* Align city name and arrow to the left */
+  width: 100%; /* Ensure it takes up the full width */
+  margin-bottom: 10px; /* Optional: Add spacing between items */
+}
+
+.city-item-link {
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
   font-weight: bold;
+  margin-right: 5px; /* Space between the city name and the arrow */
+  display: inline-block; /* Ensures the city name stays inline with the arrow */
+}
 
+.arrow-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  color: #4a0a78;
+  width: 25px;
+  height: 25px;
+  transition: transform 0.2s;
+  color: inherit;
+}
+
+.arrow-right {
+  transform: rotate(0deg); /* Right arrow rotation */
+}
+
+.arrow-down {
+  transform: rotate(90deg); /* Downward arrow rotation when open */
+}
+
+.dropdown-menu {
+  margin-top: 1px; /* Adds space between the city name/arrow and the dropdown */
+}
+
+.city-link {
+  font-size: 1rem; /* Smaller font size for the link */
+  color: rgb(100, 100, 100);
+  text-decoration: none;
+  padding-left: 10px; /* Add padding to the left of the link */
+  display: block; /* Ensure it's block-level so it sits below the city name */
+  margin-top: 5px; /* Optional: Adds some space between the city name and the link */
 
   &:hover {
-    color: black;
+    color: #4a0a78; /* Change the color on hover */
   }
 }
