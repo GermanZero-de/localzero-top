@@ -99,7 +99,7 @@ const MeasureDetailPage = () => {
           {/* Display description with line breaks */}
         </div>
 
-        {/* Right Column: Next Feature */}
+        {/* Right Column: Cities and Dropdown */}
         <div className={styles['cities-overlay']}>
           <h2>Städte</h2>
           {/* Display the count of cities */}
@@ -110,30 +110,33 @@ const MeasureDetailPage = () => {
           </p>
           <div className={styles['cities-list']}>
             {measure?.cities?.length
-              ? measure.cities.map((city) => (
-                  <div key={city.title} className={styles['city-item']}>
-                    <span>{city.title}</span>
-                    <select
-                      onChange={(e) => {
-                        const selectedUrl = e.target.value;
-                        if (selectedUrl) {
-                          window.open(selectedUrl, '_blank'); // Open the link in a new tab
+              ? measure.cities.map((city) =>
+                  city.title === 'No city' ? ( // Skip rendering if city name is "No city"
+                    <p key={city.title} className={styles['city-item']}>
+                      No city has implemented this measure.
+                    </p>
+                  ) : (
+                    <div key={city.title} className={styles['city-item']}>
+                      <span>{city.title}</span>
+                      <select
+                        onChange={(e) => {
+                          if (e.target.value)
+                            window.open(e.target.value, '_blank');
                           e.target.value = ''; // Reset the dropdown to "Select a link"
-                        }
-                      }}
-                    >
-                      <option value="">Select a link</option>
-                      {measure?.cities?.map((city) => (
+                        }}
+                      >
+                        <option value="">Select a link</option>
                         <option
-                          key={city.title}
-                          value={`https://monitoring.localzero.net/${slugify(city.title)}/massnahmen`}
+                          value={`https://monitoring.localzero.net/${slugify(
+                            city.title,
+                          )}/massnahmen`}
                         >
-                          {city.title}
+                          Link to Monitoring
                         </option>
-                      ))}
-                    </select>
-                  </div>
-                ))
+                      </select>
+                    </div>
+                  ),
+                )
               : null}
           </div>
         </div>
