@@ -176,7 +176,7 @@ const parseBlueprints = async (
           }
           // Return the parsed Blueprint object
           const print: Blueprint = {
-            code: blueprint.code,
+            code: "TOP" + blueprint.code.padStart(3, "0"),
             title: blueprint.title,
             priority: priority,
             sector: sector,
