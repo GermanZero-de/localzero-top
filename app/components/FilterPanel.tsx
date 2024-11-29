@@ -13,6 +13,7 @@ import { Priority } from '@/app/models/priority';
 import { City } from '@/app/models/city';
 import Bookmark from './Bookmark';
 import { Blueprint } from '../models/blueprint';
+import { on } from 'events';
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -28,7 +29,7 @@ interface FilterPanelProps {
   bookmarks: Bookmark[];
   onCreateBookmark: (name: string) => void;
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
-  onSelectBookmark: (bookmarkName: Bookmark) => void;
+  onSelectBookmark: (bookmark: Bookmark) => void;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
@@ -262,7 +263,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             bookmarks={bookmarks}
             onCreateBookmark={onCreateBookmark}
             onAddMeasureToBookmark={onAddMeasureToBookmark}
-            onSelectBookmark={onSelectBookmark}
+            onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
           />
         </>
       </div>

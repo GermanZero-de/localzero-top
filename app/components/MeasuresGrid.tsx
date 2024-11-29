@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MeasureCard from './MeasureCard';
 import { Blueprint } from '@/app/models/blueprint';
+import Bookmark from './Bookmark';
 
 // Throttle function to limit the number of calls to handleScroll
 const useThrottle = (callback: Function, delay: number) => {
@@ -16,9 +17,15 @@ const useThrottle = (callback: Function, delay: number) => {
 
 interface MeasuresGridProps {
   blueprints: Blueprint[];
+  bookmarks: Bookmark[];
+  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
-const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
+const MeasuresGrid: React.FC<MeasuresGridProps> = ({
+  blueprints,
+  bookmarks,
+  onAddMeasureToBookmark,
+}) => {
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(false); // Track if data is being loaded
 
@@ -68,7 +75,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
           key={index}
           blueprint={blueprint}
           bookmarks={[]}
-          onAddMeasureToBookmark={() => {}}
+          onAddMeasureToBookmark={onAddMeasureToBookmark}
         />
       ))}
 

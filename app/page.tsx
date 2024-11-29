@@ -84,6 +84,8 @@ const Pages = () => {
     cities: [],
   });
 
+  const [displayedMeasures, setDisplayedMeasures] = useState<Blueprint[]>([]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false); // Restored state
 
@@ -120,7 +122,9 @@ const Pages = () => {
     };
 
     if (data.blueprints.length) {
-      setFilteredMeasures(data.blueprints.filter(applyFilters));
+      const filtered = data.blueprints.filter(applyFilters);
+      setFilteredMeasures(filtered);
+      setDisplayedMeasures(filtered);
     }
   }, [data, activeFilters]);
 
@@ -169,13 +173,19 @@ const Pages = () => {
     }
   };
 
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
-    const savedBookmarks = localStorage.getItem('bookmarks');
-    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
-  });
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedBookmarks = localStorage.getItem('bookmarks');
+      setBookmarks(savedBookmarks ? JSON.parse(savedBookmarks) : []);
+    }
+  }, []);
 
   const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
   };
 
   const deleteBookmarks = () => {
@@ -192,6 +202,7 @@ const Pages = () => {
   };
 
   const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
+    console.log('Adding measure to bookmark:', bookmarkName, measure);
     const newBookmarks = bookmarks.map((bookmark) =>
       bookmark.name === bookmarkName
         ? {
@@ -208,7 +219,7 @@ const Pages = () => {
 
   const handleSelectBookmark = (bookmark: Bookmark) => {
     console.log('Selected bookmark:', bookmark);
-    setFilteredMeasures(bookmark.measures);
+    setDisplayedMeasures(bookmark.measures);
   };
 
   return (
@@ -251,8 +262,12 @@ const Pages = () => {
           )}
           {isLoading ? (
             <p>Lädt...</p>
-          ) : filteredMeasures.length > 0 ? (
-            <MeasuresGrid blueprints={filteredMeasures} />
+          ) : displayedMeasures.length > 0 ? (
+            <MeasuresGrid
+              blueprints={displayedMeasures}
+              bookmarks={bookmarks}
+              onAddMeasureToBookmark={addMeasureToBookmark}
+            />
           ) : (
             <p>Keine Treffer gefunden</p>
           )}

@@ -9,14 +9,13 @@ interface Bookmark {
 interface BookmarkProps {
   bookmarks: Bookmark[];
   onCreateBookmark: (name: string) => void;
-  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
   onSelectBookmark: (bookmarkName: Bookmark) => void;
+  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({
   bookmarks = [],
   onCreateBookmark,
-  onAddMeasureToBookmark,
   onSelectBookmark,
 }) => {
   const [newBookmarkName, setNewBookmarkName] = useState('');
@@ -48,11 +47,6 @@ const Bookmark: React.FC<BookmarkProps> = ({
             >
               {bookmark.name}
             </h3>
-            <ul>
-              {bookmark.measures.map((measure, measureIndex) => (
-                <li key={measureIndex}>{measure.title}</li>
-              ))}
-            </ul>
           </div>
         ))}
       </div>

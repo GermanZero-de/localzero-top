@@ -22,7 +22,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   hideArrow,
   hideCities,
   currentFilters,
-  bookmarks,
   onAddMeasureToBookmark,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
@@ -37,7 +36,13 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
     </div>
   ));
 
+  const [bookmarks] = React.useState<Bookmark[]>(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+  });
+
   const handleAddToBookmark = (bookmarkName: string) => {
+    console.log('Adding measure to bookmark:', bookmarkName, blueprint);
     onAddMeasureToBookmark(bookmarkName, blueprint);
     setShowDropdown(false);
   };
@@ -48,29 +53,32 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
         {/* Bookmark icon on the measure cards shown on hover */}
-        <div
-          className="bookmark-icon"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <Image
-            src={bookmarkIcon}
-            alt="Bookmark Icon"
-            width={34}
-            height={34}
-          />
-          {showDropdown && (
-            <div className="bookmark-dropdown">
-              {bookmarks.map((bookmark) => (
-                <div
-                  key={bookmark.name}
-                  onClick={() => handleAddToBookmark(bookmark.name)}
-                >
-                  {bookmark.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+
+        {bookmarks.length > 0 && (
+          <div
+            className="bookmark-icon"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <Image
+              src={bookmarkIcon}
+              alt="Bookmark Icon"
+              width={24}
+              height={24}
+            />
+            {showDropdown && (
+              <div className="bookmark-dropdown">
+                {bookmarks.map((bookmark) => (
+                  <div
+                    key={bookmark.name}
+                    onClick={() => handleAddToBookmark(bookmark.name)}
+                  >
+                    {bookmark.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <div className="card-body">
         <h5>{title}</h5>
