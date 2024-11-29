@@ -22,6 +22,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   hideArrow,
   hideCities,
   currentFilters,
+  bookmarks,
   onAddMeasureToBookmark,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
@@ -35,11 +36,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       ></div>
     </div>
   ));
-
-  const [bookmarks] = React.useState<Bookmark[]>(() => {
-    const savedBookmarks = localStorage.getItem('bookmarks');
-    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
-  });
 
   const handleAddToBookmark = (bookmarkName: string) => {
     onAddMeasureToBookmark(bookmarkName, blueprint);
