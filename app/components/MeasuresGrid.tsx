@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import MeasureCard from "./MeasureCard";
-import { Blueprint } from "@/app/models/blueprint";
+import React, { useState, useEffect, useRef } from 'react';
+import MeasureCard from './MeasureCard';
+import { Blueprint } from '@/app/models/blueprint';
 
 // Throttle function to limit the number of calls to handleScroll
 const useThrottle = (callback: Function, delay: number) => {
@@ -49,10 +49,10 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
 
   // Add scroll event listener on component mount
   useEffect(() => {
-    window.addEventListener("scroll", throttledHandleScroll);
+    window.addEventListener('scroll', throttledHandleScroll);
 
     return () => {
-      window.removeEventListener("scroll", throttledHandleScroll);
+      window.removeEventListener('scroll', throttledHandleScroll);
     };
   }, [loading]);
 
@@ -64,7 +64,12 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
     <div className="measures-grid">
       {/* Display only the visible measures */}
       {blueprints.slice(0, visibleCount).map((blueprint, index) => (
-        <MeasureCard key={index} blueprint={blueprint} />
+        <MeasureCard
+          key={index}
+          blueprint={blueprint}
+          bookmarks={[]}
+          onAddMeasureToBookmark={() => {}}
+        />
       ))}
 
       {/* Loading indicator */}

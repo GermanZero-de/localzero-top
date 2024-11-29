@@ -1,32 +1,80 @@
-import React from "react";
-import Link from "next/link";
-import ArrowRight from "@/app/components/Arrow-Right";
-import "../styles/Focuses.scss";
-import { Blueprint } from "@/app/models/blueprint";
-import Image from "next/image";
-import cityIcon from "../photos/cityIconAlt.png";
+import React from 'react';
+import Link from 'next/link';
+import ArrowRight from '@/app/components/Arrow-Right';
+import '../styles/Focuses.scss';
+import { Blueprint } from '@/app/models/blueprint';
+import Image from 'next/image';
+import cityIcon from '../photos/cityIconAlt.png';
+import Bookmark from '@/app/components/Bookmark';
+import bookmarkIcon from '../photos/bookmarkIcon.png';
 
 interface MeasureCardProps {
   blueprint: Blueprint;
   hideArrow?: boolean;
   hideCities?: boolean;
   currentFilters?: string; // Include current filters to persist
+  bookmarks: Bookmark[];
+  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
-const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCities, currentFilters }) => {
+const MeasureCard: React.FC<MeasureCardProps> = ({
+  blueprint,
+  hideArrow,
+  hideCities,
+  currentFilters,
+  onAddMeasureToBookmark,
+}) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
+  const [showDropdown, setShowDropdown] = React.useState(false);
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
-      <div className="color-ball" style={{ backgroundColor: focus.color }}></div>
+      <div
+        className="color-ball"
+        style={{ backgroundColor: focus.color }}
+      ></div>
     </div>
   ));
+
+  const [bookmarks] = React.useState<Bookmark[]>(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+  });
+
+  const handleAddToBookmark = (bookmarkName: string) => {
+    onAddMeasureToBookmark(bookmarkName, blueprint);
+    setShowDropdown(false);
+  };
 
   return (
     <div className={`measure-card priority-${priority.stars}`}>
       <div className="card-header">
         <span className="sector">{sector.title}</span>
-        <div className="stars">{"★".repeat(priority.stars)}</div>
+        <div className="stars">{'★'.repeat(priority.stars)}</div>
+        {/* Bookmark icon on the measure cards shown on hover */}
+        <div
+          className="bookmark-icon"
+          onClick={() => setShowDropdown(!showDropdown)}
+        >
+          <Image
+            src={bookmarkIcon}
+            alt="Bookmark Icon"
+            width={34}
+            height={34}
+          />
+          {showDropdown && (
+            <div className="bookmark-dropdown">
+              {bookmarks.map((bookmark) => (
+                <div
+                  key={bookmark.name}
+                  onClick={() => handleAddToBookmark(bookmark.name)}
+                >
+                  {bookmark.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="card-body">
         <h5>{title}</h5>
@@ -49,7 +97,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({ blueprint, hideArrow, hideCit
       </div>
       <div className="card-footer">
         {!hideArrow && (
-          <Link href={`/measures/${code}?${currentFilters || ""}`}>
+          <Link href={`/measures/${code}?${currentFilters || ''}`}>
             <button className="arrow-button">
               <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
             </button>

@@ -6,40 +6,54 @@ import BlueFilterBar from './components/BlueFilterBar';
 import './styles/styles.scss';
 import Footer from '@/app/components/Footer';
 import Navbar from './components/navbar';
-import { Filter } from "@/app/models/Filter";
-import { AppData } from "@/app/models/appData";
-import { Priority } from "@/app/models/priority";
-import { Sector } from "@/app/models/sector";
-import { Focus } from "@/app/models/focus";
-import { City } from "@/app/models/city";
-import { Blueprint } from "@/app/models/blueprint";
-import { fetchSheetsData } from "@/app/data/fetchData";
-import MeasuresGrid from "@/app/components/MeasuresGrid";
+import { Filter } from '@/app/models/Filter';
+import { AppData } from '@/app/models/appData';
+import { Priority } from '@/app/models/priority';
+import { Sector } from '@/app/models/sector';
+import { Focus } from '@/app/models/focus';
+import { City } from '@/app/models/city';
+import { Blueprint } from '@/app/models/blueprint';
+import { fetchSheetsData } from '@/app/data/fetchData';
+import MeasuresGrid from '@/app/components/MeasuresGrid';
+import Bookmark from './components/Bookmark';
 
-const parseQueryParams = (searchParams: URLSearchParams, data: AppData): Filter => {
-  const priorities = searchParams.get('priorities')
-    ?.split(',')
-    .map((star) => {
-      const parsedStar = parseInt(star.trim());
-      const matchedPriority = data.priorities.find((p) => parseInt(p.stars as unknown as string) === parsedStar);
-      return matchedPriority;
-    })
-    .filter((p): p is Priority => p !== undefined) || [];
+const parseQueryParams = (
+  searchParams: URLSearchParams,
+  data: AppData,
+): Filter => {
+  const priorities =
+    searchParams
+      .get('priorities')
+      ?.split(',')
+      .map((star) => {
+        const parsedStar = parseInt(star.trim());
+        const matchedPriority = data.priorities.find(
+          (p) => parseInt(p.stars as unknown as string) === parsedStar,
+        );
+        return matchedPriority;
+      })
+      .filter((p): p is Priority => p !== undefined) || [];
 
-  const sectors = searchParams.get('sectors')
-    ?.split(',')
-    .map(title => data.sectors.find(s => s.title.trim() === title.trim()))
-    .filter((s): s is Sector => s !== undefined) || [];
+  const sectors =
+    searchParams
+      .get('sectors')
+      ?.split(',')
+      .map((title) => data.sectors.find((s) => s.title.trim() === title.trim()))
+      .filter((s): s is Sector => s !== undefined) || [];
 
-  const focuses = searchParams.get('focuses')
-    ?.split(',')
-    .map(title => data.focuses.find(f => f.title.trim() === title.trim()))
-    .filter((f): f is Focus => f !== undefined) || [];
+  const focuses =
+    searchParams
+      .get('focuses')
+      ?.split(',')
+      .map((title) => data.focuses.find((f) => f.title.trim() === title.trim()))
+      .filter((f): f is Focus => f !== undefined) || [];
 
-  const cities = searchParams.get('cities')
-    ?.split(',')
-    .map(title => data.cities.find(c => c.title.trim() === title.trim()))
-    .filter((c): c is City => c !== undefined) || [];
+  const cities =
+    searchParams
+      .get('cities')
+      ?.split(',')
+      .map((title) => data.cities.find((c) => c.title.trim() === title.trim()))
+      .filter((c): c is City => c !== undefined) || [];
 
   return {
     prioritys: priorities,
@@ -77,9 +91,12 @@ const Pages = () => {
     fetchSheetsData().then((fetchedData: AppData) => {
       setData(fetchedData);
 
-      const filtersFromQuery = parseQueryParams(new URLSearchParams(searchParams.toString()), fetchedData);
+      const filtersFromQuery = parseQueryParams(
+        new URLSearchParams(searchParams.toString()),
+        fetchedData,
+      );
       setActiveFilters(filtersFromQuery);
-      
+
       // End loading state after data and filters are processed
       setIsLoading(false);
     });
@@ -87,10 +104,18 @@ const Pages = () => {
 
   useEffect(() => {
     const applyFilters = (measure: Blueprint) => {
-      const priorityMatch = activeFilters.prioritys.length === 0 || activeFilters.prioritys.includes(measure.priority);
-      const sectorMatch = activeFilters.sectors.length === 0 || activeFilters.sectors.includes(measure.sector);
-      const focusMatch = activeFilters.focuses.length === 0 || activeFilters.focuses.some(f => measure.focuses.includes(f));
-      const cityMatch = activeFilters.cities.length === 0 || activeFilters.cities.some(c => measure.cities.includes(c));
+      const priorityMatch =
+        activeFilters.prioritys.length === 0 ||
+        activeFilters.prioritys.includes(measure.priority);
+      const sectorMatch =
+        activeFilters.sectors.length === 0 ||
+        activeFilters.sectors.includes(measure.sector);
+      const focusMatch =
+        activeFilters.focuses.length === 0 ||
+        activeFilters.focuses.some((f) => measure.focuses.includes(f));
+      const cityMatch =
+        activeFilters.cities.length === 0 ||
+        activeFilters.cities.some((c) => measure.cities.includes(c));
       return priorityMatch && sectorMatch && focusMatch && cityMatch;
     };
 
@@ -107,7 +132,12 @@ const Pages = () => {
     setIsFilterPanelVisible(false);
   };
 
-  const changeFilters = (priorities: Priority[], sectors: Sector[], focuses: Focus[], cities: City[]) => {
+  const changeFilters = (
+    priorities: Priority[],
+    sectors: Sector[],
+    focuses: Focus[],
+    cities: City[],
+  ) => {
     setActiveFilters({
       prioritys: priorities,
       sectors: sectors,
@@ -116,10 +146,17 @@ const Pages = () => {
     });
 
     const queryParams = new URLSearchParams();
-    if (priorities.length) queryParams.append('priorities', priorities.map(p => p.stars).join(','));
-    if (sectors.length) queryParams.append('sectors', sectors.map(s => s.title).join(','));
-    if (focuses.length) queryParams.append('focuses', focuses.map(f => f.title).join(','));
-    if (cities.length) queryParams.append('cities', cities.map(c => c.title).join(','));
+    if (priorities.length)
+      queryParams.append(
+        'priorities',
+        priorities.map((p) => p.stars).join(','),
+      );
+    if (sectors.length)
+      queryParams.append('sectors', sectors.map((s) => s.title).join(','));
+    if (focuses.length)
+      queryParams.append('focuses', focuses.map((f) => f.title).join(','));
+    if (cities.length)
+      queryParams.append('cities', cities.map((c) => c.title).join(','));
 
     router.push(`?${queryParams.toString()}`);
   };
@@ -132,16 +169,73 @@ const Pages = () => {
     }
   };
 
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+  });
+
+  const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+  };
+
+  const deleteBookmarks = () => {
+    setBookmarks([]);
+    saveBookmarksToLocalStorage([]);
+  };
+
+  const createBookmark = (name: string) => {
+    if (!bookmarks.some((bookmark) => bookmark.name === name)) {
+      const newBookmarks = [...bookmarks, { name, measures: [] }];
+      setBookmarks(newBookmarks);
+      saveBookmarksToLocalStorage(newBookmarks);
+    }
+  };
+
+  const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
+    const newBookmarks = bookmarks.map((bookmark) =>
+      bookmark.name === bookmarkName
+        ? {
+            ...bookmark,
+            measures: bookmark.measures.some((m) => m.code === measure.code)
+              ? bookmark.measures
+              : [...bookmark.measures, measure],
+          }
+        : bookmark,
+    );
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
+  };
+
+  const handleSelectBookmark = (bookmark: Bookmark) => {
+    console.log('Selected bookmark:', bookmark);
+    setFilteredMeasures(bookmark.measures);
+  };
+
   return (
     <div className="d-flex flex-column flex-grow-1">
       <Navbar />
       <div className="app flex-grow-1">
         <div className="sidebar">
-          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel} />
+          {/* Delete bookmarks button for testing*/}
+          <button onClick={deleteBookmarks}>Delete All Bookmarks</button>
+
+          <FilterPanel
+            data={data}
+            filters={activeFilters}
+            onFilterChange={changeFilters}
+            onClose={closeFilterPanel}
+            bookmarks={bookmarks}
+            onCreateBookmark={createBookmark}
+            onAddMeasureToBookmark={addMeasureToBookmark}
+            onSelectBookmark={handleSelectBookmark}
+          />
         </div>
         <div className="main-content">
           <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
+          <BlueFilterBar
+            onToggleFilterPanel={toggleFilterPanel}
+            onGoBack={handleGoBack}
+          />
           {isFilterPanelVisible && (
             <FilterPanel
               data={data}
@@ -149,6 +243,10 @@ const Pages = () => {
               onFilterChange={changeFilters}
               onClose={closeFilterPanel}
               isOverlay
+              bookmarks={bookmarks}
+              onCreateBookmark={createBookmark}
+              onAddMeasureToBookmark={addMeasureToBookmark}
+              onSelectBookmark={handleSelectBookmark}
             />
           )}
           {isLoading ? (
