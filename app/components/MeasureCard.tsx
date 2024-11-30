@@ -13,7 +13,7 @@ interface MeasureCardProps {
   hideArrow?: boolean;
   hideCities?: boolean;
   currentFilters?: string; // Include current filters to persist
-  bookmarks: Bookmark[];
+  bookmarks?: Bookmark[];
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
@@ -54,31 +54,29 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
         <div className="stars">{'★'.repeat(priority.stars)}</div>
         {/* Bookmark icon on the measure cards shown on hover */}
 
-        {bookmarks.length > 0 && (
-          <div
-            className="bookmark-icon"
-            onClick={() => setShowDropdown(!showDropdown)}
-          >
-            <Image
-              src={bookmarkIcon}
-              alt="Bookmark Icon"
-              width={24}
-              height={24}
-            />
-            {showDropdown && (
-              <div className="bookmark-dropdown">
-                {bookmarks.map((bookmark) => (
-                  <div
-                    key={bookmark.name}
-                    onClick={() => handleAddToBookmark(bookmark.name)}
-                  >
-                    {bookmark.name}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+        <div
+          className="bookmark-icon"
+          onClick={() => setShowDropdown(!showDropdown)}
+        >
+          <Image
+            src={bookmarkIcon}
+            alt="Bookmark Icon"
+            width={34}
+            height={34}
+          />
+          {showDropdown && (
+            <div className="bookmark-dropdown">
+              {bookmarks.map((bookmark) => (
+                <div
+                  key={bookmark.name}
+                  onClick={() => handleAddToBookmark(bookmark.name)}
+                >
+                  {bookmark.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="card-body">
         <h5>{title}</h5>

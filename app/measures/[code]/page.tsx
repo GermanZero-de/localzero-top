@@ -97,6 +97,8 @@ const MeasureDetailPage = () => {
               blueprint={measure}
               hideArrow={true}
               hideCities={true}
+              onAddMeasureToBookmark={() => {}}
+              bookmarks={[]}
             />
           )}
         </div>

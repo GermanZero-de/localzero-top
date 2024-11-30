@@ -11,12 +11,14 @@ interface BookmarkProps {
   onCreateBookmark: (name: string) => void;
   onSelectBookmark: (bookmarkName: Bookmark) => void;
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
+  onDeleteBookmark: (name: string) => void;
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({
   bookmarks = [],
   onCreateBookmark,
   onSelectBookmark,
+  onDeleteBookmark,
 }) => {
   const [newBookmarkName, setNewBookmarkName] = useState('');
 
@@ -47,6 +49,12 @@ const Bookmark: React.FC<BookmarkProps> = ({
             >
               {bookmark.name}
             </h3>
+            <button
+              className="delete-bookmark"
+              onClick={() => onDeleteBookmark(bookmark.name)}
+            >
+              &times;
+            </button>
           </div>
         ))}
       </div>

@@ -188,9 +188,10 @@ const Pages = () => {
     }
   };
 
-  const deleteBookmarks = () => {
-    setBookmarks([]);
-    saveBookmarksToLocalStorage([]);
+  const deleteBookmark = (name: String) => {
+    const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
   };
 
   const createBookmark = (name: string) => {
@@ -227,9 +228,6 @@ const Pages = () => {
       <Navbar />
       <div className="app flex-grow-1">
         <div className="sidebar">
-          {/* Delete bookmarks button for testing*/}
-          <button onClick={deleteBookmarks}>Delete All Bookmarks</button>
-
           <FilterPanel
             data={data}
             filters={activeFilters}
@@ -239,6 +237,7 @@ const Pages = () => {
             onCreateBookmark={createBookmark}
             onAddMeasureToBookmark={addMeasureToBookmark}
             onSelectBookmark={handleSelectBookmark}
+            onDeleteBookmark={deleteBookmark}
           />
         </div>
         <div className="main-content">
@@ -258,6 +257,7 @@ const Pages = () => {
               onCreateBookmark={createBookmark}
               onAddMeasureToBookmark={addMeasureToBookmark}
               onSelectBookmark={handleSelectBookmark}
+              onDeleteBookmark={deleteBookmark}
             />
           )}
           {isLoading ? (

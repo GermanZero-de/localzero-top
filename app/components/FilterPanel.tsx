@@ -30,6 +30,7 @@ interface FilterPanelProps {
   onCreateBookmark: (name: string) => void;
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
   onSelectBookmark: (bookmark: Bookmark) => void;
+  onDeleteBookmark: (name: string) => void;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
@@ -42,6 +43,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   onCreateBookmark,
   onAddMeasureToBookmark,
   onSelectBookmark,
+  onDeleteBookmark,
 }) => {
   const router = useRouter();
 
@@ -264,6 +266,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             onCreateBookmark={onCreateBookmark}
             onAddMeasureToBookmark={onAddMeasureToBookmark}
             onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
+            onDeleteBookmark={onDeleteBookmark}
           />
         </>
       </div>
