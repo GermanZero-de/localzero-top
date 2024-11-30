@@ -1,5 +1,7 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
+import { FaEye, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
+import '../styles/Bookmark.scss';
 
 interface Bookmark {
   name: string;
@@ -36,25 +38,26 @@ const Bookmark: React.FC<BookmarkProps> = ({
           type="text"
           value={newBookmarkName}
           onChange={(e) => setNewBookmarkName(e.target.value)}
-          placeholder="Set Name"
+          placeholder="Namen festlegen"
         />
-        <button onClick={handleCreateBookmark}>Create Bookmark Group</button>
+        <button className="create-button" onClick={handleCreateBookmark}>
+          Erstelle einen Merkzettel
+        </button>
       </div>
       <div className="bookmarks-list">
         {bookmarks.map((bookmark, index) => (
           <div key={index} className="bookmark-item">
-            <h3
-              className="bookmark-name"
-              onClick={() => onSelectBookmark(bookmark)}
-            >
-              {bookmark.name}
-            </h3>
-            <button
-              className="delete-bookmark"
-              onClick={() => onDeleteBookmark(bookmark.name)}
-            >
-              &times;
-            </button>
+            <div className="bookmark-header">
+              <h3 className="bookmark-name">{bookmark.name}</h3>
+              <FaEye
+                className="view-bookmark"
+                onClick={() => onSelectBookmark(bookmark)}
+              />
+              <FaTrash
+                className="delete-bookmark"
+                onClick={() => onDeleteBookmark(bookmark.name)}
+              />
+            </div>
           </div>
         ))}
       </div>
