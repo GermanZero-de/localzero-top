@@ -130,7 +130,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       {/* Header */}
       <div className="filter-header">
         <div className="filter-icon">
-          <button className="filter-button">
+          <button className="filter-button" onClick={toggleBookmarks}>
             <Image
               src={filterIcon}
               alt="Filter Icon"
