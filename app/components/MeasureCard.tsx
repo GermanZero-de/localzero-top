@@ -53,30 +53,31 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
         {/* Bookmark icon on the measure cards shown on hover */}
-
-        <div
-          className="bookmark-icon"
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <Image
-            src={bookmarkIcon}
-            alt="Bookmark Icon"
-            width={34}
-            height={34}
-          />
-          {showDropdown && (
-            <div className="bookmark-dropdown">
-              {bookmarks.map((bookmark) => (
-                <div
-                  key={bookmark.name}
-                  onClick={() => handleAddToBookmark(bookmark.name)}
-                >
-                  {bookmark.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        {bookmarks.length > 0 && (
+          <div
+            className="bookmark-icon"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <Image
+              src={bookmarkIcon}
+              alt="Bookmark Icon"
+              width={34}
+              height={34}
+            />
+            {showDropdown && (
+              <div className="bookmark-dropdown">
+                {bookmarks.map((bookmark) => (
+                  <div
+                    key={bookmark.name}
+                    onClick={() => handleAddToBookmark(bookmark.name)}
+                  >
+                    {bookmark.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <div className="card-body">
         <h5>{title}</h5>
