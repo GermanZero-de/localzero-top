@@ -23,7 +23,6 @@ interface MeasuresGridProps {
 
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   blueprints,
-  bookmarks,
   onAddMeasureToBookmark,
 }) => {
   const [visibleCount, setVisibleCount] = useState(9);

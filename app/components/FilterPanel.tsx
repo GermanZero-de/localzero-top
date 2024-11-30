@@ -162,94 +162,100 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         </button>
       </div>
 
-      {/* Priority Filter */}
-      <div className="filter-section">
-        <h4>Priorität</h4>
-        <div className="filter-options">
-          {data.priorities.map((priority) => (
-            <div key={priority.stars} className="filter-option">
-              <input
-                type="checkbox"
-                id={`priority${priority.stars}`}
-                checked={filters.prioritys.some(
-                  (p) => p.stars === priority.stars,
-                )} // Match by stars
-                onChange={() =>
-                  handleChange(priority, undefined, undefined, undefined)
-                }
-              />
-              <label className="stars">{'★'.repeat(priority.stars)}</label>
+      {!showBookmarks && (
+        <div className="filteroptions-container">
+          {/* Priority Filter */}
+          <div className="filter-section">
+            <h4>Priorität</h4>
+            <div className="filter-options">
+              {data.priorities.map((priority) => (
+                <div key={priority.stars} className="filter-option">
+                  <input
+                    type="checkbox"
+                    id={`priority${priority.stars}`}
+                    checked={filters.prioritys.some(
+                      (p) => p.stars === priority.stars,
+                    )} // Match by stars
+                    onChange={() =>
+                      handleChange(priority, undefined, undefined, undefined)
+                    }
+                  />
+                  <label className="stars">{'★'.repeat(priority.stars)}</label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Sector Filter */}
-      <div className="filter-section">
-        <h4>Sektoren</h4>
-        <div className="filter-options">
-          {data.sectors.map((sector) => (
-            <div key={sector.title} className="filter-option">
-              <input
-                type="checkbox"
-                id={`sector${sector.title}`}
-                checked={filters.sectors.includes(sector)}
-                onChange={() =>
-                  handleChange(undefined, sector, undefined, undefined)
-                }
-              />
-              <label>{sector.title}</label>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Focus Filter */}
-      <div className="filter-section">
-        <h4>Fokus</h4>
-        <div className="filter-options">
-          {data.focuses.map((focus) => (
-            <div key={focus.title} className="filter-option">
-              <button
-                className="focus-button"
-                onClick={() =>
-                  handleChange(undefined, undefined, focus, undefined)
-                }
-                style={{ backgroundColor: focus.color }}
-              >
-                {filters.focuses.includes(focus) && (
-                  <span className="check-icon">✓</span>
-                )}
-              </button>
-              <span className="focus-label">{focus.title}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* City Filter */}
-      <div className="filter-section">
-        <button className="filter-button" onClick={toggleFilter}>
-          <h4>Städte</h4>
-        </button>
-        {showFilter && (
-          <div className="filter-options">
-            {data.cities.map((city) => (
-              <div key={city.title} className="filter-option">
-                <input
-                  type="checkbox"
-                  id={`city${city.title}`}
-                  checked={filters.cities.some((c) => c.title === city.title)}
-                  onChange={() =>
-                    handleChange(undefined, undefined, undefined, city)
-                  }
-                />
-                <label>{city.title}</label>
-              </div>
-            ))}
           </div>
-        )}
-      </div>
+
+          {/* Sector Filter */}
+          <div className="filter-section">
+            <h4>Sektoren</h4>
+            <div className="filter-options">
+              {data.sectors.map((sector) => (
+                <div key={sector.title} className="filter-option">
+                  <input
+                    type="checkbox"
+                    id={`sector${sector.title}`}
+                    checked={filters.sectors.includes(sector)}
+                    onChange={() =>
+                      handleChange(undefined, sector, undefined, undefined)
+                    }
+                  />
+                  <label>{sector.title}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Focus Filter */}
+          <div className="filter-section">
+            <h4>Fokus</h4>
+            <div className="filter-options">
+              {data.focuses.map((focus) => (
+                <div key={focus.title} className="filter-option">
+                  <button
+                    className="focus-button"
+                    onClick={() =>
+                      handleChange(undefined, undefined, focus, undefined)
+                    }
+                    style={{ backgroundColor: focus.color }}
+                  >
+                    {filters.focuses.includes(focus) && (
+                      <span className="check-icon">✓</span>
+                    )}
+                  </button>
+                  <span className="focus-label">{focus.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* City Filter */}
+          <div className="filter-section">
+            <button className="filter-button" onClick={toggleFilter}>
+              <h4>Städte</h4>
+            </button>
+            {showFilter && (
+              <div className="filter-options">
+                {data.cities.map((city) => (
+                  <div key={city.title} className="filter-option">
+                    <input
+                      type="checkbox"
+                      id={`city${city.title}`}
+                      checked={filters.cities.some(
+                        (c) => c.title === city.title,
+                      )}
+                      onChange={() =>
+                        handleChange(undefined, undefined, undefined, city)
+                      }
+                    />
+                    <label>{city.title}</label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="filter-section">
         <button className="bookmark-button" onClick={toggleBookmarks}>
