@@ -122,6 +122,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   const [showFilter, setShowFilter] = React.useState(false);
   const toggleFilter = () => setShowFilter(!showFilter);
 
+  const [showBookmarks, setShowBookmarks] = React.useState(false);
+  const toggleBookmarks = () => setShowBookmarks(!showBookmarks);
+
   return (
     <div className={`filter-panel ${isOverlay ? 'overlay' : ''}`}>
       {/* Header */}
@@ -249,7 +252,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       </div>
 
       <div className="filter-section">
-        <button className="bookmark-button">
+        <button className="bookmark-button" onClick={toggleBookmarks}>
           <h4>
             <Image
               src={bookmarkIcon}
@@ -260,15 +263,17 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             Merkzettel
           </h4>
         </button>
-        <>
-          <Bookmark
-            bookmarks={bookmarks}
-            onCreateBookmark={onCreateBookmark}
-            onAddMeasureToBookmark={onAddMeasureToBookmark}
-            onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
-            onDeleteBookmark={onDeleteBookmark}
-          />
-        </>
+        {showBookmarks && (
+          <>
+            <Bookmark
+              bookmarks={bookmarks}
+              onCreateBookmark={onCreateBookmark}
+              onAddMeasureToBookmark={onAddMeasureToBookmark}
+              onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
+              onDeleteBookmark={onDeleteBookmark}
+            />
+          </>
+        )}
       </div>
     </div>
   );
