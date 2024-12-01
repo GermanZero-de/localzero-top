@@ -15,6 +15,7 @@ import { City } from "@/app/models/city";
 import { Blueprint } from "@/app/models/blueprint";
 import { fetchSheetsData } from "@/app/data/fetchData";
 import MeasuresGrid from "@/app/components/MeasuresGrid";
+import LoadingSpinner from '@/app/components/LoadingScreen';
 
 const parseQueryParams = (searchParams: URLSearchParams, data: AppData): Filter => {
   const priorities = searchParams.get('priorities')
@@ -137,11 +138,19 @@ const Pages = () => {
       <Navbar />
       <div className="app flex-grow-1">
         <div className="sidebar">
-          <FilterPanel data={data} filters={activeFilters} onFilterChange={changeFilters} onClose={closeFilterPanel} />
+          <FilterPanel
+            data={data}
+            filters={activeFilters}
+            onFilterChange={changeFilters}
+            onClose={closeFilterPanel}
+          />
         </div>
         <div className="main-content">
           <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
+          <BlueFilterBar
+            onToggleFilterPanel={toggleFilterPanel}
+            onGoBack={handleGoBack}
+          />
           {isFilterPanelVisible && (
             <FilterPanel
               data={data}
@@ -152,7 +161,7 @@ const Pages = () => {
             />
           )}
           {isLoading ? (
-            <p>Lädt...</p>
+            <LoadingSpinner />
           ) : filteredMeasures.length > 0 ? (
             <MeasuresGrid blueprints={filteredMeasures} />
           ) : (
