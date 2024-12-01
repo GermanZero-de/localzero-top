@@ -173,7 +173,10 @@ const Pages = () => {
     }
   };
 
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [bookmarks, setBookmarks] = React.useState<Bookmark[]>(() => {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

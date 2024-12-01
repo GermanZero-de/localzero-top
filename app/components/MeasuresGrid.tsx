@@ -24,6 +24,7 @@ interface MeasuresGridProps {
 const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   blueprints,
   onAddMeasureToBookmark,
+  bookmarks,
 }) => {
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(false); // Track if data is being loaded
@@ -73,7 +74,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
         <MeasureCard
           key={index}
           blueprint={blueprint}
-          bookmarks={[]}
+          bookmarks={bookmarks}
           onAddMeasureToBookmark={onAddMeasureToBookmark}
         />
       ))}

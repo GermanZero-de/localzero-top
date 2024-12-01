@@ -13,7 +13,7 @@ interface MeasureCardProps {
   hideArrow?: boolean;
   hideCities?: boolean;
   currentFilters?: string; // Include current filters to persist
-  bookmarks?: Bookmark[];
+  bookmarks: Bookmark[];
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
@@ -23,6 +23,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   hideCities,
   currentFilters,
   onAddMeasureToBookmark,
+  bookmarks,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
   const [showDropdown, setShowDropdown] = React.useState(false);
@@ -35,11 +36,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       ></div>
     </div>
   ));
-
-  const [bookmarks] = React.useState<Bookmark[]>(() => {
-    const savedBookmarks = localStorage.getItem('bookmarks');
-    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
-  });
 
   const handleAddToBookmark = (bookmarkName: string) => {
     console.log('Adding measure to bookmark:', bookmarkName, blueprint);
