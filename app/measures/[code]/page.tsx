@@ -109,12 +109,13 @@ const MeasureDetailPage = () => {
         {/* Right Column: Cities and Dropdown */}
         <div className={styles['cities-overlay']}>
           <h2>Städte</h2>
-          {/* Display the count of cities */}
-          <p>
+
+          {/* Took this away for now, can be used later if needed. */}
+          {/* <p>
             {measure?.cities?.length
               ? `This measure is linked to ${measure.cities.length} city/cities.`
               : 'No cities available for this measure.'}
-          </p>
+          </p> */}
           <div className={styles['cities-list']}>
             {measure?.cities?.length
               ? measure.cities.map((city) => {
