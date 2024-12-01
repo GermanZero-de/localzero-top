@@ -1,12 +1,50 @@
-.bookmark-header {
+.bookmark-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
+}
+
+.bookmark-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
   border-top: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
   margin-top: 15px;
+  padding: 8px 0;
+}
+
+.bookmark-name {
+  flex: 1;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bookmark-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 16px;
+}
+
+.view-bookmark,
+.delete-bookmark {
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
 }
 
 .create-button {
-  margin: 5px 0;
+  background-color: #9adfef;
+  color: rgb(0, 0, 0);
+  padding: 6px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
 }

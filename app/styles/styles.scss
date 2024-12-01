@@ -160,6 +160,26 @@ h1 {
   right: 0;
 }
 
+.bookmark-dropdown {
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+  padding: 5px 10px;
+  z-index: 10;
+  border: 1px solid #000000;
+  font-size: 14px;
+  max-height: 95px;
+  max-width: 150px;
+  overflow-y: auto;
+  right: 25px;
+  overflow-x: hidden;
+  cursor: pointer;
+
+  .bookmark-separator:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+}
+
 .measure-card:hover .bookmark-icon {
   display: block;
 }

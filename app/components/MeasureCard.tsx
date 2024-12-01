@@ -66,6 +66,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                   <div
                     key={bookmark.name}
                     onClick={() => handleAddToBookmark(bookmark.name)}
+                    className="bookmark-separator"
                   >
                     {bookmark.name}
                   </div>

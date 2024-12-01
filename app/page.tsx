@@ -181,7 +181,13 @@ const Pages = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedBookmarks = localStorage.getItem('bookmarks');
-      setBookmarks(savedBookmarks ? JSON.parse(savedBookmarks) : []);
+      const urlBookmarks = new URLSearchParams(window.location.search).get(
+        'bookmarks',
+      );
+      const parsedBookmarks = urlBookmarks ? JSON.parse(urlBookmarks) : [];
+      setBookmarks(
+        savedBookmarks ? JSON.parse(savedBookmarks) : parsedBookmarks,
+      );
     }
   }, []);
 
@@ -195,6 +201,7 @@ const Pages = () => {
     const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
+    updateURLWithBookmarks(newBookmarks);
   };
 
   const createBookmark = (name: string) => {
@@ -202,6 +209,7 @@ const Pages = () => {
       const newBookmarks = [...bookmarks, { name, measures: [] }];
       setBookmarks(newBookmarks);
       saveBookmarksToLocalStorage(newBookmarks);
+      updateURLWithBookmarks(newBookmarks);
     }
   };
 
@@ -219,6 +227,13 @@ const Pages = () => {
     );
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
+    updateURLWithBookmarks(newBookmarks);
+  };
+
+  const updateURLWithBookmarks = (bookmarks: Bookmark[]) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set('bookmarks', JSON.stringify(bookmarks));
+    router.push(`?${queryParams.toString()}`);
   };
 
   const handleSelectBookmark = (bookmark: Bookmark) => {
