@@ -1,6 +1,7 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
-//import { FaEye, FaTrash } from 'react-icons/fa';
+import { FaEye, FaTrash, FaShareAlt } from 'react-icons/fa';
+import { MdCreateNewFolder } from 'react-icons/md';
 import '../styles/Bookmark.scss';
 import { useBookmarkSharing } from '@/app/components/BookmarkShare';
 
@@ -45,20 +46,25 @@ const Bookmark: React.FC<BookmarkProps> = ({
           value={newBookmarkName}
           onChange={(e) => setNewBookmarkName(e.target.value)}
           placeholder="Namen festlegen"
+          className="bookmark-input"
         />
         <button className="create-button" onClick={handleCreateBookmark}>
-          Erstelle einen Merkzettel
+          <MdCreateNewFolder />
         </button>
       </div>
       <div className="bookmarks-list">
         {bookmarks.map((bookmark, index) => (
           <div key={index} className="bookmark-item">
             <div className="bookmark-header">
-              <h3 className="bookmark-name">{bookmark.name}</h3>
-              <FaEye
+              <button
                 className="view-bookmark"
                 onClick={() => onSelectBookmark(bookmark)}
-              />
+              >
+                <div className="bookmark-view">
+                  <h3 className="bookmark-name">{bookmark.name}</h3>
+                  <FaEye />
+                </div>
+              </button>
               <FaTrash
                 className="delete-bookmark"
                 onClick={() => onDeleteBookmark(bookmark.name)}
@@ -68,7 +74,8 @@ const Bookmark: React.FC<BookmarkProps> = ({
         ))}
       </div>
       <button className="share-bookmarks" onClick={handleShareBookmarks}>
-        Share Bookmarks
+        <span className="share-text">Teilen merkzettel</span>
+        <FaShareAlt />
       </button>
     </div>
   );

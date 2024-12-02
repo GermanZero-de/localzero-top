@@ -177,7 +177,7 @@ h1 {
   padding: 5px 10px;
   z-index: 10;
   border: 1px solid #000000;
-  font-size: 14px;
+  font-size: 24px;
   max-height: 95px;
   max-width: 150px;
   overflow-y: auto;
@@ -286,10 +286,11 @@ footer {
   letter-spacing: 1.5px;
   line-height: 1.75;
   position: fixed;
-    bottom: 0;
+  bottom: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -396,7 +397,7 @@ footer a:hover {
 
 .main-content {
   @media (max-width: 645px) {
-    margin-left: 10px;
-    margin-right: -5px;
+    margin-left: 14px;
+    margin-right: 0px;
   }
 }

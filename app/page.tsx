@@ -179,13 +179,16 @@ const Pages = () => {
   };
 
   const [bookmarks, setBookmarks] = React.useState<Bookmark[]>(() => {
-    const savedBookmarks = localStorage.getItem('bookmarks');
-    try {
-      return savedBookmarks ? JSON.parse(savedBookmarks) : [];
-    } catch (e) {
-      console.error('Error loading bookmarks from localStorage:', e);
-      return [];
+    if (typeof window !== 'undefined') {
+      const savedBookmarks = localStorage.getItem('bookmarks');
+      try {
+        return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+      } catch (e) {
+        console.error('Error loading bookmarks from localStorage:', e);
+        return [];
+      }
     }
+    return [];
   });
 
   useEffect(() => {
@@ -262,62 +265,62 @@ const Pages = () => {
   };
 
   return (
-      <div>
-          <main>
-              <div className="d-flex flex-column flex-grow-1">
-                  <Navbar />
-                  <div className="app flex-grow-1">
-                      <div className="sidebar">
-                          <FilterPanel
-                              data={data}
-                              isOverlay={false}
-                              filters={activeFilters}
-                              onFilterChange={changeFilters}
-                              onClose={closeFilterPanel}
-                              bookmarks={bookmarks}
-                              onCreateBookmark={createBookmark}
-                              onAddMeasureToBookmark={addMeasureToBookmark}
-                              onSelectBookmark={handleSelectBookmark}
-                              onDeleteBookmark={deleteBookmark}
-                          />
-                      </div>
-                      <div className="main-content">
-                          <h1>TOP-MASSNAHMEN</h1>
-                          <BlueFilterBar
-                              onToggleFilterPanel={toggleFilterPanel}
-                              onGoBack={handleGoBack}
-                          />
-                          {isFilterPanelVisible && (
-                              <FilterPanel
-                                  data={data}
-                                  isOverlay={true}
-                                  filters={activeFilters}
-                                  onFilterChange={changeFilters}
-                                  onClose={closeFilterPanel}
-                                  bookmarks={bookmarks}
-                                  onCreateBookmark={createBookmark}
-                                  onAddMeasureToBookmark={addMeasureToBookmark}
-                                  onSelectBookmark={handleSelectBookmark}
-                                  onDeleteBookmark={deleteBookmark}
-                              />
-                          )}
-                          {isLoading ? (
-                              <LoadingSpinner variant="offset" />
-                          ) : displayedMeasures.length > 0 ? (
-                              <MeasuresGrid
-                                  blueprints={displayedMeasures}
-                                  bookmarks={bookmarks}
-                                  onAddMeasureToBookmark={addMeasureToBookmark}
-                              />
-                          ) : (
-                              <p>Keine Treffer gefunden</p>
-                          )}
-                      </div>
-                  </div>
-              </div>
-          </main>
-              <Footer />
-      </div>
+    <div>
+      <main>
+        <div className="d-flex flex-column flex-grow-1">
+          <Navbar />
+          <div className="app flex-grow-1">
+            <div className="sidebar">
+              <FilterPanel
+                data={data}
+                isOverlay={false}
+                filters={activeFilters}
+                onFilterChange={changeFilters}
+                onClose={closeFilterPanel}
+                bookmarks={bookmarks}
+                onCreateBookmark={createBookmark}
+                onAddMeasureToBookmark={addMeasureToBookmark}
+                onSelectBookmark={handleSelectBookmark}
+                onDeleteBookmark={deleteBookmark}
+              />
+            </div>
+            <div className="main-content">
+              <h1>TOP-MASSNAHMEN</h1>
+              <BlueFilterBar
+                onToggleFilterPanel={toggleFilterPanel}
+                onGoBack={handleGoBack}
+              />
+              {isFilterPanelVisible && (
+                <FilterPanel
+                  data={data}
+                  isOverlay={true}
+                  filters={activeFilters}
+                  onFilterChange={changeFilters}
+                  onClose={closeFilterPanel}
+                  bookmarks={bookmarks}
+                  onCreateBookmark={createBookmark}
+                  onAddMeasureToBookmark={addMeasureToBookmark}
+                  onSelectBookmark={handleSelectBookmark}
+                  onDeleteBookmark={deleteBookmark}
+                />
+              )}
+              {isLoading ? (
+                <LoadingSpinner variant="offset" />
+              ) : displayedMeasures.length > 0 ? (
+                <MeasuresGrid
+                  blueprints={displayedMeasures}
+                  bookmarks={bookmarks}
+                  onAddMeasureToBookmark={addMeasureToBookmark}
+                />
+              ) : (
+                <p>Keine Treffer gefunden</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 };
 

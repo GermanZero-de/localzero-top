@@ -13,6 +13,7 @@ import { Priority } from '@/app/models/priority';
 import { City } from '@/app/models/city';
 import Bookmark from '@/app/components/Bookmark';
 import { Blueprint } from '@/app/models/blueprint';
+import { FaShareAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -143,21 +144,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           className="clear-filters-button large-screen-icon"
           onClick={handleClearFilters}
         >
-          <Image
-            src={clearIcon}
-            alt="Clear Filters Icon"
-            width={32}
-            height={32}
-          />
+          <FaRegTrashAlt size="1.5em" />
         </button>
         <button className="share-filters" onClick={handleShare}>
-          Link teilen
-        </button>
-        <button
-          className="close-overlay-button small-screen-icon"
-          onClick={onClose}
-        >
-          &times;
+          <FaShareAlt />
         </button>
       </div>
 

@@ -179,7 +179,6 @@
 
   .bookmark-button {
     flex-shrink: 0;
-
     width: 100%;
     background: none;
     border: none;
@@ -202,6 +201,7 @@
       opacity: 0.8;
     }
   }
+
   .filter-icon-image {
     /*
     Adjust the filter values to change the color.
@@ -365,17 +365,21 @@
 }
 
 .share-filters {
-  background-color: #9adfef;
-  color: rgb(0, 0, 0);
-  padding: 6px 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  padding: 8px 12px;
   border: none;
-  border-radius: 5px;
+  background-color: #ffffff;
+  color: rgb(118, 205, 240);
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  margin-left: 25px;
-  margin-right: 0px;
+  font-size: 25px;
+}
 
-  &:hover {
-    background-color: #5b9ee6;
+
+@media screen and (min-width: 601px) {
+  .close-overlay-button {
+    display: none;
   }
 }
