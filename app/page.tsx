@@ -262,58 +262,62 @@ const Pages = () => {
   };
 
   return (
-    <div className="d-flex flex-column flex-grow-1">
-      <Navbar />
-      <div className="app flex-grow-1">
-        <div className="sidebar">
-          <FilterPanel
-            data={data}
-            isOverlay={false}
-            filters={activeFilters}
-            onFilterChange={changeFilters}
-            onClose={closeFilterPanel}
-            bookmarks={bookmarks}
-            onCreateBookmark={createBookmark}
-            onAddMeasureToBookmark={addMeasureToBookmark}
-            onSelectBookmark={handleSelectBookmark}
-            onDeleteBookmark={deleteBookmark}
-          />
-        </div>
-        <div className="main-content">
-          <h1>TOP-MASSNAHMEN</h1>
-          <BlueFilterBar
-            onToggleFilterPanel={toggleFilterPanel}
-            onGoBack={handleGoBack}
-          />
-          {isFilterPanelVisible && (
-            <FilterPanel
-              data={data}
-              isOverlay={true}
-              filters={activeFilters}
-              onFilterChange={changeFilters}
-              onClose={closeFilterPanel}
-              bookmarks={bookmarks}
-              onCreateBookmark={createBookmark}
-              onAddMeasureToBookmark={addMeasureToBookmark}
-              onSelectBookmark={handleSelectBookmark}
-              onDeleteBookmark={deleteBookmark}
-            />
-          )}
-          {isLoading ? (
-            <LoadingSpinner variant="offset" />
-          ) : displayedMeasures.length > 0 ? (
-            <MeasuresGrid
-              blueprints={displayedMeasures}
-              bookmarks={bookmarks}
-              onAddMeasureToBookmark={addMeasureToBookmark}
-            />
-          ) : (
-            <p>Keine Treffer gefunden</p>
-          )}
-        </div>
+      <div>
+          <main>
+              <div className="d-flex flex-column flex-grow-1">
+                  <Navbar />
+                  <div className="app flex-grow-1">
+                      <div className="sidebar">
+                          <FilterPanel
+                              data={data}
+                              isOverlay={false}
+                              filters={activeFilters}
+                              onFilterChange={changeFilters}
+                              onClose={closeFilterPanel}
+                              bookmarks={bookmarks}
+                              onCreateBookmark={createBookmark}
+                              onAddMeasureToBookmark={addMeasureToBookmark}
+                              onSelectBookmark={handleSelectBookmark}
+                              onDeleteBookmark={deleteBookmark}
+                          />
+                      </div>
+                      <div className="main-content">
+                          <h1>TOP-MASSNAHMEN</h1>
+                          <BlueFilterBar
+                              onToggleFilterPanel={toggleFilterPanel}
+                              onGoBack={handleGoBack}
+                          />
+                          {isFilterPanelVisible && (
+                              <FilterPanel
+                                  data={data}
+                                  isOverlay={true}
+                                  filters={activeFilters}
+                                  onFilterChange={changeFilters}
+                                  onClose={closeFilterPanel}
+                                  bookmarks={bookmarks}
+                                  onCreateBookmark={createBookmark}
+                                  onAddMeasureToBookmark={addMeasureToBookmark}
+                                  onSelectBookmark={handleSelectBookmark}
+                                  onDeleteBookmark={deleteBookmark}
+                              />
+                          )}
+                          {isLoading ? (
+                              <LoadingSpinner variant="offset" />
+                          ) : displayedMeasures.length > 0 ? (
+                              <MeasuresGrid
+                                  blueprints={displayedMeasures}
+                                  bookmarks={bookmarks}
+                                  onAddMeasureToBookmark={addMeasureToBookmark}
+                              />
+                          ) : (
+                              <p>Keine Treffer gefunden</p>
+                          )}
+                      </div>
+                  </div>
+              </div>
+          </main>
+              <Footer />
       </div>
-      <Footer />
-    </div>
   );
 };
 

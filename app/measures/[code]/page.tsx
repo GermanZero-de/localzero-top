@@ -114,10 +114,10 @@ const MeasureDetailPage = () => {
 
           <div className={styles['cities-list']}>
             {linkedMeasures?.length
-              ? linkedMeasures.map((localMeasure) => {
+              ? linkedMeasures.map((localMeasure, key) => {
                   if (localMeasure.title === 'No city') {
                     return (
-                      <p key={localMeasure.city.title} className={styles['city-item']}>
+                      <p key={key} className={styles['city-item']}>
                         No city has implemented this measure.
                       </p>
                     );
@@ -126,7 +126,7 @@ const MeasureDetailPage = () => {
                   const isOpen = dropdownStates[localMeasure.city.title] || false; // Get the open/close state for this city
 
                   return (
-                    <div key={localMeasure.city.title} className={styles['city-item']}>
+                    <div key={key} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(localMeasure.city.title)}>
                         <a
                           href={`#${localMeasure.city.title}`}
