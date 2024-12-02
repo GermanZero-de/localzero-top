@@ -16,9 +16,10 @@ interface SerializedBookmark {
 }
 
 const urlSafeBase64Encode = (str: string): string => {
-  console.log('Encode', str);
   try {
-    return Buffer.from(str).toString('base64');
+    const base64 = Buffer.from(str).toString('base64');
+    // Replace standard Base64 characters with URL-safe characters
+    return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   } catch (error) {
     console.error('Failed to encode string:', error);
     throw new Error('Failed to encode bookmark data');
@@ -26,9 +27,24 @@ const urlSafeBase64Encode = (str: string): string => {
 };
 
 const urlSafeBase64Decode = (str: string): string => {
-  console.log('Decode', str);
   try {
-    return Buffer.from(str, 'base64').toString();
+    console.log('Input string:', str);
+
+    const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+    console.log('After character replacement:', base64);
+
+    const paddedBase64 = base64.padEnd(
+      base64.length + ((4 - (base64.length % 4)) % 4),
+      '=',
+    );
+    console.log('After padding:', paddedBase64);
+
+    const decoded = new TextDecoder().decode(
+      Buffer.from(paddedBase64, 'base64'),
+    );
+    console.log('After decoding:', decoded);
+
+    return decoded;
   } catch (error) {
     console.error('Failed to decode string:', error);
     throw new Error('Failed to decode bookmark data');
@@ -36,6 +52,11 @@ const urlSafeBase64Decode = (str: string): string => {
 };
 
 export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
+  // Handle empty bookmarks array
+  if (!bookmarks || bookmarks.length === 0) {
+    return '';
+  }
+
   const serializedBookmarks: SerializedBookmark[] = bookmarks.map(
     (bookmark) => ({
       name: bookmark.name,
@@ -49,7 +70,7 @@ export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
     const encodedData = urlSafeBase64Encode(
       JSON.stringify(serializedBookmarks),
     );
-    return `bookmarks=${encodedData}`;
+    return `bookmarks=${encodeURIComponent(encodedData)}`;
   } catch (error) {
     console.error('Failed to encode bookmarks:', error);
     return '';
@@ -60,16 +81,35 @@ export const decodeBookmarksFromURL = (
   queryString: string,
   appData: AppData,
 ): Bookmark[] => {
-  const params = new URLSearchParams(queryString);
-  const bookmarksParam = params.get('bookmarks');
-
-  if (!bookmarksParam) return [];
-
   try {
-    const decodedString = urlSafeBase64Decode(bookmarksParam);
+    const params = new URLSearchParams(queryString);
+    const bookmarksParam = params.get('bookmarks');
+
+    // Early return for empty or invalid bookmark parameter
+    if (!bookmarksParam) {
+      return [];
+    }
+
+    console.log('Decoding bookmarks:', bookmarksParam);
+    const decodedString = urlSafeBase64Decode(
+      decodeURIComponent(bookmarksParam),
+    );
+
+    // Validate decoded string is valid JSON
+    if (!decodedString.trim().startsWith('[')) {
+      console.error('Invalid JSON format in decoded string');
+      console.log(decodedString);
+      return [];
+    }
+
     const serializedBookmarks: SerializedBookmark[] = JSON.parse(decodedString);
 
-    // Reconstruct full bookmarks by matching measure codes with appData
+    // Validate serialized bookmarks structure
+    if (!Array.isArray(serializedBookmarks)) {
+      console.error('Decoded data is not an array');
+      return [];
+    }
+
     return serializedBookmarks.map((serializedBookmark) => ({
       name: serializedBookmark.name,
       measures: serializedBookmark.measures
