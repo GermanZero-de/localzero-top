@@ -11,15 +11,8 @@ import styles from '../../styles/MeasureDetailPage.module.scss';
 import ArrowRight from '@/app/components/Arrow-Right';
 import LoadingSpinner from '@/app/components/LoadingScreen';
 import { LocalMeasure } from '@/app/models/LocalMeasure';
-
-const slugify = (str: string) =>
-  str
-    .toLowerCase()
-    .trim() // Remove leading and trailing whitespace
-    .replace(/\s+/g, '-') // Replace spaces with dashes
-    .replace(/ü/g, 'u')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o');
+import FocuseBallsDetails from '@/app/components/FocuseBallsDetails';
+import { Focus } from '@/app/models/focus';
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -30,6 +23,7 @@ const MeasureDetailPage = () => {
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
+  const [focuses, setFocuses] = useState<Focus[] | null>(null);
 
   const toggleDropdown = (cityTitle: string) => {
     setDropdownStates((prevState) => ({
@@ -50,7 +44,7 @@ const MeasureDetailPage = () => {
       try {
         setLoading(true);
         const data: AppData = await fetchSheetsData(); // Fetch all linkedMeasures (AppData)
-
+        setFocuses(data.focuses);// set focuses
         const selectedMeasure = data.blueprints.find(
           (item) => item.code === code,
         ); // Find the measure by code
@@ -101,6 +95,9 @@ const MeasureDetailPage = () => {
               bookmarks={[]}
             />
           )}
+          <div>
+            <FocuseBallsDetails measureFocuses={measure?.focuses} allFocuses = {focuses} />
+          </div>
         </div>
 
         {/* Middle Column: Description */}
