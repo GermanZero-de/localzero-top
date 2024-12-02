@@ -87,9 +87,6 @@ const MeasureDetailPage = () => {
         localMeasures: [], // Pass empty array for localMeasures
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
-      isFilterPanelVisible={false} // Filter panel visibility (you can manage this state as needed)
-      toggleFilterPanel={() => {}}
-      closeFilterPanel={() => {}}
     >
       <h1>{measure?.title}</h1>
       <div className={styles['measure-detail-container']}>
@@ -147,7 +144,6 @@ const MeasureDetailPage = () => {
                         />
                       </div>
 
-                      {/* When the dropdown is open, show the link below the city name */}
                       {isOpen && (
                         <div className={styles['dropdown-menu']}>
                           <a
