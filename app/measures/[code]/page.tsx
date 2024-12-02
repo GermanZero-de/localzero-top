@@ -1,14 +1,15 @@
-'use client'; // Mark the component as a client component
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation'; // Use useParams to get dynamic route parameters
+import { useParams } from 'next/navigation';
 import { AppData } from '@/app/models/appData';
 import { Blueprint } from '@/app/models/blueprint';
 import Layout from '@/app/components/Layout';
-import MeasureCard from '@/app/components/MeasureCard'; // Import MeasureCard component
+import MeasureCard from '@/app/components/MeasureCard';
 import { fetchSheetsData } from '@/app/data/fetchData';
-import styles from '../../styles/MeasureDetailPage.module.scss'; // Import the correct SCSS file
+import styles from '../../styles/MeasureDetailPage.module.scss';
 import ArrowRight from '@/app/components/Arrow-Right';
+import LoadingSpinner from '@/app/components/LoadingScreen';
 
 const slugify = (str: string) =>
   str
@@ -23,8 +24,8 @@ const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
 
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [dropdownStates, setDropdownStates] = useState<{
     [key: string]: boolean;
   }>({});
@@ -68,11 +69,9 @@ const MeasureDetailPage = () => {
     fetchMeasureData();
   }, [code]); // Fetch measure data when code changes
 
-  // Show loading, error message, or measure content
-  if (loading) return <p>Lädt..</p>;
+  if (loading) return <LoadingSpinner />;
   if (error) return <p>{error}</p>;
 
-  // Layout rendering with the selected measure data passed to the Layout component
   return (
     <Layout
       data={{
@@ -111,12 +110,7 @@ const MeasureDetailPage = () => {
         {/* Right Column: Cities and Dropdown */}
         <div className={styles['cities-overlay']}>
           <h2>Städte</h2>
-          {/* Display the count of cities */}
-          <p>
-            {measure?.cities?.length
-              ? `This measure is linked to ${measure.cities.length} city/cities.`
-              : 'No cities available for this measure.'}
-          </p>
+
           <div className={styles['cities-list']}>
             {measure?.cities?.length
               ? measure.cities.map((city) => {

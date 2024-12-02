@@ -20,6 +20,7 @@ import {
   encodeBookmarksToURL,
   decodeBookmarksFromURL,
 } from '@/app/components/BookmarkShare';
+import LoadingSpinner from '@/app/components/LoadingScreen';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -298,7 +299,7 @@ const Pages = () => {
             />
           )}
           {isLoading ? (
-            <p>Lädt...</p>
+            <LoadingSpinner variant="offset" />
           ) : displayedMeasures.length > 0 ? (
             <MeasuresGrid
               blueprints={displayedMeasures}
