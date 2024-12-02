@@ -1,6 +1,8 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
 import { FaEye, FaTrash } from 'react-icons/fa';
+import { CiShare2 } from 'react-icons/ci';
+import { MdCreateNewFolder } from 'react-icons/md';
 import '../styles/Bookmark.scss';
 import { useBookmarkSharing } from '@/app/components/BookmarkShare';
 
@@ -45,9 +47,10 @@ const Bookmark: React.FC<BookmarkProps> = ({
           value={newBookmarkName}
           onChange={(e) => setNewBookmarkName(e.target.value)}
           placeholder="Namen festlegen"
+          className="bookmark-input"
         />
         <button className="create-button" onClick={handleCreateBookmark}>
-          Erstelle einen Merkzettel
+          <MdCreateNewFolder></MdCreateNewFolder>
         </button>
       </div>
       <div className="bookmarks-list">
@@ -68,7 +71,8 @@ const Bookmark: React.FC<BookmarkProps> = ({
         ))}
       </div>
       <button className="share-bookmarks" onClick={handleShareBookmarks}>
-        Share Bookmarks
+        <span className="share-text">Teilen</span>
+        <CiShare2></CiShare2>
       </button>
     </div>
   );

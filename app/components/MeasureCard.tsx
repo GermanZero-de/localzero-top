@@ -49,9 +49,9 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
         cities: blueprint.cities.map((city) => ({ ...city })),
         description: blueprint.description,
       };
-
       onAddMeasureToBookmark(bookmarkName, blueprintToAdd);
       setShowDropdown(false);
+      alert(`Measure added to ${bookmarkName}`);
     } catch (error) {
       console.error('Failed to add measure to bookmark:', error);
     }
@@ -71,8 +71,8 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
             <Image
               src={bookmarkIcon}
               alt="Bookmark Icon"
-              width={34}
-              height={34}
+              width={44}
+              height={44}
             />
             {showDropdown && (
               <div className="bookmark-dropdown">

@@ -39,12 +39,37 @@
 }
 
 .create-button {
-  background-color: #9adfef;
   color: rgb(0, 0, 0);
-  padding: 6px 5px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
+  height: 40px;
+  background-color: #ffffff;
+}
+
+.bookmark-input {
+  width: 90%;
+  margin: 0 5px;
+}
+
+.share-bookmarks {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+  margin: 10px 0 0 0;
+  padding: 0;
+
+  .share-text {
+    margin-right: 10px;
+  }
+
+  :hover {
+    color: #4b5563;
+  }
+}
+
+.create-bookmark {
+  display: flex;
+  flex-direction: row;
 }
