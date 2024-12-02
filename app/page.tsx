@@ -161,7 +161,7 @@ const Pages = () => {
             />
           )}
           {isLoading ? (
-            <LoadingSpinner />
+            <LoadingSpinner variant="offset" />
           ) : filteredMeasures.length > 0 ? (
             <MeasuresGrid blueprints={filteredMeasures} />
           ) : (

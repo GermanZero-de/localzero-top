@@ -2,8 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  margin-top: -150px;
+  height: 100vh;
+}
+
+.loading-spinner--offset {
+  margin-top: -200px;
 }
 
 .spinner {

@@ -1,11 +1,13 @@
 import React from 'react';
 import '../styles/loading.scss';
 
-console.log('Loading');
-
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ variant }: { variant?: 'default' | 'offset' }) => {
   return (
-    <div className="loading-spinner">
+    <div
+      className={`loading-spinner ${
+        variant === 'offset' ? 'loading-spinner--offset' : ''
+      }`}
+    >
       <div className="spinner"></div>
     </div>
   );

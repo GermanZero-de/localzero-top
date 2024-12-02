@@ -1,3 +1,5 @@
+// MeasureDetailPage.tsx
+
 'use client'; // Mark the component as a client component
 
 import React, { useState, useEffect } from 'react';
@@ -9,6 +11,7 @@ import MeasureCard from '@/app/components/MeasureCard'; // Import MeasureCard co
 import { fetchSheetsData } from '@/app/data/fetchData';
 import styles from '../../styles/MeasureDetailPage.module.scss'; // Import the correct SCSS file
 import ArrowRight from '@/app/components/Arrow-Right';
+import LoadingSpinner from '@/app/components/LoadingScreen'; // Import LoadingSpinner
 
 const slugify = (str: string) =>
   str
@@ -69,7 +72,7 @@ const MeasureDetailPage = () => {
   }, [code]); // Fetch measure data when code changes
 
   // Show loading, error message, or measure content
-  if (loading) return <p>Lädt..</p>;
+  if (loading) return <LoadingSpinner />; // Use LoadingSpinner here
   if (error) return <p>{error}</p>;
 
   // Layout rendering with the selected measure data passed to the Layout component
@@ -110,12 +113,6 @@ const MeasureDetailPage = () => {
         <div className={styles['cities-overlay']}>
           <h2>Städte</h2>
 
-          {/* Took this away for now, can be used later if needed. */}
-          {/* <p>
-            {measure?.cities?.length
-              ? `This measure is linked to ${measure.cities.length} city/cities.`
-              : 'No cities available for this measure.'}
-          </p> */}
           <div className={styles['cities-list']}>
             {measure?.cities?.length
               ? measure.cities.map((city) => {
