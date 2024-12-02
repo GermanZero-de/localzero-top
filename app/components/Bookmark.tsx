@@ -1,6 +1,6 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
-import { FaEye, FaTrash } from 'react-icons/fa';
+//import { FaEye, FaTrash } from 'react-icons/fa';
 import '../styles/Bookmark.scss';
 import { useBookmarkSharing } from '@/app/components/BookmarkShare';
 

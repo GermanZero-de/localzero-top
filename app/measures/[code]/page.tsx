@@ -111,25 +111,26 @@ const MeasureDetailPage = () => {
 
           <div className={styles['cities-list']}>
             {linkedMeasures?.length
-              ? linkedMeasures.map((localMeasure, key) => {
-                  if (localMeasure.title === 'No city') {
-                    return (
-                      <p key={key} className={styles['city-item']}>
-                        No city has implemented this measure.
-                      </p>
-                    );
-                  }
-
-                  const isOpen = dropdownStates[localMeasure.city.title] || false; // Get the open/close state for this city
+              ? Object.entries(
+                  linkedMeasures.reduce((acc, localMeasure) => {
+                    const cityTitle = localMeasure.city.title;
+                    if (!acc[cityTitle]) {
+                      acc[cityTitle] = [];
+                    }
+                    acc[cityTitle].push(localMeasure);
+                    return acc;
+                  }, {} as Record<string, LocalMeasure[]>)
+                ).map(([cityTitle, measures]) => {
+                  const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
                   return (
-                    <div key={key} className={styles['city-item']}>
-                      <div onClick={() => toggleDropdown(localMeasure.city.title)}>
+                    <div key={cityTitle} className={styles['city-item']}>
+                      <div onClick={() => toggleDropdown(cityTitle)}>
                         <a
-                          href={`#${localMeasure.city.title}`}
+                          href={`#${cityTitle}`}
                           className={styles['city-item-link']}
                         >
-                          {localMeasure.city.title}
+                          {cityTitle}
                         </a>
                         <ArrowRight
                           color="#4a0a78"
@@ -141,16 +142,20 @@ const MeasureDetailPage = () => {
                         />
                       </div>
 
+                      {/* When the dropdown is open, show all links for the city */}
                       {isOpen && (
                         <div className={styles['dropdown-menu']}>
-                          <a
-                            href={localMeasure.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles['city-link']}
-                          >
-                            Local Monitoring
-                          </a>
+                          {measures.map((measure, index) => (
+                            <a
+                              key={index}
+                              href={measure.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles['city-link']}
+                            >
+                              - {measure.title}
+                            </a>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -162,6 +167,7 @@ const MeasureDetailPage = () => {
       </div>
     </Layout>
   );
+
 };
 
 export default MeasureDetailPage;
