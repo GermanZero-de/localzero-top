@@ -12,15 +12,6 @@ import ArrowRight from '@/app/components/Arrow-Right';
 import LoadingSpinner from '@/app/components/LoadingScreen';
 import { LocalMeasure } from '@/app/models/LocalMeasure';
 
-const slugify = (str: string) =>
-  str
-    .toLowerCase()
-    .trim() // Remove leading and trailing whitespace
-    .replace(/\s+/g, '-') // Replace spaces with dashes
-    .replace(/ü/g, 'u')
-    .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o');
-
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
   const [linkedMeasures, setLinkedMeasures] = useState<LocalMeasure[] | null>(null);
@@ -117,25 +108,26 @@ const MeasureDetailPage = () => {
 
           <div className={styles['cities-list']}>
             {linkedMeasures?.length
-              ? linkedMeasures.map((localMeasure) => {
-                  if (localMeasure.title === 'No city') {
-                    return (
-                      <p key={localMeasure.city.title} className={styles['city-item']}>
-                        No city has implemented this measure.
-                      </p>
-                    );
-                  }
-
-                  const isOpen = dropdownStates[localMeasure.city.title] || false; // Get the open/close state for this city
+              ? Object.entries(
+                  linkedMeasures.reduce((acc, localMeasure) => {
+                    const cityTitle = localMeasure.city.title;
+                    if (!acc[cityTitle]) {
+                      acc[cityTitle] = [];
+                    }
+                    acc[cityTitle].push(localMeasure);
+                    return acc;
+                  }, {} as Record<string, LocalMeasure[]>)
+                ).map(([cityTitle, measures]) => {
+                  const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
                   return (
-                    <div key={localMeasure.city.title} className={styles['city-item']}>
-                      <div onClick={() => toggleDropdown(localMeasure.city.title)}>
+                    <div key={cityTitle} className={styles['city-item']}>
+                      <div onClick={() => toggleDropdown(cityTitle)}>
                         <a
-                          href={`#${localMeasure.city.title}`}
+                          href={`#${cityTitle}`}
                           className={styles['city-item-link']}
                         >
-                          {localMeasure.city.title}
+                          {cityTitle}
                         </a>
                         <ArrowRight
                           color="#4a0a78"
@@ -147,17 +139,20 @@ const MeasureDetailPage = () => {
                         />
                       </div>
 
-                      {/* When the dropdown is open, show the link below the city name */}
+                      {/* When the dropdown is open, show all links for the city */}
                       {isOpen && (
                         <div className={styles['dropdown-menu']}>
-                          <a
-                            href={localMeasure.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles['city-link']}
-                          >
-                            Local Monitoring
-                          </a>
+                          {measures.map((measure, index) => (
+                            <a
+                              key={index}
+                              href={measure.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles['city-link']}
+                            >
+                              - {measure.title}
+                            </a>
+                          ))}
                         </div>
                       )}
                     </div>
@@ -169,6 +164,7 @@ const MeasureDetailPage = () => {
       </div>
     </Layout>
   );
+
 };
 
 export default MeasureDetailPage;
