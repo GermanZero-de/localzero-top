@@ -14,6 +14,8 @@ import { City } from '@/app/models/city';
 import Bookmark from '@/app/components/Bookmark';
 import { Blueprint } from '@/app/models/blueprint';
 
+import { FaShareAlt } from "react-icons/fa";
+
 interface FilterPanelProps {
   onFilterChange: (
     priorities: Priority[],
@@ -151,7 +153,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           />
         </button>
         <button className="share-filters" onClick={handleShare}>
-          Link teilen
+          <FaShareAlt />
         </button>
       </div>
 
