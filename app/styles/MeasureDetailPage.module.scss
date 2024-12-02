@@ -5,6 +5,8 @@
   grid-template-columns: 25% 55% 15%; /* Three columns: left 1fr, middle 2fr, right 1fr */
   gap: 20px; /* Add space between the columns */
   margin-top: 6rem;
+  margin-left: 250px;
+  margin-right: 250px;
 
   @media (max-width: 1920px) {
     grid-template-columns: 25% 45% 25%;
@@ -18,14 +20,6 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr; /* One column on small screens */
   }
-}
-
-.measure-card {
-  /* Optional: Add styling for MeasureCard if needed */
-}
-
-.description {
-  /* Optional: Add styles for description text if needed */
 }
 
 .cities-overlay {
