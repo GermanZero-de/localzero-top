@@ -6,6 +6,7 @@ import BlueFilterBar from './BlueFilterBar';
 import Footer from './Footer';
 import { AppData } from '@/app/models/appData'; // Make sure to import types if necessary
 import { Filter } from '@/app/models/Filter'; // Assuming you have a Filter model
+import '../styles/styles.scss';
 
 interface LayoutProps {
   children: ReactNode;
