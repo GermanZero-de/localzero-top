@@ -169,7 +169,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       handleChange(priority, undefined, undefined, undefined)
                     }
                   />
-                  <label className="stars">{'★'.repeat(priority.stars)}</label>
+                  <span className="stars">{'★'.repeat(priority.stars)}</span>
                 </div>
               ))}
             </div>
@@ -191,7 +191,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       handleChange(undefined, sector, undefined, undefined)
                     }
                   />
-                  <label>{sector.title}</label>
+                  <span>{sector.title}</span>
                 </div>
               ))}
             </div>
@@ -243,7 +243,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                         handleChange(undefined, undefined, undefined, city)
                       }
                     />
-                    <label>{city.title}</label>
+                    <span>{city.title}</span>
                   </div>
                 ))}
               </div>
