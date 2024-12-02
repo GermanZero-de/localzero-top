@@ -265,13 +265,27 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #00aaff; // Blue background color
+  background-color: #95dcff;
   z-index: 1000;
   padding: 1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   color: white;
+
+  .close-overlay-button {
+    color: rgb(0, 0, 0);
+  }
+
+  .share-filters {
+    background-color: #95dcff;
+    color: rgb(0, 0, 0);
+  }
+
+  .filter-icon-image {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg)
+      brightness(0%) contrast(100%);
+  }
 
   .filter-header {
     display: flex;
