@@ -9,6 +9,14 @@
   margin-top: -200px;
 }
 
+.loading-text {
+  font-size: 1.5rem;
+  color: #3498db;
+  margin-top: 0px;
+  animation: bounce 1s infinite alternate;
+  margin-left: 5px;
+}
+
 .spinner {
   border: 8px solid #f3f3f3; 
   border-top: 8px solid #3498db; 

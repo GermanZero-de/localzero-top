@@ -9,6 +9,7 @@ const LoadingSpinner = ({ variant }: { variant?: 'default' | 'offset' }) => {
       }`}
     >
       <div className="spinner"></div>
+      <div className="loading-text">Loading...</div>
     </div>
   );
 };
