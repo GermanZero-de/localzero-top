@@ -6,11 +6,16 @@ import filterIcon from '../photos/filterPlaceholder.png';
 import bookmarkIcon from '../photos/bookmarkIcon.png';
 
 interface BlueFilterBarProps {
-  onToggleFilterPanel: () => void; // For the Filter button
-  onGoBack: () => void; // Add this property
+  onToggleFilterPanel?: () => void; // Optional, for filter button
+  onGoBack: () => void; // For back button
+  hideIcons?: boolean; // New prop to hide icons
 }
 
-const BlueFilterBar: React.FC<BlueFilterBarProps> = ({ onToggleFilterPanel, onGoBack }) => {
+const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
+  onToggleFilterPanel,
+  onGoBack,
+  hideIcons = false,
+}) => {
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -21,19 +26,28 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({ onToggleFilterPanel, onGo
         router.push('/'); // Fallback to the homepage if no history exists
       }
     } catch (error) {
-      console.error("Error navigating back:", error);
+      console.error('Error navigating back:', error);
     }
   };
 
   return (
     <div className="blue-filter-bar">
-      <button onClick={onToggleFilterPanel} className="filter-icon-button">
-        <Image src={filterIcon} alt="Filter Icon" width={24} height={24} />
-      </button>
-      <button className="bookmark-icon-button">
-        <Image src={bookmarkIcon} alt="Bookmark Icon" width={24} height={24} />
-      </button>
-      <button onClick={onGoBack || handleGoBack} className="back-button">
+      {!hideIcons && (
+        <>
+          <button onClick={onToggleFilterPanel} className="filter-icon-button">
+            <Image src={filterIcon} alt="Filter Icon" width={24} height={24} />
+          </button>
+          <button className="bookmark-icon-button">
+            <Image
+              src={bookmarkIcon}
+              alt="Bookmark Icon"
+              width={24}
+              height={24}
+            />
+          </button>
+        </>
+      )}
+      <button onClick={onGoBack} className="back-button">
         Back
       </button>
     </div>

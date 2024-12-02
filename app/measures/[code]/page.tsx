@@ -10,6 +10,7 @@ import { fetchSheetsData } from '@/app/data/fetchData';
 import styles from '../../styles/MeasureDetailPage.module.scss';
 import ArrowRight from '@/app/components/Arrow-Right';
 import LoadingSpinner from '@/app/components/LoadingScreen';
+import { LocalMeasure } from '@/app/models/LocalMeasure';
 
 const slugify = (str: string) =>
   str
@@ -22,7 +23,7 @@ const slugify = (str: string) =>
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
-
+  const [linkedMeasures, setLinkedMeasures] = useState<LocalMeasure[] | null>(null);
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +38,7 @@ const MeasureDetailPage = () => {
     }));
   };
 
-  // Fetch measure data once the code is available
+  // Fetch measure linkedMeasures once the code is available
   useEffect(() => {
     if (!code) {
       setError('Code not found in the URL.');
@@ -48,8 +49,7 @@ const MeasureDetailPage = () => {
     const fetchMeasureData = async () => {
       try {
         setLoading(true);
-        const data: AppData = await fetchSheetsData(); // Fetch all data (AppData)
-        console.log('Fetched data:', data); // Log the fetched data for debugging
+        const data: AppData = await fetchSheetsData(); // Fetch all linkedMeasures (AppData)
 
         const selectedMeasure = data.blueprints.find(
           (item) => item.code === code,
@@ -59,15 +59,19 @@ const MeasureDetailPage = () => {
         } else {
           setError('Measure not found for the provided code.');
         }
+        const linkedMeasures = data.localMeasures.filter(
+              (localMeasure) => localMeasure.linkedBlueprint?.code == code);
+
+        setLinkedMeasures(linkedMeasures)
       } catch (err) {
-        setError('Failed to fetch measure data'); // Set error if data fetching fails
+        setError('Failed to fetch measure linkedMeasures'); // Set error if linkedMeasures fetching fails
       } finally {
-        setLoading(false); // Stop loading when data fetching is complete
+        setLoading(false); // Stop loading when linkedMeasures fetching is complete
       }
     };
 
     fetchMeasureData();
-  }, [code]); // Fetch measure data when code changes
+  }, [code]); // Fetch measure linkedMeasures when code changes
 
   if (loading) return <LoadingSpinner />;
   if (error) return <p>{error}</p>;
@@ -83,9 +87,6 @@ const MeasureDetailPage = () => {
         localMeasures: [], // Pass empty array for localMeasures
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
-      isFilterPanelVisible={false} // Filter panel visibility (you can manage this state as needed)
-      toggleFilterPanel={() => {}}
-      closeFilterPanel={() => {}}
     >
       <h1>{measure?.title}</h1>
       <div className={styles['measure-detail-container']}>
@@ -112,26 +113,26 @@ const MeasureDetailPage = () => {
           <h2>Städte</h2>
 
           <div className={styles['cities-list']}>
-            {measure?.cities?.length
-              ? measure.cities.map((city) => {
-                  if (city.title === 'No city') {
+            {linkedMeasures?.length
+              ? linkedMeasures.map((localMeasure, key) => {
+                  if (localMeasure.title === 'No city') {
                     return (
-                      <p key={city.title} className={styles['city-item']}>
+                      <p key={key} className={styles['city-item']}>
                         No city has implemented this measure.
                       </p>
                     );
                   }
 
-                  const isOpen = dropdownStates[city.title] || false; // Get the open/close state for this city
+                  const isOpen = dropdownStates[localMeasure.city.title] || false; // Get the open/close state for this city
 
                   return (
-                    <div key={city.title} className={styles['city-item']}>
-                      <div onClick={() => toggleDropdown(city.title)}>
+                    <div key={key} className={styles['city-item']}>
+                      <div onClick={() => toggleDropdown(localMeasure.city.title)}>
                         <a
-                          href={`#${city.title}`}
+                          href={`#${localMeasure.city.title}`}
                           className={styles['city-item-link']}
                         >
-                          {city.title}
+                          {localMeasure.city.title}
                         </a>
                         <ArrowRight
                           color="#4a0a78"
@@ -143,13 +144,10 @@ const MeasureDetailPage = () => {
                         />
                       </div>
 
-                      {/* When the dropdown is open, show the link below the city name */}
                       {isOpen && (
                         <div className={styles['dropdown-menu']}>
                           <a
-                            href={`https://monitoring.localzero.net/${slugify(
-                              city.title,
-                            )}/massnahmen`}
+                            href={localMeasure.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles['city-link']}
