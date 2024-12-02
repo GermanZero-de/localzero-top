@@ -51,6 +51,11 @@ const Layout: React.FC<LayoutProps> = ({
               filters={activeFilters}
               onFilterChange={() => {}}
               onClose={closeFilterPanel}
+              bookmarks={[]}
+              onCreateBookmark={() => {}}
+              onAddMeasureToBookmark={() => {}}
+              onSelectBookmark={() => {}}
+              onDeleteBookmark={() => {}}
             />
           )}
         </div>
@@ -65,7 +70,11 @@ const Layout: React.FC<LayoutProps> = ({
               filters={activeFilters}
               onFilterChange={() => {}}
               onClose={closeFilterPanel}
-              isOverlay
+              bookmarks={[]}
+              onCreateBookmark={() => {}}
+              onAddMeasureToBookmark={() => {}}
+              onSelectBookmark={() => {}}
+              onDeleteBookmark={() => {}}
             />
           )}
           {children} {/* Render child components here */}

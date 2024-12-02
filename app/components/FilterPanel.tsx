@@ -185,6 +185,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             </div>
           </div>
 
+          <div className="filter-divider" />
+
           {/* Sector Filter */}
           <div className="filter-section">
             <h4>Sektoren</h4>
@@ -204,6 +206,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
               ))}
             </div>
           </div>
+
+          <div className="filter-divider" />
 
           {/* Focus Filter */}
           <div className="filter-section">
@@ -227,6 +231,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
               ))}
             </div>
           </div>
+
+          <div className="filter-divider" />
 
           {/* City Filter */}
           <div className="filter-section">
@@ -255,6 +261,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           </div>
         </div>
       )}
+
+      <div className="filter-divider" />
 
       <div className="filter-section">
         <button className="bookmark-button" onClick={toggleBookmarks}>
