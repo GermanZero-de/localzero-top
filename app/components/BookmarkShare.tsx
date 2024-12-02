@@ -7,7 +7,7 @@ interface Bookmark {
 }
 
 interface SerializedMeasure {
-  code: string; // Changed from id to code to match Blueprint interface
+  code: string;
 }
 
 interface SerializedBookmark {
@@ -16,29 +16,26 @@ interface SerializedBookmark {
 }
 
 const urlSafeBase64Encode = (str: string): string => {
-  // First encode the string to handle special characters
-  const encodedStr = encodeURIComponent(str);
-  return btoa(encodedStr)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  console.log('Encode', str);
+  try {
+    return btoa(encodeURIComponent(str));
+  } catch (error) {
+    console.error('Failed to encode string:', error);
+    throw new Error('Failed to encode bookmark data');
+  }
 };
 
 const urlSafeBase64Decode = (str: string): string => {
+  console.log('Decode', str);
   try {
-    console.log(str);
-    str = str.replace(/-/g, '+').replace(/_/g, '/');
-    while (str.length % 4) str += '=';
-    // Decode base64 and then decode URI components to handle special characters
     return decodeURIComponent(atob(str));
   } catch (error) {
     console.error('Failed to decode string:', error);
-    throw new Error('Invalid bookmark data');
+    throw new Error('Failed to decode bookmark data');
   }
 };
 
 export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
-  // Serialize bookmarks to a minimal format for URL sharing
   const serializedBookmarks: SerializedBookmark[] = bookmarks.map(
     (bookmark) => ({
       name: bookmark.name,

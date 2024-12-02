@@ -16,7 +16,11 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import Bookmark from './components/Bookmark';
-import { decodeBookmarksFromURL } from './components/BookmarkShare';
+import {
+  encodeBookmarksToURL,
+  decodeBookmarksFromURL,
+  useBookmarkSharing,
+} from './components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -241,21 +245,20 @@ const Pages = () => {
   };
 
   const updateURLWithBookmarks = (bookmarks: Bookmark[]) => {
+    console.log('Updating URL with bookmarks:', bookmarks);
+    const queryString = encodeBookmarksToURL(bookmarks);
     const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('bookmarks', JSON.stringify(bookmarks));
+    queryParams.set('bookmarks', queryString);
     router.push(`?${queryParams.toString()}`);
   };
 
   const [bookmarkSelected, setBookmarkSelected] = useState(false);
 
   const handleSelectBookmark = (bookmark: Bookmark) => {
-    if (!bookmarkSelected) {
-      setDisplayedMeasures(bookmark.measures);
-      setBookmarkSelected(true);
-    } else {
-      setDisplayedMeasures(filteredMeasures);
-      setBookmarkSelected(false);
-    }
+    setDisplayedMeasures(
+      bookmarkSelected ? filteredMeasures : bookmark.measures,
+    );
+    setBookmarkSelected(!bookmarkSelected);
   };
 
   return (
