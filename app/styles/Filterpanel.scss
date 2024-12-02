@@ -377,6 +377,9 @@
   font-size: 25px;
 }
 
-.close-overlay-button small-screen-icon {
-  content: none;
+
+@media screen and (min-width: 601px) {
+  .close-overlay-button {
+    display: none;
+  }
 }
