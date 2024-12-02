@@ -27,14 +27,14 @@ interface RawBlueprint {
 
 export const fetchSheetsData = async () => {
   //Can be autoparsed
-  const prioritys = await fetchPageAndParse<Priority>('1339549110');
-  const sectors = await fetchPageAndParse<Sector>('1227125832');
-  const focuses = await fetchPageAndParse<Focus>('1437521198');
-  const cities = await fetchPageAndParse<City>('593066774');
+  const prioritys = await fetchPageAndParse<Priority>('PriorityList');
+  const sectors = await fetchPageAndParse<Sector>('SectorList');
+  const focuses = await fetchPageAndParse<Focus>('FocusList');
+  const cities = await fetchPageAndParse<City>('CityList');
 
   //Cant be autoparsed
-  const rawLocalmeasures = await fetchPage('1028955315');
-  const rawBluePrintData = await fetchPage('0');
+  const rawLocalmeasures = await fetchPage('LocalMeasures');
+  const rawBluePrintData = await fetchPage('BluePrintList');
 
   const blueprints = await parseBlueprints(
     rawBluePrintData,
@@ -85,6 +85,7 @@ const parseLocalMeasures = async (
             (sector) => sector.title == rawLocalMeasure.sector.trim(),
           );
           if (rawLocalMeasure.sector == undefined || sector == undefined) {
+             console.log("Print: " + rawLocalMeasure.title)
             throw new Error('Sector is undefined for LocalMeasure');
           }
           const city = cities.find(
@@ -196,8 +197,7 @@ const parseBlueprints = async (
 };
 
 const fetchPage = async (pageName: string) => {
-  const url = `https://docs.google.com/spreadsheets/d/1zluA1FvCrFrGiLkB828kt54BEQed52jpEJMcX8hRRLk/export?format=csv&gid=${pageName}`;
-  const response = await fetch(url);
+  const response = await fetch("/sheets/" + pageName + ".csv");
   if (!response.ok) {
     throw new Error(`Failed to fetch page: ${response.statusText}`);
   }

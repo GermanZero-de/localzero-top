@@ -1,0 +1,70 @@
+code,title,priority,cities,sector,focuses,description
+1,Bau von Windenergieanlagen ermöglichen und unterstützen,3,"Kaiserslautern, Bremen, Bad Hersfeld, Kernen im Remstal, Öhringen, Freiburg, Mainz, Markdorf, Aachen",Strom,"THG-Einsparpotenzial, Wirtschaftlichkeit, Einfache Umsetzung, Kommune als Vorbild, Akzeptanzförderung, Multiplikatoreffekt, Benefits für die Allgemeinheit",placeholder
+2,PV-Belegung aller kommuneneigenen Dachflächen,3,"Kaiserslautern, Bremen, Kernen im Remstal, Öhringen, Freiburg, Lübeck, Mainz, Aachen, Dresden, München",Strom,THG-Einsparpotenzial,placeholder
+3,Bau von PV-Flächenanlagen ermöglichen und unterstützen,3,"Kaiserslautern, Bad Hersfeld, Würzburg, Rüsselsheim, Öhringen, Lübeck, Markdorf, Aachen, Dresden",Strom,THG-Einsparpotenzial,placeholder
+4,Förderprogramme für PV-Anlagen,2,"Bad Hersfeld, Rüsselsheim, Kernen im Remstal, Lübeck, Mainz, Bargteheide",Strom,THG-Einsparpotenzial,placeholder
+5,Kommune bezieht für alle eigenen Liegenschaften nur noch qualifizierten Ökostrom,2,"Kernen im Remstal, Bargteheide, Dresden",Strom,THG-Einsparpotenzial,placeholder
+6,Beratungsangebote für Private und Unternehmen,2,"Kaiserslautern, Bremen, Bad Hersfeld",Strom,THG-Einsparpotenzial,placeholder
+48,PV-Pflicht bei Neubauten,1,"Bad Hersfeld, Lübeck",Strom,Multiplikatoreffekt,placeholder
+49,100 Prozent Ökostrom als Angebot der Stadtwerke,1,Mainz,Strom,THG-Einsparpotenzial,placeholder
+50,Start wirksamer Kampagnen,1,"Bad Hersfeld, Kernen im Remstal, Lübeck, Mainz, Aachen",Strom,"THG-Einsparpotenzial, Multiplikatoreffekt",placeholder
+51,Unterstützung/Aufbau von oder Zusammenarbeit mit Energiegenossenschaften,1,"Würzburg, Freiburg, Mainz, Aachen",Strom,THG-Einsparpotenzial,placeholder
+52,Einrichtung eines kommunalen Energiemanagements,1,"Aachen, München",Strom,THG-Einsparpotenzial,placeholder
+53,Bau von Agri-PV ermöglichen und Errichtung unterstützen,1,"Lübeck, Mainz",Strom,THG-Einsparpotenzial,placeholder
+7,Wärmeplanung beauftragen bzw. erstellen gemäß Wärmeplanungsgesetz bzw. Landesgesetz,3,"Bremen, Bad Hersfeld, Würzburg, Rüsselsheim, Kernen im Remstal, Öhringen, Freiburg, Lübeck, Mainz, Aachen, Dresden",Wärme,THG-Einsparpotenzial,placeholder
+8,Dekarbonisierung bestehender Fernwärmenetze und Ausbau grüner Wärmenetze durch Erschließung erneuerbarer Wärmequellen,3,"Ingolstadt, Freiburg, Mainz, Aachen, Dresden",Wärme,THG-Einsparpotenzial,placeholder
+9,"Umsetzung von Effizienzmaßnahmen in Nahwärmenetzen (u. a. Temperaturreduzierung, hydraulische Optimierung)",3,Mainz,Wärme,THG-Einsparpotenzial,placeholder
+10,Beratung und Motivation zur Verdichtung und Erweiterung von Wärmenetzen in bestehenden Wohngebieten bzw. Anschluss- und Benutzungszwang,2,Freiburg,Wärme,THG-Einsparpotenzial,placeholder
+11,Energieverbrauch Krankenäuser senken (kommunale Krankenhäuser),2,Hansestadt Lüneburg,Industrie / Wirtschaft,THG-Einsparpotenzial,placeholder
+12,Beratung von und Unterstützung für Unternehmen,2,Aachen,Industrie / Wirtschaft,THG-Einsparpotenzial,placeholder
+13,Aufbau Klimaschutzkooperationen mit der Wirtschaft bzw. Industrieunternehmen,2,"Rüsselsheim, Bargteheide, Aachen",Industrie / Wirtschaft,THG-Einsparpotenzial,placeholder
+54,Einrichung von Materiallagern und Bauteilkatalogen für gebrauchte Bauteile,1,Aachen,Industrie / Wirtschaft,THG-Einsparpotenzial,placeholder
+55,Kreislaufwirtschaft und nachhaltige Baustoffe im Baubereich: kommunale Vergabeverfahren anpassen,1,Aachen,Industrie / Wirtschaft,THG-Einsparpotenzial,placeholder
+14,Umfassende energetische Gebäudesanierung der kommunalen Liegenschaften und kommunalen Wohhnungsbaugesellschaften,3,"Bad Hersfeld, Rüsselsheim, Kernen im Remstal, Freiburg, Bargteheide, Aachen, München",Gebäude,THG-Einsparpotenzial,placeholder
+15,Beratung zu Gebäudesanierung und Heizungstausch,3,"Bad Hersfeld, Kernen im Remstal, Braunschweig, Aachen",Gebäude,THG-Einsparpotenzial,placeholder
+16,Kommunales Förderprogramm für energetische Sanierung und erneuerbare Heizungen,3,"Bremen, Rüsselsheim",Gebäude,THG-Einsparpotenzial,placeholder
+17,Klimaneutrale Energieversorgung durch Bauleitplanung und städtebauliche Verträge,2,"Braunschweig, Aachen, München",Gebäude,THG-Einsparpotenzial,placeholder
+18,Energetische Quartierssanierung,2,"Kernen im Remstal, Braunschweig, Aachen",Gebäude,THG-Einsparpotenzial,placeholder
+56,Ambitionierte Leitlinien für Neubauten und Sanierung bei kommunalen Bau- bzw. Sanierungsprojekten,1,"Rüsselsheim, Braunschweig",Gebäude,THG-Einsparpotenzial,placeholder
+19,Mobilitätsplanung mit Fokus auf Ausbau Rad- und Fußinfrastruktur und ÖPNV-Entwicklung,3,"Kaiserslautern, Bremen, Bad Hersfeld, Rüsselsheim, Kernen im Remstal, Öhringen, Mainz, Bargteheide, Aachen, München",Verkehr,THG-Einsparpotenzial,placeholder
+20,Ausbau Radverkehr,2,"Bad Hersfeld, Öhringen, Mainz, Bargteheide, München",Verkehr,THG-Einsparpotenzial,placeholder
+21,Ausbau und Attraktivierung des ÖPNV-Angebotes,3,"Bad Hersfeld, Rüsselsheim, Kernen im Remstal, Öhringen, Mainz, Bargteheide, Aachen, München",Verkehr,Benefits für die Allgemeinheit,placeholder
+22,Reduktion der MIV Flächen,2,"Bad Hersfeld, Rüsselsheim, Öhringen, Mainz, Aachen",Verkehr,THG-Einsparpotenzial,placeholder
+23,Umstellung kommunaler Fuhrpark und Angebote für Mitarbeiter:innen,2,"Bad Hersfeld, Bargteheide, Aachen, München",Verkehr,THG-Einsparpotenzial,placeholder
+24,Einführung von Geschwindigkeitsbegrenzungen,2,"Bad Hersfeld, Weyhe, Mainz, Bargteheide",Verkehr,THG-Einsparpotenzial,placeholder
+25,Einkauf von Elektrobussen für den ÖPNV,3,München,Verkehr,THG-Einsparpotenzial,placeholder
+57,Unterstützung und Begleitung des betrieblichen Mobilitätsmanagement ,1,"Rüsselsheim, Bargteheide, Aachen",Verkehr,THG-Einsparpotenzial,placeholder
+58,Ausbau E-Ladestruktur,1,"Bargteheide, München",Verkehr,THG-Einsparpotenzial,placeholder
+59,"Schaffung von Anreizen für reduzierte PKW-Nutzung, z.B. über Auto-Abwrackprämie oder vergünstigte ÖPNV Angebote",1,München,Verkehr,THG-Einsparpotenzial,placeholder
+26,"Unterstützung bzw. Koordination der Moor-Wiedervernässung (Landkauf, Absprache mit Eigentümer:innen, Vorstudien, Umsetzung
+etc.)
+",3,"Bargteheide, München",Land & Natur,THG-Einsparpotenzial,placeholder
+27,Aufforstung als Klimawälder,3,"Kernen im Remstal, Bargteheide",Land & Natur,THG-Einsparpotenzial,placeholder
+28,Flächenschonende Stadtentwicklung,2,"Rüsselsheim, Braunschweig, Mainz, Bargteheide, Aachen",Land & Natur,THG-Einsparpotenzial,placeholder
+29,Baumschutzkonzept entwickeln,2,"Rüsselsheim, Bargteheide",Land & Natur,THG-Einsparpotenzial,placeholder
+60,Biotopverbünde schaffen,1,Braunschweig,Land & Natur,THG-Einsparpotenzial,placeholder
+30,Beratungs- und Förderangebote zur Umstellung auf ökologische und regenerative Landwirtschaf,2,"Kernen im Remstal, Freiburg, Bargteheide, Aachen",Landwirtschaft,THG-Einsparpotenzial,placeholder
+31,"Umstellung des Verpflegungsangebotes auf überwiegend ökologische vegetarische Ernährungsform in Kantinen der Schulen, Krankenhäuser und Pflegeeinrichtungen mit öffentlicher Trägerschaft",3,"Kernen im Remstal, Freiburg, Bargteheide, Aachen",Landwirtschaft,THG-Einsparpotenzial,placeholder
+32,Aufbau einer Wissensplattform für Landwirt:innen über klimaschonende Praktiken,2,No city,Landwirtschaft,THG-Einsparpotenzial,placeholder
+33,Aufbau eines Dialogforums mit der Landwirtschaf,2,"Kernen im Remstal, Bargteheide",Landwirtschaft,THG-Einsparpotenzial,placeholder
+34,Vergabe von kommunalen Pachtflächen nach ökologischen Kriterien,2,Aachen,Landwirtschaft,THG-Einsparpotenzial,placeholder
+61,Kommune fördert urbane Landwirtschaft und zivilgesellschaftliche Initiativen,1,Bargteheide,Landwirtschaft,THG-Einsparpotenzial,placeholder
+35,Energieautarker Betrieb der Kläranlagen,3,"Kernen im Remstal, Bargteheide",Abfallwirtschaft,THG-Einsparpotenzial,placeholder
+36,Optimierte Deponiegaserfassung,2,No city,Abfallwirtschaft,THG-Einsparpotenzial,placeholder
+37,Verbesserte Nutzung von Grünschnitt und Bioabfall zur Erzeugung von erneuerbaren Energien und bei der Abfallbehandlung,2,No city,Abfallwirtschaft,THG-Einsparpotenzial,placeholder
+38,Herstellung von Pflanzenkohle über Pyrolyse,2,No city,Abfallwirtschaft,THG-Einsparpotenzial,placeholder
+62,Biologische Abfallbehandlung bei Kompostierung (Nachrüstung einer Vergärungsstufe),1,No city,Abfallwirtschaft,Wirtschaftlichkeit,placeholder
+39,Gibt es ein üersonell gut augestattetes Klimaschutzmanagement?,3,Aachen,Governance,THG-Einsparpotenzial,placeholder
+40,"Ist ein ambitionierter Klimaschutzplan vorhanden? (Restbudget / Zieljahr / jährliche Kostenaufstellung / Verantwortlichkeiten
+benannt)",2,"Bad Hersfeld, Rüsselsheim, Kernen im Remstal, Mainz, Bargteheide, Aachen",Governance,Einfache Umsetzung,placeholder
+41,Werden alle Beschlüsse der Kommune auf ihre Auswirkungen auf das Klima hin geprüft (Klimarelevanzprüfung),2,No city,Governance,Akzeptanzförderung,placeholder
+42,"Ist Klimaschutz als Schnittstellenthema verankert, z.B.: in anderen kommunalen Konzepten?",2,"Bargteheide, Aachen",Governance,Akzeptanzförderung,placeholder
+43,"Gibt es strukturierte Möglichkeiten der Mitbestimmung der Zivilgesellschaft z.B. als Klimarat oder kontinuierlicher Bürgerbeteiligung
+etc.?",2,"Rüsselsheim, Mainz, Aachen",Governance,Benefits für die Allgemeinheit,placeholder
+63,Sektorenübergreifende Konzepte (siehe unten),1,No city,Governance,Akzeptanzförderung,placeholder
+64,Richtlinien für allgemeines nachhaltiges Beschaffungswese,1,"Bad Hersfeld, Bargteheide, Aachen",Governance,Einfache Umsetzung,placeholder
+44,"Fördermittelmanagement in der Kommune, das gezielt Fördermittel für die Kommune beantragt",2,Aachen,Finanzierung,Akzeptanzförderung,placeholder
+45,"Beschluss, Rücklagen und andere verfügbare Mittel Geldern aus klimaschädlichen Geldanlagen abzuziehen (Divestment)",2,Rüsselsheim,Finanzierung,Wirtschaftlichkeit,placeholder
+46,"Fordert die Kommune die ihr zustehende lokale Investitions- und Gewinnbeteiligung an der Energiewende und fließt dieser Gewinn an
+die Allgemeinheit zurück?",2,No city,Finanzierung,Benefits für die Allgemeinheit,placeholder
+47,Einrichtung eines Klimaschutzfonds,2,"Bargteheide, Aachen",Finanzierung,Multiplikatoreffekt,placeholder
