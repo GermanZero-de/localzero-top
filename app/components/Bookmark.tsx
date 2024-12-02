@@ -1,7 +1,6 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
-import { FaEye, FaTrash } from 'react-icons/fa';
-import { CiShare2 } from 'react-icons/ci';
+import { FaEye, FaTrash, FaShareAlt } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import '../styles/Bookmark.scss';
 import { useBookmarkSharing } from '@/app/components/BookmarkShare';
@@ -75,8 +74,8 @@ const Bookmark: React.FC<BookmarkProps> = ({
         ))}
       </div>
       <button className="share-bookmarks" onClick={handleShareBookmarks}>
-        <span className="share-text">Teilen</span>
-        <CiShare2 />
+        <span className="share-text">Teilen merkzettel</span>
+        <FaShareAlt />
       </button>
     </div>
   );
