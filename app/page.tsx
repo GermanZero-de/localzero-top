@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from './components/FilterPanel';
 import BlueFilterBar from './components/BlueFilterBar';
@@ -16,6 +16,7 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import Bookmark from './components/Bookmark';
+import { decodeBookmarksFromURL } from './components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -175,20 +176,29 @@ const Pages = () => {
 
   const [bookmarks, setBookmarks] = React.useState<Bookmark[]>(() => {
     const savedBookmarks = localStorage.getItem('bookmarks');
-    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+    try {
+      return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+    } catch (e) {
+      console.error('Error loading bookmarks from localStorage:', e);
+      return [];
+    }
   });
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedBookmarks = localStorage.getItem('bookmarks');
-      const urlBookmarks = new URLSearchParams(window.location.search).get(
-        'bookmarks',
+    fetchSheetsData().then((fetchedData: AppData) => {
+      setData(fetchedData);
+
+      const urlBookmarks = decodeBookmarksFromURL(
+        window.location.search,
+        fetchedData,
       );
-      const parsedBookmarks = urlBookmarks ? JSON.parse(urlBookmarks) : [];
-      setBookmarks(
-        savedBookmarks ? JSON.parse(savedBookmarks) : parsedBookmarks,
-      );
-    }
+      if (urlBookmarks.length) {
+        setBookmarks(urlBookmarks);
+        saveBookmarksToLocalStorage(urlBookmarks);
+      }
+
+      setIsLoading(false);
+    });
   }, []);
 
   const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
@@ -236,9 +246,16 @@ const Pages = () => {
     router.push(`?${queryParams.toString()}`);
   };
 
+  const [bookmarkSelected, setBookmarkSelected] = useState(false);
+
   const handleSelectBookmark = (bookmark: Bookmark) => {
-    console.log('Selected bookmark:', bookmark);
-    setDisplayedMeasures(bookmark.measures);
+    if (!bookmarkSelected) {
+      setDisplayedMeasures(bookmark.measures);
+      setBookmarkSelected(true);
+    } else {
+      setDisplayedMeasures(filteredMeasures);
+      setBookmarkSelected(false);
+    }
   };
 
   return (

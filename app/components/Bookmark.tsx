@@ -1,7 +1,9 @@
 import { Blueprint } from '@/app/models/blueprint';
 import React, { useState } from 'react';
-import { FaEye, FaTrash } from 'react-icons/fa'; // Import icons from react-icons
+import { FaEye, FaTrash } from 'react-icons/fa';
 import '../styles/Bookmark.scss';
+import { useBookmarkSharing } from '../components/BookmarkShare';
+import { AppData } from '../models/appData';
 
 interface Bookmark {
   name: string;
@@ -10,6 +12,7 @@ interface Bookmark {
 
 interface BookmarkProps {
   bookmarks: Bookmark[];
+  data: AppData;
   onCreateBookmark: (name: string) => void;
   onSelectBookmark: (bookmarkName: Bookmark) => void;
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
@@ -17,7 +20,8 @@ interface BookmarkProps {
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({
-  bookmarks = [],
+  bookmarks,
+  data,
   onCreateBookmark,
   onSelectBookmark,
   onDeleteBookmark,
@@ -29,6 +33,11 @@ const Bookmark: React.FC<BookmarkProps> = ({
       onCreateBookmark(newBookmarkName.trim());
       setNewBookmarkName('');
     }
+  };
+
+  const handleShareBookmarks = () => {
+    const { shareBookmarks } = useBookmarkSharing(bookmarks, data);
+    shareBookmarks();
   };
 
   return (
@@ -61,6 +70,9 @@ const Bookmark: React.FC<BookmarkProps> = ({
           </div>
         ))}
       </div>
+      <button className="share-bookmarks" onClick={handleShareBookmarks}>
+        Share Bookmarks
+      </button>
     </div>
   );
 };

@@ -37,10 +37,24 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
     </div>
   ));
 
-  const handleAddToBookmark = (bookmarkName: string) => {
-    console.log('Adding measure to bookmark:', bookmarkName, blueprint);
-    onAddMeasureToBookmark(bookmarkName, blueprint);
-    setShowDropdown(false);
+  const handleAddToBookmark = async (bookmarkName: string) => {
+    try {
+      const blueprintToAdd = {
+        ...blueprint,
+        code: blueprint.code,
+        title: blueprint.title,
+        sector: { ...blueprint.sector },
+        priority: { ...blueprint.priority },
+        focuses: blueprint.focuses.map((focus) => ({ ...focus })),
+        cities: blueprint.cities.map((city) => ({ ...city })),
+        description: blueprint.description,
+      };
+
+      onAddMeasureToBookmark(bookmarkName, blueprintToAdd);
+      setShowDropdown(false);
+    } catch (error) {
+      console.error('Failed to add measure to bookmark:', error);
+    }
   };
 
   return (
