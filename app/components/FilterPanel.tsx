@@ -153,12 +153,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         <button className="share-filters" onClick={handleShare}>
           Link teilen
         </button>
-        <button
-          className="close-overlay-button small-screen-icon"
-          onClick={onClose}
-        >
-          &times;
-        </button>
       </div>
 
       {!showBookmarks && (

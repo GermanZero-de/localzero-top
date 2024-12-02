@@ -50,18 +50,22 @@ const Bookmark: React.FC<BookmarkProps> = ({
           className="bookmark-input"
         />
         <button className="create-button" onClick={handleCreateBookmark}>
-          <MdCreateNewFolder></MdCreateNewFolder>
+          <MdCreateNewFolder />
         </button>
       </div>
       <div className="bookmarks-list">
         {bookmarks.map((bookmark, index) => (
           <div key={index} className="bookmark-item">
             <div className="bookmark-header">
-              <h3 className="bookmark-name">{bookmark.name}</h3>
-              <FaEye
+              <button
                 className="view-bookmark"
                 onClick={() => onSelectBookmark(bookmark)}
-              />
+              >
+                <div className="bookmark-view">
+                  <h3 className="bookmark-name">{bookmark.name}</h3>
+                  <FaEye />
+                </div>
+              </button>
               <FaTrash
                 className="delete-bookmark"
                 onClick={() => onDeleteBookmark(bookmark.name)}
@@ -72,7 +76,7 @@ const Bookmark: React.FC<BookmarkProps> = ({
       </div>
       <button className="share-bookmarks" onClick={handleShareBookmarks}>
         <span className="share-text">Teilen</span>
-        <CiShare2></CiShare2>
+        <CiShare2 />
       </button>
     </div>
   );

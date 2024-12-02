@@ -102,7 +102,7 @@ export const useBookmarkSharing = (bookmarks: Bookmark[]) => {
 
     navigator.clipboard
       .writeText(currentURL.toString())
-      .then(() => alert('Bookmark link copied to clipboard!'))
+      .then(() => alert('Link to all bookmarks copied!'))
       .catch((err) => {
         console.error('Failed to copy link:', err);
         alert('Failed to copy link to clipboard');

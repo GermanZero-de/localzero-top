@@ -23,7 +23,8 @@
   padding-left: 10px;
   width: 100%;
   margin-top: 0px;
-  margin-right: 15px;
+  margin-right: 280px;
+  margin-left: 280px;
 }
 
 h1 {
@@ -286,10 +287,11 @@ footer {
   letter-spacing: 1.5px;
   line-height: 1.75;
   position: fixed;
-    bottom: 0;
+  bottom: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }

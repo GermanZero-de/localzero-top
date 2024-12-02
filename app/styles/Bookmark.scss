@@ -7,7 +7,8 @@
 
 .bookmark-header {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   border-top: 1px solid #e0e0e0;
@@ -17,25 +18,39 @@
 }
 
 .bookmark-name {
-  flex: 1;
+  font-size: 20px;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: calc(100% - 60px);
 }
 
-.bookmark-actions {
+.bookmark-view {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0px;
   gap: 10px;
-  margin-left: 16px;
 }
 
-.view-bookmark,
+.view-bookmark {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0;
+  padding: 0 10px;
+  background-color: #ffffff;
+  border: none;
+}
+
 .delete-bookmark {
   cursor: pointer;
   font-size: 16px;
   margin: 0 10px;
+  flex-shrink: 0;
 }
 
 .create-button {
@@ -72,4 +87,8 @@
 .create-bookmark {
   display: flex;
   flex-direction: row;
+
+  :hover {
+    color: #4b5563;
+  }
 }
