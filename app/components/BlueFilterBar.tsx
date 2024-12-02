@@ -10,7 +10,10 @@ interface BlueFilterBarProps {
   onGoBack: () => void; // Add this property
 }
 
-const BlueFilterBar: React.FC<BlueFilterBarProps> = ({ onToggleFilterPanel, onGoBack }) => {
+const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
+  onToggleFilterPanel,
+  onGoBack,
+}) => {
   const router = useRouter();
 
   const handleGoBack = () => {
@@ -21,7 +24,7 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({ onToggleFilterPanel, onGo
         router.push('/'); // Fallback to the homepage if no history exists
       }
     } catch (error) {
-      console.error("Error navigating back:", error);
+      console.error('Error navigating back:', error);
     }
   };
 
