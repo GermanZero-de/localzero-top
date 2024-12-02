@@ -11,8 +11,8 @@ import { Focus } from '@/app/models/focus';
 import { AppData } from '@/app/models/appData';
 import { Priority } from '@/app/models/priority';
 import { City } from '@/app/models/city';
-import Bookmark from './Bookmark';
-import { Blueprint } from '../models/blueprint';
+import Bookmark from '@/app/components/Bookmark';
+import { Blueprint } from '@/app/models/blueprint';
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -276,7 +276,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
               onAddMeasureToBookmark={onAddMeasureToBookmark}
               onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
               onDeleteBookmark={onDeleteBookmark}
-              data={data}
             />
           </>
         )}

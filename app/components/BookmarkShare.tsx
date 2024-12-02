@@ -84,7 +84,7 @@ export const decodeBookmarksFromURL = (
   }
 };
 
-export const useBookmarkSharing = (bookmarks: Bookmark[], appData: AppData) => {
+export const useBookmarkSharing = (bookmarks: Bookmark[]) => {
   const shareBookmarks = () => {
     if (!bookmarks.length) {
       alert('No bookmarks to share');

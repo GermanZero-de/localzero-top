@@ -15,12 +15,11 @@ import { City } from '@/app/models/city';
 import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
-import Bookmark from './components/Bookmark';
+import Bookmark from '@/app/components/Bookmark';
 import {
   encodeBookmarksToURL,
   decodeBookmarksFromURL,
-  useBookmarkSharing,
-} from './components/BookmarkShare';
+} from '@/app/components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
