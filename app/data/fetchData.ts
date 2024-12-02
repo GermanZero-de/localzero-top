@@ -140,7 +140,9 @@ const parseBlueprints = async (
             );
           }
           // Find the sector by title
-          const sector = sectors.find((s) => s.title == blueprint.sector.trim());
+          const sector = sectors.find(
+            (s) => s.title == blueprint.sector.trim(),
+          );
           if (blueprint.sector == undefined || sector == undefined) {
             throw new Error(
               'Sector is undefined for blueprint: ' + blueprint.code,
@@ -157,9 +159,14 @@ const parseBlueprints = async (
             );
           }
           // Map city titles to City objects
-          const splitRawCities = blueprint.cities?.trim().split(',').map((city) => city.trim());
+          const splitRawCities = blueprint.cities
+            ?.trim()
+            .split(',')
+            .map((city) => city.trim());
           const cityList = cities.filter((city) => {
-              return splitRawCities.find((cityTitle) => cityTitle.trim() == city.title.trim());
+            return splitRawCities.find(
+              (cityTitle) => cityTitle.trim() == city.title.trim(),
+            );
           });
 
           if (blueprint.cities == undefined || cityList == undefined) {
@@ -169,7 +176,7 @@ const parseBlueprints = async (
           }
           // Return the parsed Blueprint object
           const print: Blueprint = {
-            code: blueprint.code,
+            code: "TOP" + blueprint.code.padStart(3, "0"),
             title: blueprint.title,
             priority: priority,
             sector: sector,

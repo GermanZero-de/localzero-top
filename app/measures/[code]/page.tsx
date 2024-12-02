@@ -1,15 +1,17 @@
-// src/app/measures/[code]/page.tsx
+// MeasureDetailPage.tsx
 
-"use client"; // Mark the component as a client component
+'use client'; // Mark the component as a client component
 
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // Use useParams to get dynamic route parameters
-import { AppData } from "@/app/models/appData";
-import { Blueprint } from "@/app/models/blueprint";
-import Layout from "@/app/components/Layout";
-import MeasureCard from "@/app/components/MeasureCard"; // Import MeasureCard component
-import { fetchSheetsData } from "@/app/data/fetchData";
-import styles from "../../styles/MeasureDetailPage.module.scss"; // Import the correct SCSS file
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation'; // Use useParams to get dynamic route parameters
+import { AppData } from '@/app/models/appData';
+import { Blueprint } from '@/app/models/blueprint';
+import Layout from '@/app/components/Layout';
+import MeasureCard from '@/app/components/MeasureCard'; // Import MeasureCard component
+import { fetchSheetsData } from '@/app/data/fetchData';
+import styles from '../../styles/MeasureDetailPage.module.scss'; // Import the correct SCSS file
+import ArrowRight from '@/app/components/Arrow-Right';
+import LoadingSpinner from '@/app/components/LoadingScreen'; // Import LoadingSpinner
 
 const slugify = (str: string) =>
   str
@@ -18,7 +20,7 @@ const slugify = (str: string) =>
     .replace(/\s+/g, '-') // Replace spaces with dashes
     .replace(/ü/g, 'u')
     .replace(/ä/g, 'a')
-    .replace(/ö/g, 'o')
+    .replace(/ö/g, 'o');
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -26,11 +28,21 @@ const MeasureDetailPage = () => {
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
   const [loading, setLoading] = useState<boolean>(true); // Loading state
   const [error, setError] = useState<string | null>(null); // Error state
+  const [dropdownStates, setDropdownStates] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  const toggleDropdown = (cityTitle: string) => {
+    setDropdownStates((prevState) => ({
+      ...prevState,
+      [cityTitle]: !prevState[cityTitle], // Toggle the state for the specific city
+    }));
+  };
 
   // Fetch measure data once the code is available
   useEffect(() => {
     if (!code) {
-      setError("Code not found in the URL.");
+      setError('Code not found in the URL.');
       setLoading(false);
       return;
     }
@@ -39,18 +51,18 @@ const MeasureDetailPage = () => {
       try {
         setLoading(true);
         const data: AppData = await fetchSheetsData(); // Fetch all data (AppData)
-        console.log("Fetched data:", data); // Log the fetched data for debugging
+        console.log('Fetched data:', data); // Log the fetched data for debugging
 
         const selectedMeasure = data.blueprints.find(
-          (item) => item.code === code
+          (item) => item.code === code,
         ); // Find the measure by code
         if (selectedMeasure) {
           setMeasure(selectedMeasure); // Set the measure if found
         } else {
-          setError("Measure not found for the provided code.");
+          setError('Measure not found for the provided code.');
         }
       } catch (err) {
-        setError("Failed to fetch measure data"); // Set error if data fetching fails
+        setError('Failed to fetch measure data'); // Set error if data fetching fails
       } finally {
         setLoading(false); // Stop loading when data fetching is complete
       }
@@ -60,7 +72,7 @@ const MeasureDetailPage = () => {
   }, [code]); // Fetch measure data when code changes
 
   // Show loading, error message, or measure content
-  if (loading) return <p>Lädt..</p>;
+  if (loading) return <LoadingSpinner />; // Use LoadingSpinner here
   if (error) return <p>{error}</p>;
 
   // Layout rendering with the selected measure data passed to the Layout component
@@ -80,40 +92,78 @@ const MeasureDetailPage = () => {
       closeFilterPanel={() => {}}
     >
       <h1>{measure?.title}</h1>
-      <div className={styles["measure-detail-container"]}>
+      <div className={styles['measure-detail-container']}>
         {/* Left Column: Measure Card */}
-        <div className={styles["measure-card"]}>
-          {measure && <MeasureCard blueprint={measure} hideArrow={true} hideCities={true} />} {/* Pass hideArrow */}
+        <div className={styles['measure-card']}>
+          {measure && (
+            <MeasureCard
+              blueprint={measure}
+              hideArrow={true}
+              hideCities={true}
+            />
+          )}
         </div>
 
         {/* Middle Column: Description */}
-        <div className={styles["description"]}>
-          <p>{measure?.description?.replace(/<br>/g, "\n")}</p>{" "}
-          {/* Display description with line breaks */}
+        <div className={styles['description']}>
+          <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
         </div>
 
-        {/* Right Column: Next Feature */}
-        <div className={styles["cities-overlay"]}>
-  <h2>Städte</h2>
-  {/* Display the count of cities */}
-      <p>
-        {measure?.cities?.length
-          ? `This measure is linked to ${measure.cities.length} city/cities.`
-          : "No cities available for this measure."}
-      </p>
-          <div className={styles["cities-list"]}>
-            {measure?.cities?.length ? (
-              measure.cities.map((city) => (
-                <div key={city.title} className={styles["city-item"]}>
-                  <a
-                    href={`https://monitoring.localzero.net/${slugify(city.title)}/massnahmen`}
-                    target="_blank"
-                  >
-                    {city.title}
-                  </a>
-                </div>
-              ))
-            ) : null}
+        {/* Right Column: Cities and Dropdown */}
+        <div className={styles['cities-overlay']}>
+          <h2>Städte</h2>
+
+          <div className={styles['cities-list']}>
+            {measure?.cities?.length
+              ? measure.cities.map((city) => {
+                  if (city.title === 'No city') {
+                    return (
+                      <p key={city.title} className={styles['city-item']}>
+                        No city has implemented this measure.
+                      </p>
+                    );
+                  }
+
+                  const isOpen = dropdownStates[city.title] || false; // Get the open/close state for this city
+
+                  return (
+                    <div key={city.title} className={styles['city-item']}>
+                      <div onClick={() => toggleDropdown(city.title)}>
+                        <a
+                          href={`#${city.title}`}
+                          className={styles['city-item-link']}
+                        >
+                          {city.title}
+                        </a>
+                        <ArrowRight
+                          color="#4a0a78"
+                          className={`${styles['arrow-button']} ${
+                            isOpen
+                              ? styles['arrow-down']
+                              : styles['arrow-right']
+                          }`}
+                        />
+                      </div>
+
+                      {/* When the dropdown is open, show the link below the city name */}
+                      {isOpen && (
+                        <div className={styles['dropdown-menu']}>
+                          <a
+                            href={`https://monitoring.localzero.net/${slugify(
+                              city.title,
+                            )}/massnahmen`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles['city-link']}
+                          >
+                            Local Monitoring
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              : null}
           </div>
         </div>
       </div>
