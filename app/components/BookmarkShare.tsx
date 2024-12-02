@@ -18,7 +18,7 @@ interface SerializedBookmark {
 const urlSafeBase64Encode = (str: string): string => {
   console.log('Encode', str);
   try {
-    return btoa(encodeURIComponent(str));
+    return Buffer.from(str).toString('base64');
   } catch (error) {
     console.error('Failed to encode string:', error);
     throw new Error('Failed to encode bookmark data');
@@ -28,7 +28,7 @@ const urlSafeBase64Encode = (str: string): string => {
 const urlSafeBase64Decode = (str: string): string => {
   console.log('Decode', str);
   try {
-    return decodeURIComponent(atob(str));
+    return Buffer.from(str, 'base64').toString();
   } catch (error) {
     console.error('Failed to decode string:', error);
     throw new Error('Failed to decode bookmark data');
