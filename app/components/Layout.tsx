@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { usePathname } from 'next/navigation'; // To detect the current route
 import Navbar from './navbar';
 import BlueFilterBar from './BlueFilterBar';
 import Footer from './Footer';
@@ -7,8 +8,8 @@ import '../styles/Filterpanel.scss';
 
 interface LayoutProps {
   children: ReactNode;
-  data?: any; // You can adjust the type as needed
-  activeFilters?: any; // You can adjust the type as needed
+  data?: any; // Adjust the type if needed
+  activeFilters?: any; // Adjust the type if needed
 }
 
 const handleGoBack = () => {
@@ -19,20 +20,20 @@ const handleGoBack = () => {
   }
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, data, activeFilters }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const pathname = usePathname(); // Get the current route
+  const isMeasureDetailPage = pathname.startsWith('/measures/'); // Check if it's MeasureDetailPage
+
   return (
     <div className="d-flex flex-column flex-grow-1">
       <Navbar />
       <div className="app flex-grow-1">
         <div className="main-content">
-          {/* BlueFilterBar no longer has onToggleFilterPanel prop */}
           <BlueFilterBar
             onGoBack={handleGoBack}
-            onToggleFilterPanel={function (): void {
-              throw new Error('Function not implemented.');
-            }}
+            hideIcons={isMeasureDetailPage} // Hide icons only on MeasureDetailPage
           />
-          {children} {/* Render child components here */}
+          {children}
         </div>
       </div>
       <Footer />
