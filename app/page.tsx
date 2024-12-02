@@ -268,6 +268,7 @@ const Pages = () => {
         <div className="sidebar">
           <FilterPanel
             data={data}
+            isOverlay={false}
             filters={activeFilters}
             onFilterChange={changeFilters}
             onClose={closeFilterPanel}
@@ -287,10 +288,10 @@ const Pages = () => {
           {isFilterPanelVisible && (
             <FilterPanel
               data={data}
+              isOverlay={true}
               filters={activeFilters}
               onFilterChange={changeFilters}
               onClose={closeFilterPanel}
-              isOverlay
               bookmarks={bookmarks}
               onCreateBookmark={createBookmark}
               onAddMeasureToBookmark={addMeasureToBookmark}
