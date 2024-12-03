@@ -199,10 +199,11 @@ const Pages = () => {
         window.location.search,
         fetchedData,
       );
-      if (urlBookmarks.length) {
-        setBookmarks(urlBookmarks);
-        saveBookmarksToLocalStorage(urlBookmarks);
+      if (!urlBookmarks) {
+        return;
       }
+      setBookmarks(urlBookmarks);
+      saveBookmarksToLocalStorage(urlBookmarks);
 
       setIsLoading(false);
     });
