@@ -30,12 +30,17 @@ const urlSafeBase64Decode = (str: string): string => {
   try {
     console.log('Input string:', str);
 
+    const prefix = 'bookmarks=';
+    if (str.startsWith(prefix)) {
+      str = str.slice(prefix.length);
+    }
+    console.log('After removing prefix:', str);
+
     const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
     console.log('After character replacement:', base64);
 
     const paddedBase64 = base64.padEnd(
       base64.length + ((4 - (base64.length % 4)) % 4),
-      '=',
     );
     console.log('After padding:', paddedBase64);
 
