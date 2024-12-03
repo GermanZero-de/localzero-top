@@ -21,6 +21,7 @@ interface MeasureCardProps {
   currentFilters?: string; // Include current filters to persist
   bookmarks: Bookmark[];
   onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
+  hideBookmark?: boolean;
 }
 
 const MeasureCard: React.FC<MeasureCardProps> = ({
@@ -30,6 +31,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   currentFilters,
   onAddMeasureToBookmark,
   bookmarks,
+  hideBookmark,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
   const [showDropdown, setShowDropdown] = useState(false);
@@ -66,49 +68,51 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   };
 
   return (
-    <div className={`measure-card priority-${priority.stars}`}>
+    <div className={`measure-card priority-${priority.stars} ${hideBookmark ? 'hide-bookmark' : ''}`}>
       <div className="card-header">
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
         {/* Bookmark icon and dropdown */}
-        <div
-          className="bookmark-container"
-          onMouseEnter={() => setShowDropdown(true)}
-          onMouseLeave={() => setShowDropdown(false)}
-        >
-          {/* Toggle bookmark icon */}
-          <div className="bookmark-toggle">
-            {isBookmarked ? (
-              <GoBookmarkFill
-                size={32}
-                style={{
-                  color: '#f7d00c',
-                }}
-              />
-            ) : (
-              <GoBookmark
-                size={32}
-                style={{
-                  color: '#4b0082',
-                }}
-              />
+        {!hideBookmark && (
+          <div
+            className="bookmark-container"
+            onMouseEnter={() => setShowDropdown(true)}
+            onMouseLeave={() => setShowDropdown(false)}
+          >
+            {/* Toggle bookmark icon */}
+            <div className="bookmark-toggle">
+              {isBookmarked ? (
+                <GoBookmarkFill
+                  size={32}
+                  style={{
+                    color: '#f7d00c',
+                  }}
+                />
+              ) : (
+                <GoBookmark
+                  size={32}
+                  style={{
+                    color: '#4b0082',
+                  }}
+                />
+              )}
+            </div>
+            {/* Dropdown menu for bookmark selection */}
+            {showDropdown && bookmarks.length > 0 && (
+              <div className="bookmark-dropdown">
+                {bookmarks.map((bookmark) => (
+                  <div
+                    key={bookmark.name}
+                    onClick={() => handleAddToBookmark(bookmark.name)}
+                    className="bookmark-item"
+                  >
+                    {bookmark.name}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
-          {/* Dropdown menu for bookmark selection */}
-          {showDropdown && bookmarks.length > 0 && (
-            <div className="bookmark-dropdown">
-              {bookmarks.map((bookmark) => (
-                <div
-                  key={bookmark.name}
-                  onClick={() => handleAddToBookmark(bookmark.name)}
-                  className="bookmark-item"
-                >
-                  {bookmark.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
       </div>
       <div className="card-body">
         <h5>{title}</h5>

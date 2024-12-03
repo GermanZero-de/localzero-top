@@ -105,6 +105,7 @@ const MeasureDetailPage = () => {
               hideCities={true}
               onAddMeasureToBookmark={() => {}}
               bookmarks={[]}
+              hideBookmark={true}
             />
           )}
           <div className={styles['focuse-balls']}>
