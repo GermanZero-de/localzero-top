@@ -24,42 +24,40 @@ import LoadingSpinner from '@/app/components/LoadingScreen';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
-  data: AppData
+  data: AppData,
 ): Filter => {
-  const priorities = searchParams
-    .get('priorities')
-    ?.split(',')
-    .map((star) => {
-      const parsedStar = parseInt(star.trim());
-      return data.priorities.find(
-        (p) => parseInt(p.stars as unknown as string) === parsedStar
-      );
-    })
-    .filter((p): p is Priority => p !== undefined) || [];
+  const priorities =
+    searchParams
+      .get('priorities')
+      ?.split(',')
+      .map((star) => {
+        const parsedStar = parseInt(star.trim());
+        return data.priorities.find(
+          (p) => parseInt(p.stars as unknown as string) === parsedStar,
+        );
+      })
+      .filter((p): p is Priority => p !== undefined) || [];
 
-  const sectors = searchParams
-    .get('sectors')
-    ?.split(',')
-    .map((title) =>
-      data.sectors.find((s) => s.title.trim() === title.trim())
-    )
-    .filter((s): s is Sector => s !== undefined) || [];
+  const sectors =
+    searchParams
+      .get('sectors')
+      ?.split(',')
+      .map((title) => data.sectors.find((s) => s.title.trim() === title.trim()))
+      .filter((s): s is Sector => s !== undefined) || [];
 
-  const focuses = searchParams
-    .get('focuses')
-    ?.split(',')
-    .map((title) =>
-      data.focuses.find((f) => f.title.trim() === title.trim())
-    )
-    .filter((f): f is Focus => f !== undefined) || [];
+  const focuses =
+    searchParams
+      .get('focuses')
+      ?.split(',')
+      .map((title) => data.focuses.find((f) => f.title.trim() === title.trim()))
+      .filter((f): f is Focus => f !== undefined) || [];
 
-  const cities = searchParams
-    .get('cities')
-    ?.split(',')
-    .map((title) =>
-      data.cities.find((c) => c.title.trim() === title.trim())
-    )
-    .filter((c): c is City => c !== undefined) || [];
+  const cities =
+    searchParams
+      .get('cities')
+      ?.split(',')
+      .map((title) => data.cities.find((c) => c.title.trim() === title.trim()))
+      .filter((c): c is City => c !== undefined) || [];
 
   return {
     prioritys: priorities,
@@ -113,7 +111,7 @@ const Pages = () => {
 
         const filtersFromQuery = parseQueryParams(
           new URLSearchParams(searchParams.toString()),
-          fetchedData
+          fetchedData,
         );
         setActiveFilters(filtersFromQuery);
 
@@ -154,14 +152,14 @@ const Pages = () => {
     priorities: Priority[],
     sectors: Sector[],
     focuses: Focus[],
-    cities: City[]
+    cities: City[],
   ) => {
     setActiveFilters({ prioritys: priorities, sectors, focuses, cities });
     const queryParams = new URLSearchParams();
     if (priorities.length)
       queryParams.append(
         'priorities',
-        priorities.map((p) => p.stars).join(',')
+        priorities.map((p) => p.stars).join(','),
       );
     if (sectors.length)
       queryParams.append('sectors', sectors.map((s) => s.title).join(','));
@@ -200,7 +198,7 @@ const Pages = () => {
                 const updatedBookmarks = bookmarks.map((bookmark) =>
                   bookmark.name === bookmarkName
                     ? { ...bookmark, measures: [...bookmark.measures, measure] }
-                    : bookmark
+                    : bookmark,
                 );
                 setBookmarks(updatedBookmarks);
               }}
@@ -213,7 +211,10 @@ const Pages = () => {
             />
           </div>
           <div className="main-content">
-            <BlueFilterBar onToggleFilterPanel={toggleFilterPanel} onGoBack={handleGoBack} />
+            <BlueFilterBar
+              onToggleFilterPanel={toggleFilterPanel}
+              onGoBack={handleGoBack}
+            />
             {isLoading ? (
               <LoadingSpinner />
             ) : displayedMeasures.length > 0 ? (
@@ -227,13 +228,13 @@ const Pages = () => {
                           ...bookmark,
                           measures: [...bookmark.measures, measure],
                         }
-                      : bookmark
+                      : bookmark,
                   );
                   setBookmarks(updatedBookmarks);
                 }}
               />
             ) : (
-              <p>No measures found</p>
+              <p>Keine Treffer gefunden</p>
             )}
           </div>
         </div>
