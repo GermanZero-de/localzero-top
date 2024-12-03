@@ -27,6 +27,17 @@
   }
 }
 
+.measure-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+
+  /* Hide on mobile screens */
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
 .measure-card {
   display: flex;
   flex-direction: column; /* Stack code, card, and other elements vertically */

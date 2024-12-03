@@ -88,7 +88,9 @@ const MeasureDetailPage = () => {
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
-      <h1>{measure?.title}</h1>
+      {/* Measure Title */}
+      <h1 className={styles['measure-title']}>{measure?.title}</h1>
+
       <div className={styles['measure-detail-container']}>
         {/* Left Column: Measure Card */}
         <div className={styles['measure-card']}>
