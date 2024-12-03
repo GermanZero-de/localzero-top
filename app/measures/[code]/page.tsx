@@ -120,15 +120,19 @@ const MeasureDetailPage = () => {
           className={`${styles['description-container']} ${styles[PriorityClass]}`}
         >
           {/* Blue line on top */}
-          <div className={styles['blue-line']}></div>
+          <div
+            className={`${styles['blue-line']} ${styles['top-blue-line']}`}
+          ></div>
 
           {/* Description text */}
           <div className={styles['description-text']}>
             <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
           </div>
 
-          {/* Blue line at the bottom */}
-          <div className={styles['blue-line']}></div>
+          {/* Blue line at the bottomo */}
+          <div
+            className={`${styles['blue-line']} ${styles['bottom-blue-line']}`}
+          ></div>
         </div>
 
         {/* Right Column: Cities and Dropdown */}

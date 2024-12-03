@@ -51,9 +51,8 @@
   flex-direction: column;
 
   .blue-line {
-    width: 20%; /* Full width of the container */
+    width: 20%;
     height: 8px; /* Height of the line */
-    margin-bottom: 2rem; /* Space below the line */
     background-color: #4a90e2; /* Default color (blue) */
   }
 
@@ -68,6 +67,14 @@
 
   &.priority-3 .blue-line {
     background-color: #9adfef;
+  }
+
+  .top-blue-line {
+    margin-bottom: 20px; /* Optional, remove any bottom space */
+  }
+
+  .bottom-blue-line {
+    margin-top: 20px; /* Optional, adjust space from the description text */
   }
 
   .description-text {
