@@ -217,9 +217,6 @@ const Pages = () => {
         const updatedMeasures = measureExists
           ? bookmark.measures.filter((m) => m.code !== measure.code)
           : [...bookmark.measures, measure];
-        alert(
-          `Measure ${measureExists ? 'removed from' : 'added to'} bookmark: ${bookmarkName}`,
-        );
         return {
           ...bookmark,
           measures: updatedMeasures,
