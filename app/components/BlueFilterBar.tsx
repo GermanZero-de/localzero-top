@@ -37,14 +37,6 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
           <button onClick={onToggleFilterPanel} className="filter-icon-button">
             <Image src={filterIcon} alt="Filter Icon" width={24} height={24} />
           </button>
-          <button className="bookmark-icon-button">
-            <Image
-              src={bookmarkIcon}
-              alt="Bookmark Icon"
-              width={24}
-              height={24}
-            />
-          </button>
         </>
       )}
       <button onClick={onGoBack} className="back-button">

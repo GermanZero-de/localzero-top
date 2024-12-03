@@ -164,12 +164,12 @@ h1 {
   align-items: center;
 }
 
-.bookmark-icon {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+// .bookmark-icon {
+//   display: none;
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+// }
 
 .bookmark-dropdown {
   flex-direction: column;
@@ -189,10 +189,6 @@ h1 {
   .bookmark-separator:not(:last-child) {
     border-bottom: 1px solid black;
   }
-}
-
-.measure-card:hover .bookmark-icon {
-  display: block;
 }
 
 .stars {
@@ -287,10 +283,11 @@ footer {
   letter-spacing: 1.5px;
   line-height: 1.75;
   position: fixed;
-    bottom: 0;
+  bottom: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -398,15 +395,33 @@ footer a:hover {
 }
 
 .main-content {
-  @media (max-width: 645px) {
+  @media screen and (max-width: 645px) {
     margin-left: 0px;
     margin-right: 0px;
     padding: 0px;
     padding-left: 0px;
     margin-top: 1px;
+
+    .measure-card {
+      margin-left: 35px;
+      margin-right: 35px;
+    }
   }
-  .measure-card {
-    margin-left: 15px;
-    margin-right: 15px;
+}
+
+.bookmark-toggle {
+  margin-top: -33px;
+}
+
+.measures-grid .stars {
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 1022px) {
+  .bookmark-toggle {
+    margin-top: -10px;
+  }
+  .measures-grid .stars {
+    margin-left:0%
   }
 }

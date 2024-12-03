@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import ArrowRight from '@/app/components/Arrow-Right';
 import '../styles/Focuses.scss';
 import { Blueprint } from '@/app/models/blueprint';
 import Image from 'next/image';
 import cityIcon from '../photos/cityIconAlt.png';
-import Bookmark from '@/app/components/Bookmark';
-import bookmarkIcon from '../photos/bookmarkIcon.png';
+
+import { GoBookmark } from "react-icons/go";
+import { GoBookmarkFill } from "react-icons/go";
+
+interface Bookmark {
+  name: string;
+  measures: Blueprint[];
+}
 
 interface MeasureCardProps {
   blueprint: Blueprint;
@@ -26,7 +32,10 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   bookmarks,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
-  const [showDropdown, setShowDropdown] = React.useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const isBookmarked = bookmarks.some((bookmark) =>
+    bookmark.measures.some((measure) => measure.code === blueprint.code),
+  );
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
@@ -51,7 +60,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       };
       onAddMeasureToBookmark(bookmarkName, blueprintToAdd);
       setShowDropdown(false);
-      alert(`Measure added to ${bookmarkName}`);
     } catch (error) {
       console.error('Failed to add measure to bookmark:', error);
     }
@@ -62,33 +70,45 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       <div className="card-header">
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
-        {/* Bookmark icon on the measure cards shown on hover */}
-        {bookmarks.length > 0 && (
-          <div
-            className="bookmark-icon"
-            onClick={() => setShowDropdown(!showDropdown)}
-          >
-            <Image
-              src={bookmarkIcon}
-              alt="Bookmark Icon"
-              width={44}
-              height={44}
-            />
-            {showDropdown && (
-              <div className="bookmark-dropdown">
-                {bookmarks.map((bookmark) => (
-                  <div
-                    key={bookmark.name}
-                    onClick={() => handleAddToBookmark(bookmark.name)}
-                    className="bookmark-separator"
-                  >
-                    {bookmark.name}
-                  </div>
-                ))}
-              </div>
+        {/* Bookmark icon and dropdown */}
+        <div
+          className="bookmark-container"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
+          {/* Toggle bookmark icon */}
+          <div className="bookmark-toggle">
+            {isBookmarked ? (
+              <GoBookmarkFill
+                size={32}
+                style={{
+                  color: '#f7d00c',
+                }}
+              />
+            ) : (
+              <GoBookmark
+                size={32}
+                style={{
+                  color: '#4b0082',
+                }}
+              />
             )}
           </div>
-        )}
+          {/* Dropdown menu for bookmark selection */}
+          {showDropdown && bookmarks.length > 0 && (
+            <div className="bookmark-dropdown">
+              {bookmarks.map((bookmark) => (
+                <div
+                  key={bookmark.name}
+                  onClick={() => handleAddToBookmark(bookmark.name)}
+                  className="bookmark-item"
+                >
+                  {bookmark.name}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="card-body">
         <h5>{title}</h5>

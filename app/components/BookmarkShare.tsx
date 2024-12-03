@@ -4,6 +4,7 @@ import { AppData } from '@/app/models/appData';
 interface Bookmark {
   name: string;
   measures: Blueprint[];
+  date: string;
 }
 
 interface SerializedMeasure {
@@ -13,6 +14,7 @@ interface SerializedMeasure {
 interface SerializedBookmark {
   name: string;
   measures: SerializedMeasure[];
+  date: string;
 }
 
 const urlSafeBase64Encode = (str: string): string => {
@@ -34,12 +36,8 @@ const urlSafeBase64Decode = (str: string): string => {
     if (str.startsWith(prefix)) {
       str = str.slice(prefix.length);
     }
-    console.log('After removing prefix:', str);
 
-    const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
-    console.log('After character replacement:', base64);
-
-    const decoded = new TextDecoder().decode(Buffer.from(base64, 'base64'));
+    const decoded = new TextDecoder().decode(Buffer.from(str, 'base64'));
     console.log('After decoding:', decoded);
 
     return decoded;
@@ -50,7 +48,6 @@ const urlSafeBase64Decode = (str: string): string => {
 };
 
 export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
-  // Handle empty bookmarks array
   if (!bookmarks || bookmarks.length === 0) {
     return '';
   }
@@ -61,6 +58,7 @@ export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
       measures: bookmark.measures.map((measure) => ({
         code: measure.code,
       })),
+      date: bookmark.date,
     }),
   );
 
@@ -88,7 +86,6 @@ export const decodeBookmarksFromURL = (
       return [];
     }
 
-    console.log('Decoding bookmarks:', bookmarksParam);
     const decodedString = urlSafeBase64Decode(
       decodeURIComponent(bookmarksParam),
     );
@@ -115,6 +112,7 @@ export const decodeBookmarksFromURL = (
           appData.blueprints.find((bp) => bp.code === measure.code),
         )
         .filter((measure): measure is Blueprint => measure !== undefined),
+      date: serializedBookmark.date,
     }));
   } catch (error) {
     console.error('Failed to decode bookmarks:', error);

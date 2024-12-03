@@ -16,11 +16,8 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import Bookmark from '@/app/components/Bookmark';
-import {
-  encodeBookmarksToURL,
-  decodeBookmarksFromURL,
-} from '@/app/components/BookmarkShare';
 import LoadingSpinner from '@/app/components/LoadingScreen';
+import { decodeBookmarksFromURL } from '@/app/components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -115,6 +112,17 @@ const Pages = () => {
         );
         setActiveFilters(filtersFromQuery);
 
+        if (window.location.search.includes('bookmarks')) {
+          const urlBookmarks = decodeBookmarksFromURL(
+            window.location.search,
+            fetchedData,
+          );
+          if (urlBookmarks.length) {
+            setBookmarks(urlBookmarks);
+            saveBookmarksToLocalStorage(urlBookmarks);
+          }
+        }
+
         setIsLoading(false);
       });
     }
@@ -178,6 +186,64 @@ const Pages = () => {
     }
   };
 
+  const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
+  };
+
+  const deleteBookmark = (name: String) => {
+    const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
+  };
+
+  const createBookmark = (name: string) => {
+    if (!bookmarks.some((bookmark) => bookmark.name === name)) {
+      const date = new Date().toISOString();
+      const newBookmarks = [...bookmarks, { name, measures: [], date }];
+      setBookmarks(newBookmarks);
+      saveBookmarksToLocalStorage(newBookmarks);
+    }
+  };
+
+  const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
+    console.log('Adding measure to bookmark:', bookmarkName, measure);
+    const newBookmarks = bookmarks.map((bookmark) => {
+      if (bookmark.name === bookmarkName) {
+        const measureExists = bookmark.measures.some(
+          (m) => m.code === measure.code,
+        );
+        const updatedMeasures = measureExists
+          ? bookmark.measures.filter((m) => m.code !== measure.code)
+          : [...bookmark.measures, measure];
+        return {
+          ...bookmark,
+          measures: updatedMeasures,
+        };
+      }
+      return bookmark;
+    });
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
+    if (bookmarkSelected) {
+      newBookmarks.find((bookmark) => bookmark.name === bookmarkName);
+      setDisplayedMeasures(
+        newBookmarks.find((bookmark) => bookmark.name === bookmarkName)
+          ?.measures || [],
+      );
+    }
+  };
+
+  const [bookmarkSelected, setBookmarkSelected] = useState(false);
+
+  const handleSelectBookmark = (bookmark: Bookmark) => {
+    setDisplayedMeasures(
+      bookmarkSelected ? filteredMeasures : bookmark.measures,
+    );
+    setBookmarkSelected(!bookmarkSelected);
+  };
+
   return (
     <div>
       <main>
@@ -191,47 +257,39 @@ const Pages = () => {
               onFilterChange={changeFilters}
               onClose={() => setIsFilterPanelVisible(false)}
               bookmarks={bookmarks}
-              onCreateBookmark={(name) =>
-                setBookmarks([...bookmarks, { name, measures: [] }])
-              }
-              onAddMeasureToBookmark={(bookmarkName, measure) => {
-                const updatedBookmarks = bookmarks.map((bookmark) =>
-                  bookmark.name === bookmarkName
-                    ? { ...bookmark, measures: [...bookmark.measures, measure] }
-                    : bookmark,
-                );
-                setBookmarks(updatedBookmarks);
-              }}
-              onSelectBookmark={(bookmark) =>
-                setDisplayedMeasures(bookmark.measures)
-              }
-              onDeleteBookmark={(name) =>
-                setBookmarks(bookmarks.filter((b) => b.name !== name))
-              }
+              onCreateBookmark={createBookmark}
+              onAddMeasureToBookmark={addMeasureToBookmark}
+              onSelectBookmark={handleSelectBookmark}
+              onDeleteBookmark={deleteBookmark}
             />
           </div>
           <div className="main-content">
+            <h1>TOP-MASSNAHMEN</h1>
             <BlueFilterBar
               onToggleFilterPanel={toggleFilterPanel}
               onGoBack={handleGoBack}
             />
+            {isFilterPanelVisible && (
+              <FilterPanel
+                data={data}
+                isOverlay={true}
+                filters={activeFilters}
+                onFilterChange={changeFilters}
+                onClose={() => setIsFilterPanelVisible(false)}
+                bookmarks={bookmarks}
+                onCreateBookmark={createBookmark}
+                onAddMeasureToBookmark={addMeasureToBookmark}
+                onSelectBookmark={handleSelectBookmark}
+                onDeleteBookmark={deleteBookmark}
+              />
+            )}
             {isLoading ? (
               <LoadingSpinner />
             ) : displayedMeasures.length > 0 ? (
               <MeasuresGrid
                 blueprints={displayedMeasures}
                 bookmarks={bookmarks}
-                onAddMeasureToBookmark={(bookmarkName, measure) => {
-                  const updatedBookmarks = bookmarks.map((bookmark) =>
-                    bookmark.name === bookmarkName
-                      ? {
-                          ...bookmark,
-                          measures: [...bookmark.measures, measure],
-                        }
-                      : bookmark,
-                  );
-                  setBookmarks(updatedBookmarks);
-                }}
+                onAddMeasureToBookmark={addMeasureToBookmark}
               />
             ) : (
               <p>Keine Treffer gefunden</p>
