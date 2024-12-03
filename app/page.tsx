@@ -177,22 +177,6 @@ const Pages = () => {
       router.push('/');
     }
   };
-  useEffect(() => {
-    fetchSheetsData().then((fetchedData: AppData) => {
-      setData(fetchedData);
-
-      const urlBookmarks = decodeBookmarksFromURL(
-        window.location.search,
-        fetchedData,
-      );
-      if (urlBookmarks.length) {
-        setBookmarks(urlBookmarks);
-        saveBookmarksToLocalStorage(urlBookmarks);
-      }
-
-      setIsLoading(false);
-    });
-  }, []);
 
   const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
     if (typeof window !== 'undefined') {
@@ -259,10 +243,25 @@ const Pages = () => {
             />
           </div>
           <div className="main-content">
+            <h1>TOP-MASSNAHMEN</h1>
             <BlueFilterBar
               onToggleFilterPanel={toggleFilterPanel}
               onGoBack={handleGoBack}
             />
+            {isFilterPanelVisible && (
+              <FilterPanel
+                data={data}
+                isOverlay={true}
+                filters={activeFilters}
+                onFilterChange={changeFilters}
+                onClose={() => setIsFilterPanelVisible(false)}
+                bookmarks={bookmarks}
+                onCreateBookmark={createBookmark}
+                onAddMeasureToBookmark={addMeasureToBookmark}
+                onSelectBookmark={handleSelectBookmark}
+                onDeleteBookmark={deleteBookmark}
+              />
+            )}
             {isLoading ? (
               <LoadingSpinner />
             ) : displayedMeasures.length > 0 ? (
