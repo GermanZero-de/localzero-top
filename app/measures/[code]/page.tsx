@@ -74,9 +74,7 @@ const MeasureDetailPage = () => {
   if (error) return <p>{error}</p>;
 
   // Determine the CSS class for the cities overlay based on measure priority
-  const overlayPriorityClass = measure
-    ? `priority-${measure.priority.stars}`
-    : '';
+  const PriorityClass = measure ? `priority-${measure.priority.stars}` : '';
 
   return (
     <Layout
@@ -94,6 +92,12 @@ const MeasureDetailPage = () => {
       <div className={styles['measure-detail-container']}>
         {/* Left Column: Measure Card */}
         <div className={styles['measure-card']}>
+          {/* Display Measure Code */}
+          {measure?.code && (
+            <div className={styles['measure-code']}>
+              <h3>{measure.code}</h3>
+            </div>
+          )}
           {measure && (
             <MeasureCard
               blueprint={measure}
@@ -103,7 +107,7 @@ const MeasureDetailPage = () => {
               bookmarks={[]}
             />
           )}
-          <div>
+          <div className={styles['focuse-balls']}>
             <FocuseBallsDetails
               measureFocuses={measure?.focuses}
               allFocuses={focuses}
@@ -112,14 +116,23 @@ const MeasureDetailPage = () => {
         </div>
 
         {/* Middle Column: Description */}
-        <div className={styles['description']}>
-          <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
+        <div
+          className={`${styles['description-container']} ${styles[PriorityClass]}`}
+        >
+          {/* Blue line on top */}
+          <div className={styles['blue-line']}></div>
+
+          {/* Description text */}
+          <div className={styles['description-text']}>
+            <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
+          </div>
+
+          {/* Blue line at the bottom */}
+          <div className={styles['blue-line']}></div>
         </div>
 
         {/* Right Column: Cities and Dropdown */}
-        <div
-          className={`${styles['cities-overlay']} ${styles[overlayPriorityClass]}`}
-        >
+        <div className={`${styles['cities-overlay']} ${styles[PriorityClass]}`}>
           <h2>Städte</h2>
 
           <div className={styles['cities-list']}>

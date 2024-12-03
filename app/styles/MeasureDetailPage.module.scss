@@ -27,6 +27,56 @@
   }
 }
 
+.measure-card {
+  display: flex;
+  flex-direction: column; /* Stack code, card, and other elements vertically */
+  align-items: flex-start; /* Align everything to the left */
+  margin-bottom: 2rem; /* Space below the measure card */
+}
+
+.measure-code {
+  font-size: 1.5rem; /* Slightly larger font for prominence */
+  font-weight: bold; /* Make the code stand out */
+  color: #4a0a78; /* Use theme color for consistency */
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+
+.focuse-balls {
+  padding-left: 25px;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+
+  .blue-line {
+    width: 20%; /* Full width of the container */
+    height: 8px; /* Height of the line */
+    margin-bottom: 2rem; /* Space below the line */
+    background-color: #4a90e2; /* Default color (blue) */
+  }
+
+  /* Priority-based coloring */
+  &.priority-1 .blue-line {
+    background-color: #e5f7fb;
+  }
+
+  &.priority-2 .blue-line {
+    background-color: #cceef7;
+  }
+
+  &.priority-3 .blue-line {
+    background-color: #9adfef;
+  }
+
+  .description-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333; /* Standard text color */
+  }
+}
+
 .cities-overlay {
   display: flex;
   flex-direction: column;
