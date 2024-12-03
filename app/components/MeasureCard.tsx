@@ -5,7 +5,9 @@ import '../styles/Focuses.scss';
 import { Blueprint } from '@/app/models/blueprint';
 import Image from 'next/image';
 import cityIcon from '../photos/cityIconAlt.png';
-import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
+
+import { GoBookmark } from "react-icons/go";
+import { GoBookmarkFill } from "react-icons/go";
 
 interface Bookmark {
   name: string;
@@ -77,9 +79,19 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           {/* Toggle bookmark icon */}
           <div className="bookmark-toggle">
             {isBookmarked ? (
-              <FaBookmark size={24} color="#4b0082" />
+              <GoBookmarkFill
+                size={32}
+                style={{
+                  color: '#f7d00c',
+                }}
+              />
             ) : (
-              <FaRegBookmark size={24} color="#4b0082" />
+              <GoBookmark
+                size={32}
+                style={{
+                  color: '#4b0082',
+                }}
+              />
             )}
           </div>
           {/* Dropdown menu for bookmark selection */}
