@@ -16,7 +16,9 @@ import { Focus } from '@/app/models/focus';
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
-  const [linkedMeasures, setLinkedMeasures] = useState<LocalMeasure[] | null>(null);
+  const [linkedMeasures, setLinkedMeasures] = useState<LocalMeasure[] | null>(
+    null,
+  );
   const [measure, setMeasure] = useState<Blueprint | null>(null); // The selected measure
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +46,7 @@ const MeasureDetailPage = () => {
       try {
         setLoading(true);
         const data: AppData = await fetchSheetsData(); // Fetch all linkedMeasures (AppData)
-        setFocuses(data.focuses);// set focuses
+        setFocuses(data.focuses); // set focuses
         const selectedMeasure = data.blueprints.find(
           (item) => item.code === code,
         ); // Find the measure by code
@@ -54,9 +56,10 @@ const MeasureDetailPage = () => {
           setError('Measure not found for the provided code.');
         }
         const linkedMeasures = data.localMeasures.filter(
-              (localMeasure) => localMeasure.linkedBlueprint?.code == code);
+          (localMeasure) => localMeasure.linkedBlueprint?.code == code,
+        );
 
-        setLinkedMeasures(linkedMeasures)
+        setLinkedMeasures(linkedMeasures);
       } catch (err) {
         setError('Failed to fetch measure linkedMeasures'); // Set error if linkedMeasures fetching fails
       } finally {
@@ -69,6 +72,11 @@ const MeasureDetailPage = () => {
 
   if (loading) return <LoadingSpinner />;
   if (error) return <p>{error}</p>;
+
+  // Determine the CSS class for the cities overlay based on measure priority
+  const overlayPriorityClass = measure
+    ? `priority-${measure.priority.stars}`
+    : '';
 
   return (
     <Layout
@@ -96,7 +104,10 @@ const MeasureDetailPage = () => {
             />
           )}
           <div>
-            <FocuseBallsDetails measureFocuses={measure?.focuses} allFocuses = {focuses} />
+            <FocuseBallsDetails
+              measureFocuses={measure?.focuses}
+              allFocuses={focuses}
+            />
           </div>
         </div>
 
@@ -106,20 +117,25 @@ const MeasureDetailPage = () => {
         </div>
 
         {/* Right Column: Cities and Dropdown */}
-        <div className={styles['cities-overlay']}>
+        <div
+          className={`${styles['cities-overlay']} ${styles[overlayPriorityClass]}`}
+        >
           <h2>Städte</h2>
 
           <div className={styles['cities-list']}>
             {linkedMeasures?.length
               ? Object.entries(
-                  linkedMeasures.reduce((acc, localMeasure) => {
-                    const cityTitle = localMeasure.city.title;
-                    if (!acc[cityTitle]) {
-                      acc[cityTitle] = [];
-                    }
-                    acc[cityTitle].push(localMeasure);
-                    return acc;
-                  }, {} as Record<string, LocalMeasure[]>)
+                  linkedMeasures.reduce(
+                    (acc, localMeasure) => {
+                      const cityTitle = localMeasure.city.title;
+                      if (!acc[cityTitle]) {
+                        acc[cityTitle] = [];
+                      }
+                      acc[cityTitle].push(localMeasure);
+                      return acc;
+                    },
+                    {} as Record<string, LocalMeasure[]>,
+                  ),
                 ).map(([cityTitle, measures]) => {
                   const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
@@ -167,7 +183,6 @@ const MeasureDetailPage = () => {
       </div>
     </Layout>
   );
-
 };
 
 export default MeasureDetailPage;

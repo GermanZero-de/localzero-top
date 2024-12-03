@@ -39,6 +39,18 @@
     color: #4a0a78;
     margin-top: 1rem;
   }
+
+  &.priority-1 {
+    background-color: #e5f7fb;
+  }
+
+  &.priority-2 {
+    background-color: #cceef7;
+  }
+
+  &.priority-3 {
+    background-color: #9adfef;
+  }
 }
 
 .city-item {
