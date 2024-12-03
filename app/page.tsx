@@ -16,11 +16,8 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import Bookmark from '@/app/components/Bookmark';
-import {
-  encodeBookmarksToURL,
-  decodeBookmarksFromURL,
-} from '@/app/components/BookmarkShare';
 import LoadingSpinner from '@/app/components/LoadingScreen';
+import { decodeBookmarksFromURL } from '@/app/components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -114,6 +111,17 @@ const Pages = () => {
           fetchedData,
         );
         setActiveFilters(filtersFromQuery);
+
+        if (window.location.search.includes('bookmarks')) {
+          const urlBookmarks = decodeBookmarksFromURL(
+            window.location.search,
+            fetchedData,
+          );
+          if (urlBookmarks.length) {
+            setBookmarks(urlBookmarks);
+            saveBookmarksToLocalStorage(urlBookmarks);
+          }
+        }
 
         setIsLoading(false);
       });
