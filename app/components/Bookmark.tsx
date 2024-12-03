@@ -4,10 +4,12 @@ import { FaEye, FaTrash, FaShareAlt } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import '../styles/Bookmark.scss';
 import { useBookmarkSharing } from '@/app/components/BookmarkShare';
+import { format } from 'date-fns';
 
 interface Bookmark {
   name: string;
   measures: Blueprint[];
+  date: string;
 }
 
 interface BookmarkProps {
@@ -65,11 +67,19 @@ const Bookmark: React.FC<BookmarkProps> = ({
                   <FaEye />
                 </div>
               </button>
+
               <FaTrash
                 className="delete-bookmark"
                 onClick={() => onDeleteBookmark(bookmark.name)}
               />
             </div>
+            <span className="bookmark-date">
+              {new Date(bookmark.date).toLocaleDateString('de-DE')}{' '}
+              {new Date(bookmark.date).toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </span>
           </div>
         ))}
       </div>

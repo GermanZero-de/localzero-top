@@ -16,11 +16,8 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import Bookmark from '@/app/components/Bookmark';
-import {
-  encodeBookmarksToURL,
-  decodeBookmarksFromURL,
-} from '@/app/components/BookmarkShare';
 import LoadingSpinner from '@/app/components/LoadingScreen';
+import { decodeBookmarksFromURL } from '@/app/components/BookmarkShare';
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -115,6 +112,17 @@ const Pages = () => {
         );
         setActiveFilters(filtersFromQuery);
 
+        if (window.location.search.includes('bookmarks')) {
+          const urlBookmarks = decodeBookmarksFromURL(
+            window.location.search,
+            fetchedData,
+          );
+          if (urlBookmarks.length) {
+            setBookmarks(urlBookmarks);
+            saveBookmarksToLocalStorage(urlBookmarks);
+          }
+        }
+
         setIsLoading(false);
       });
     }
@@ -192,7 +200,8 @@ const Pages = () => {
 
   const createBookmark = (name: string) => {
     if (!bookmarks.some((bookmark) => bookmark.name === name)) {
-      const newBookmarks = [...bookmarks, { name, measures: [] }];
+      const date = new Date().toISOString();
+      const newBookmarks = [...bookmarks, { name, measures: [], date }];
       setBookmarks(newBookmarks);
       saveBookmarksToLocalStorage(newBookmarks);
     }
@@ -200,18 +209,33 @@ const Pages = () => {
 
   const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
     console.log('Adding measure to bookmark:', bookmarkName, measure);
-    const newBookmarks = bookmarks.map((bookmark) =>
-      bookmark.name === bookmarkName
-        ? {
-            ...bookmark,
-            measures: bookmark.measures.some((m) => m.code === measure.code)
-              ? bookmark.measures
-              : [...bookmark.measures, measure],
-          }
-        : bookmark,
-    );
+    const newBookmarks = bookmarks.map((bookmark) => {
+      if (bookmark.name === bookmarkName) {
+        const measureExists = bookmark.measures.some(
+          (m) => m.code === measure.code,
+        );
+        const updatedMeasures = measureExists
+          ? bookmark.measures.filter((m) => m.code !== measure.code)
+          : [...bookmark.measures, measure];
+        alert(
+          `Measure ${measureExists ? 'removed from' : 'added to'} bookmark: ${bookmarkName}`,
+        );
+        return {
+          ...bookmark,
+          measures: updatedMeasures,
+        };
+      }
+      return bookmark;
+    });
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
+    if (bookmarkSelected) {
+      newBookmarks.find((bookmark) => bookmark.name === bookmarkName);
+      setDisplayedMeasures(
+        newBookmarks.find((bookmark) => bookmark.name === bookmarkName)
+          ?.measures || [],
+      );
+    }
   };
 
   const [bookmarkSelected, setBookmarkSelected] = useState(false);

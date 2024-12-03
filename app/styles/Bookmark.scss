@@ -17,6 +17,12 @@
   max-width: calc(100% - 60px);
 }
 
+.bookmark-date {
+  font-size: 15px;
+  color: #4b5563;
+  margin-left: 10px;
+}
+
 .bookmark-view {
   display: flex;
   justify-content: space-between;
