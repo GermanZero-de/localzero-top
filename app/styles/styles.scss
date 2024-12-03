@@ -28,7 +28,8 @@
 
 h1 {
   font-size: 4.5rem;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 20x;
   text-align: center;
   font-weight: bold;
 }
@@ -62,14 +63,24 @@ h1 {
   margin-bottom: 30px;
 
   h5 {
-    font-size: 23px;
+    font-size: 21px;
     font-weight: bold;
     margin-top: -10px;
     margin-left: 4px;
+    display: -webkit-box;
+    display: box;
+    -webkit-line-clamp: 3;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: 0;
     right: 0;
@@ -86,13 +97,46 @@ h1 {
   &.priority-3 {
     background-color: #9adfef;
   }
-  &.priority-default {
-    background-color: #9adfef;
-  }
 }
 
 .card-body {
   flex: 1;
+
+  .cities {
+    position: absolute;
+    right: 10px;
+    bottom: 85px;
+    display: flex;
+    align-items: center;
+
+    .cities-list {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      background-color: #fff;
+      padding: 5px 10px;
+      z-index: 10;
+      border: 1px solid #000000;
+      font-size: 14px;
+      max-height: 95px;
+      max-width: 150px;
+      overflow-y: auto;
+      right: 25px;
+      overflow-x: hidden;
+
+      span {
+        margin-right: 12px;
+      }
+
+      .city-separator:not(:last-child) {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    &:hover .cities-list {
+      display: flex;
+    }
+  }
 }
 
 .sector {
@@ -118,6 +162,37 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.bookmark-icon {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.bookmark-dropdown {
+  flex-direction: column;
+  position: absolute;
+  background-color: #fff;
+  padding: 5px 10px;
+  z-index: 10;
+  border: 1px solid #000000;
+  font-size: 14px;
+  max-height: 95px;
+  max-width: 150px;
+  overflow-y: auto;
+  right: 25px;
+  overflow-x: hidden;
+  cursor: pointer;
+
+  .bookmark-separator:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+}
+
+.measure-card:hover .bookmark-icon {
+  display: block;
 }
 
 .stars {
@@ -211,6 +286,22 @@ footer {
   font-weight: bold;
   letter-spacing: 1.5px;
   line-height: 1.75;
+  position: fixed;
+    bottom: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 footer a {
@@ -241,8 +332,7 @@ footer a:hover {
   .measures-grid {
     grid-template-columns: 50% 50%;
   }
-
-  }
+}
 
 @media only screen and (max-width: 1150px) {
   h1 {
@@ -266,8 +356,6 @@ footer a:hover {
       font-size: 20px;
     }
   }
-
-
 }
 
 @media only screen and (max-width: 900px) {
@@ -277,10 +365,11 @@ footer a:hover {
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.1rem;
+    margin-bottom: 8px;
+    margin-top: 8px;
   }
 }
-
 
 @media only screen and (min-width: 676px) {
   .measures-card.priority-3 {
@@ -303,14 +392,21 @@ footer a:hover {
 }
 
 .sidebar {
-  @media (max-width:645px){
-   display: none;
+  @media (max-width: 645px) {
+    display: none;
   }
- }
+}
 
- .main-content {
-  @media (max-width:645px){
-   margin-left: 10px;
-   margin-right: -5px;
+.main-content {
+  @media (max-width: 645px) {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+    padding-left: 0px;
+    margin-top: 1px;
   }
- }
+  .measure-card {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}

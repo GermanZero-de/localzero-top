@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import MeasureCard from "./MeasureCard";
-import { Blueprint } from "@/app/models/blueprint";
+import React, { useState, useEffect, useRef } from 'react';
+import MeasureCard from './MeasureCard';
+import { Blueprint } from '@/app/models/blueprint';
+import Bookmark from './Bookmark';
 
 // Throttle function to limit the number of calls to handleScroll
 const useThrottle = (callback: Function, delay: number) => {
@@ -16,9 +17,15 @@ const useThrottle = (callback: Function, delay: number) => {
 
 interface MeasuresGridProps {
   blueprints: Blueprint[];
+  bookmarks: Bookmark[];
+  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
 }
 
-const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
+const MeasuresGrid: React.FC<MeasuresGridProps> = ({
+  blueprints,
+  onAddMeasureToBookmark,
+  bookmarks,
+}) => {
   const [visibleCount, setVisibleCount] = useState(9);
   const [loading, setLoading] = useState(false); // Track if data is being loaded
 
@@ -49,10 +56,10 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
 
   // Add scroll event listener on component mount
   useEffect(() => {
-    window.addEventListener("scroll", throttledHandleScroll);
+    window.addEventListener('scroll', throttledHandleScroll);
 
     return () => {
-      window.removeEventListener("scroll", throttledHandleScroll);
+      window.removeEventListener('scroll', throttledHandleScroll);
     };
   }, [loading]);
 
@@ -64,7 +71,12 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({ blueprints }) => {
     <div className="measures-grid">
       {/* Display only the visible measures */}
       {blueprints.slice(0, visibleCount).map((blueprint, index) => (
-        <MeasureCard key={index} blueprint={blueprint} />
+        <MeasureCard
+          key={index}
+          blueprint={blueprint}
+          bookmarks={bookmarks}
+          onAddMeasureToBookmark={onAddMeasureToBookmark}
+        />
       ))}
 
       {/* Loading indicator */}
