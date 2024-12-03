@@ -5,7 +5,7 @@ import '../styles/Focuses.scss';
 import { Blueprint } from '@/app/models/blueprint';
 import Image from 'next/image';
 import cityIcon from '../photos/cityIconAlt.png';
-import { FaRegBookmark, FaBookmark } from "react-icons/fa6";
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
 
 interface Bookmark {
   name: string;
@@ -59,7 +59,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       };
       onAddMeasureToBookmark(bookmarkName, blueprintToAdd);
       setShowDropdown(false);
-      alert(`Measure added to ${bookmarkName}`);
     } catch (error) {
       console.error('Failed to add measure to bookmark:', error);
     }

@@ -208,18 +208,33 @@ const Pages = () => {
 
   const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
     console.log('Adding measure to bookmark:', bookmarkName, measure);
-    const newBookmarks = bookmarks.map((bookmark) =>
-      bookmark.name === bookmarkName
-        ? {
-            ...bookmark,
-            measures: bookmark.measures.some((m) => m.code === measure.code)
-              ? bookmark.measures
-              : [...bookmark.measures, measure],
-          }
-        : bookmark,
-    );
+    const newBookmarks = bookmarks.map((bookmark) => {
+      if (bookmark.name === bookmarkName) {
+        const measureExists = bookmark.measures.some(
+          (m) => m.code === measure.code,
+        );
+        const updatedMeasures = measureExists
+          ? bookmark.measures.filter((m) => m.code !== measure.code)
+          : [...bookmark.measures, measure];
+        alert(
+          `Measure ${measureExists ? 'removed from' : 'added to'} bookmark: ${bookmarkName}`,
+        );
+        return {
+          ...bookmark,
+          measures: updatedMeasures,
+        };
+      }
+      return bookmark;
+    });
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
+    if (bookmarkSelected) {
+      newBookmarks.find((bookmark) => bookmark.name === bookmarkName);
+      setDisplayedMeasures(
+        newBookmarks.find((bookmark) => bookmark.name === bookmarkName)
+          ?.measures || [],
+      );
+    }
   };
 
   const [bookmarkSelected, setBookmarkSelected] = useState(false);
