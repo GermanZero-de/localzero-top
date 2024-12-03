@@ -4,6 +4,7 @@ import { AppData } from '@/app/models/appData';
 interface Bookmark {
   name: string;
   measures: Blueprint[];
+  date: string;
 }
 
 interface SerializedMeasure {
@@ -13,6 +14,7 @@ interface SerializedMeasure {
 interface SerializedBookmark {
   name: string;
   measures: SerializedMeasure[];
+  date: string;
 }
 
 const urlSafeBase64Encode = (str: string): string => {
@@ -56,6 +58,7 @@ export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
       measures: bookmark.measures.map((measure) => ({
         code: measure.code,
       })),
+      date: bookmark.date,
     }),
   );
 
@@ -109,6 +112,7 @@ export const decodeBookmarksFromURL = (
           appData.blueprints.find((bp) => bp.code === measure.code),
         )
         .filter((measure): measure is Blueprint => measure !== undefined),
+      date: serializedBookmark.date,
     }));
   } catch (error) {
     console.error('Failed to decode bookmarks:', error);

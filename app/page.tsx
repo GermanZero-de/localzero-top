@@ -200,7 +200,8 @@ const Pages = () => {
 
   const createBookmark = (name: string) => {
     if (!bookmarks.some((bookmark) => bookmark.name === name)) {
-      const newBookmarks = [...bookmarks, { name, measures: [] }];
+      const date = new Date().toISOString();
+      const newBookmarks = [...bookmarks, { name, measures: [], date }];
       setBookmarks(newBookmarks);
       saveBookmarksToLocalStorage(newBookmarks);
     }
