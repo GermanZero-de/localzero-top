@@ -1,5 +1,5 @@
 'use client';
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import FilterPanel from './components/FilterPanel';
 import BlueFilterBar from './components/BlueFilterBar';
@@ -32,10 +32,9 @@ const parseQueryParams = (
       ?.split(',')
       .map((star) => {
         const parsedStar = parseInt(star.trim());
-        const matchedPriority = data.priorities.find(
+        return data.priorities.find(
           (p) => parseInt(p.stars as unknown as string) === parsedStar,
         );
-        return matchedPriority;
       })
       .filter((p): p is Priority => p !== undefined) || [];
 
@@ -71,7 +70,6 @@ const parseQueryParams = (
 const Pages = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const [data, setData] = useState<AppData>({
     priorities: [],
     sectors: [],
@@ -90,24 +88,37 @@ const Pages = () => {
   });
 
   const [displayedMeasures, setDisplayedMeasures] = useState<Blueprint[]>([]);
-
   const [isLoading, setIsLoading] = useState(true);
-  const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false); // Restored state
+  const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
+
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
   useEffect(() => {
-    fetchSheetsData().then((fetchedData: AppData) => {
-      setData(fetchedData);
-
-      const filtersFromQuery = parseQueryParams(
-        new URLSearchParams(searchParams.toString()),
-        fetchedData,
-      );
-      setActiveFilters(filtersFromQuery);
-
-      // End loading state after data and filters are processed
-      setIsLoading(false);
-    });
+    if (typeof window !== 'undefined') {
+      const savedBookmarks = localStorage.getItem('bookmarks');
+      try {
+        setBookmarks(savedBookmarks ? JSON.parse(savedBookmarks) : []);
+      } catch (e) {
+        console.error('Error loading bookmarks from localStorage:', e);
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      fetchSheetsData().then((fetchedData: AppData) => {
+        setData(fetchedData);
+
+        const filtersFromQuery = parseQueryParams(
+          new URLSearchParams(searchParams.toString()),
+          fetchedData,
+        );
+        setActiveFilters(filtersFromQuery);
+
+        setIsLoading(false);
+      });
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const applyFilters = (measure: Blueprint) => {
@@ -137,23 +148,13 @@ const Pages = () => {
     setIsFilterPanelVisible(!isFilterPanelVisible);
   };
 
-  const closeFilterPanel = () => {
-    setIsFilterPanelVisible(false);
-  };
-
   const changeFilters = (
     priorities: Priority[],
     sectors: Sector[],
     focuses: Focus[],
     cities: City[],
   ) => {
-    setActiveFilters({
-      prioritys: priorities,
-      sectors: sectors,
-      focuses: focuses,
-      cities: cities,
-    });
-
+    setActiveFilters({ prioritys: priorities, sectors, focuses, cities });
     const queryParams = new URLSearchParams();
     if (priorities.length)
       queryParams.append(
@@ -166,7 +167,6 @@ const Pages = () => {
       queryParams.append('focuses', focuses.map((f) => f.title).join(','));
     if (cities.length)
       queryParams.append('cities', cities.map((c) => c.title).join(','));
-
     router.push(`?${queryParams.toString()}`);
   };
 
@@ -178,150 +178,76 @@ const Pages = () => {
     }
   };
 
-  const [bookmarks, setBookmarks] = React.useState<Bookmark[]>(() => {
-    if (typeof window !== 'undefined') {
-      const savedBookmarks = localStorage.getItem('bookmarks');
-      try {
-        return savedBookmarks ? JSON.parse(savedBookmarks) : [];
-      } catch (e) {
-        console.error('Error loading bookmarks from localStorage:', e);
-        return [];
-      }
-    }
-    return [];
-  });
-
-  useEffect(() => {
-    fetchSheetsData().then((fetchedData: AppData) => {
-      setData(fetchedData);
-
-      const urlBookmarks = decodeBookmarksFromURL(
-        window.location.search,
-        fetchedData,
-      );
-      if (urlBookmarks.length) {
-        setBookmarks(urlBookmarks);
-        saveBookmarksToLocalStorage(urlBookmarks);
-      }
-
-      setIsLoading(false);
-    });
-  }, []);
-
-  const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    }
-  };
-
-  const deleteBookmark = (name: String) => {
-    const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
-    setBookmarks(newBookmarks);
-    saveBookmarksToLocalStorage(newBookmarks);
-    updateURLWithBookmarks(newBookmarks);
-  };
-
-  const createBookmark = (name: string) => {
-    if (!bookmarks.some((bookmark) => bookmark.name === name)) {
-      const newBookmarks = [...bookmarks, { name, measures: [] }];
-      setBookmarks(newBookmarks);
-      saveBookmarksToLocalStorage(newBookmarks);
-      updateURLWithBookmarks(newBookmarks);
-    }
-  };
-
-  const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
-    console.log('Adding measure to bookmark:', bookmarkName, measure);
-    const newBookmarks = bookmarks.map((bookmark) =>
-      bookmark.name === bookmarkName
-        ? {
-            ...bookmark,
-            measures: bookmark.measures.some((m) => m.code === measure.code)
-              ? bookmark.measures
-              : [...bookmark.measures, measure],
-          }
-        : bookmark,
-    );
-    setBookmarks(newBookmarks);
-    saveBookmarksToLocalStorage(newBookmarks);
-    updateURLWithBookmarks(newBookmarks);
-  };
-
-  const updateURLWithBookmarks = (bookmarks: Bookmark[]) => {
-    console.log('Updating URL with bookmarks:', bookmarks);
-    const queryString = encodeBookmarksToURL(bookmarks);
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('bookmarks', queryString);
-    router.push(`?${queryParams.toString()}`);
-  };
-
-  const [bookmarkSelected, setBookmarkSelected] = useState(false);
-
-  const handleSelectBookmark = (bookmark: Bookmark) => {
-    setDisplayedMeasures(
-      bookmarkSelected ? filteredMeasures : bookmark.measures,
-    );
-    setBookmarkSelected(!bookmarkSelected);
-  };
-
   return (
     <div>
       <main>
-        <div className="d-flex flex-column flex-grow-1">
-          <Navbar />
-          <div className="app flex-grow-1">
-            <div className="sidebar">
-              <FilterPanel
-                data={data}
-                isOverlay={false}
-                filters={activeFilters}
-                onFilterChange={changeFilters}
-                onClose={closeFilterPanel}
+        <Navbar />
+        <div className="app">
+          <div className="sidebar">
+            <FilterPanel
+              data={data}
+              isOverlay={false}
+              filters={activeFilters}
+              onFilterChange={changeFilters}
+              onClose={() => setIsFilterPanelVisible(false)}
+              bookmarks={bookmarks}
+              onCreateBookmark={(name) =>
+                setBookmarks([...bookmarks, { name, measures: [] }])
+              }
+              onAddMeasureToBookmark={(bookmarkName, measure) => {
+                const updatedBookmarks = bookmarks.map((bookmark) =>
+                  bookmark.name === bookmarkName
+                    ? { ...bookmark, measures: [...bookmark.measures, measure] }
+                    : bookmark,
+                );
+                setBookmarks(updatedBookmarks);
+              }}
+              onSelectBookmark={(bookmark) =>
+                setDisplayedMeasures(bookmark.measures)
+              }
+              onDeleteBookmark={(name) =>
+                setBookmarks(bookmarks.filter((b) => b.name !== name))
+              }
+            />
+          </div>
+          <div className="main-content">
+            <BlueFilterBar
+              onToggleFilterPanel={toggleFilterPanel}
+              onGoBack={handleGoBack}
+            />
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : displayedMeasures.length > 0 ? (
+              <MeasuresGrid
+                blueprints={displayedMeasures}
                 bookmarks={bookmarks}
-                onCreateBookmark={createBookmark}
-                onAddMeasureToBookmark={addMeasureToBookmark}
-                onSelectBookmark={handleSelectBookmark}
-                onDeleteBookmark={deleteBookmark}
+                onAddMeasureToBookmark={(bookmarkName, measure) => {
+                  const updatedBookmarks = bookmarks.map((bookmark) =>
+                    bookmark.name === bookmarkName
+                      ? {
+                          ...bookmark,
+                          measures: [...bookmark.measures, measure],
+                        }
+                      : bookmark,
+                  );
+                  setBookmarks(updatedBookmarks);
+                }}
               />
-            </div>
-            <div className="main-content">
-              <h1>TOP-MASSNAHMEN</h1>
-              <BlueFilterBar
-                onToggleFilterPanel={toggleFilterPanel}
-                onGoBack={handleGoBack}
-              />
-              {isFilterPanelVisible && (
-                <FilterPanel
-                  data={data}
-                  isOverlay={true}
-                  filters={activeFilters}
-                  onFilterChange={changeFilters}
-                  onClose={closeFilterPanel}
-                  bookmarks={bookmarks}
-                  onCreateBookmark={createBookmark}
-                  onAddMeasureToBookmark={addMeasureToBookmark}
-                  onSelectBookmark={handleSelectBookmark}
-                  onDeleteBookmark={deleteBookmark}
-                />
-              )}
-              {isLoading ? (
-                <LoadingSpinner variant="offset" />
-              ) : displayedMeasures.length > 0 ? (
-                <MeasuresGrid
-                  blueprints={displayedMeasures}
-                  bookmarks={bookmarks}
-                  onAddMeasureToBookmark={addMeasureToBookmark}
-                />
-              ) : (
-                <p>Keine Treffer gefunden</p>
-              )}
-            </div>
+            ) : (
+              <p>Keine Treffer gefunden</p>
+            )}
           </div>
         </div>
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 };
 
-export default Pages;
+export default function App() {
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Pages />
+    </Suspense>
+  );
+}
