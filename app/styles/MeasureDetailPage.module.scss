@@ -106,3 +106,11 @@
     color: #4a0a78; /* Change the color on hover */
   }
 }
+
+.cities-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretch city items to fill container width */
+  padding-left: 20px;
+  width: 100%; /* Ensure list takes full width of container */
+}
