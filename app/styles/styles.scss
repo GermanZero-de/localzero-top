@@ -191,10 +191,6 @@ h1 {
   }
 }
 
-.measure-card:hover .bookmark-icon {
-  display: block;
-}
-
 .stars {
   color: #4b0082;
   font-size: 40px;
@@ -287,10 +283,11 @@ footer {
   letter-spacing: 1.5px;
   line-height: 1.75;
   position: fixed;
-    bottom: 0;
+  bottom: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }

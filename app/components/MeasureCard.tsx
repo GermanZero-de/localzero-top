@@ -9,6 +9,7 @@ import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
 
 interface Bookmark {
   name: string;
+  measures: Blueprint[];
 }
 
 interface MeasureCardProps {
@@ -30,7 +31,9 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(false); // State to track bookmark status
+  const isBookmarked = bookmarks.some((bookmark) =>
+    bookmark.measures.some((measure) => measure.code === blueprint.code),
+  );
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
@@ -40,10 +43,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       ></div>
     </div>
   ));
-
-  const handleToggleBookmark = () => {
-    setIsBookmarked(!isBookmarked); // Toggle bookmark status
-  };
 
   const handleAddToBookmark = async (bookmarkName: string) => {
     try {
@@ -76,7 +75,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           onMouseLeave={() => setShowDropdown(false)}
         >
           {/* Toggle bookmark icon */}
-          <div className="bookmark-toggle" onClick={handleToggleBookmark}>
+          <div className="bookmark-toggle">
             {isBookmarked ? (
               <FaBookmark size={24} color="#4b0082" />
             ) : (
