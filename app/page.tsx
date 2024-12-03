@@ -177,6 +177,67 @@ const Pages = () => {
       router.push('/');
     }
   };
+  useEffect(() => {
+    fetchSheetsData().then((fetchedData: AppData) => {
+      setData(fetchedData);
+
+      const urlBookmarks = decodeBookmarksFromURL(
+        window.location.search,
+        fetchedData,
+      );
+      if (urlBookmarks.length) {
+        setBookmarks(urlBookmarks);
+        saveBookmarksToLocalStorage(urlBookmarks);
+      }
+
+      setIsLoading(false);
+    });
+  }, []);
+
+  const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    }
+  };
+
+  const deleteBookmark = (name: String) => {
+    const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
+  };
+
+  const createBookmark = (name: string) => {
+    if (!bookmarks.some((bookmark) => bookmark.name === name)) {
+      const newBookmarks = [...bookmarks, { name, measures: [] }];
+      setBookmarks(newBookmarks);
+      saveBookmarksToLocalStorage(newBookmarks);
+    }
+  };
+
+  const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
+    console.log('Adding measure to bookmark:', bookmarkName, measure);
+    const newBookmarks = bookmarks.map((bookmark) =>
+      bookmark.name === bookmarkName
+        ? {
+            ...bookmark,
+            measures: bookmark.measures.some((m) => m.code === measure.code)
+              ? bookmark.measures
+              : [...bookmark.measures, measure],
+          }
+        : bookmark,
+    );
+    setBookmarks(newBookmarks);
+    saveBookmarksToLocalStorage(newBookmarks);
+  };
+
+  const [bookmarkSelected, setBookmarkSelected] = useState(false);
+
+  const handleSelectBookmark = (bookmark: Bookmark) => {
+    setDisplayedMeasures(
+      bookmarkSelected ? filteredMeasures : bookmark.measures,
+    );
+    setBookmarkSelected(!bookmarkSelected);
+  };
 
   return (
     <div>
@@ -191,23 +252,10 @@ const Pages = () => {
               onFilterChange={changeFilters}
               onClose={() => setIsFilterPanelVisible(false)}
               bookmarks={bookmarks}
-              onCreateBookmark={(name) =>
-                setBookmarks([...bookmarks, { name, measures: [] }])
-              }
-              onAddMeasureToBookmark={(bookmarkName, measure) => {
-                const updatedBookmarks = bookmarks.map((bookmark) =>
-                  bookmark.name === bookmarkName
-                    ? { ...bookmark, measures: [...bookmark.measures, measure] }
-                    : bookmark,
-                );
-                setBookmarks(updatedBookmarks);
-              }}
-              onSelectBookmark={(bookmark) =>
-                setDisplayedMeasures(bookmark.measures)
-              }
-              onDeleteBookmark={(name) =>
-                setBookmarks(bookmarks.filter((b) => b.name !== name))
-              }
+              onCreateBookmark={createBookmark}
+              onAddMeasureToBookmark={addMeasureToBookmark}
+              onSelectBookmark={handleSelectBookmark}
+              onDeleteBookmark={deleteBookmark}
             />
           </div>
           <div className="main-content">
@@ -221,17 +269,7 @@ const Pages = () => {
               <MeasuresGrid
                 blueprints={displayedMeasures}
                 bookmarks={bookmarks}
-                onAddMeasureToBookmark={(bookmarkName, measure) => {
-                  const updatedBookmarks = bookmarks.map((bookmark) =>
-                    bookmark.name === bookmarkName
-                      ? {
-                          ...bookmark,
-                          measures: [...bookmark.measures, measure],
-                        }
-                      : bookmark,
-                  );
-                  setBookmarks(updatedBookmarks);
-                }}
+                onAddMeasureToBookmark={addMeasureToBookmark}
               />
             ) : (
               <p>Keine Treffer gefunden</p>
