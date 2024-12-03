@@ -218,7 +218,6 @@ const Pages = () => {
     const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
-    updateURLWithBookmarks(newBookmarks);
   };
 
   const createBookmark = (name: string) => {
@@ -226,7 +225,6 @@ const Pages = () => {
       const newBookmarks = [...bookmarks, { name, measures: [] }];
       setBookmarks(newBookmarks);
       saveBookmarksToLocalStorage(newBookmarks);
-      updateURLWithBookmarks(newBookmarks);
     }
   };
 
@@ -244,15 +242,6 @@ const Pages = () => {
     );
     setBookmarks(newBookmarks);
     saveBookmarksToLocalStorage(newBookmarks);
-    updateURLWithBookmarks(newBookmarks);
-  };
-
-  const updateURLWithBookmarks = (bookmarks: Bookmark[]) => {
-    console.log('Updating URL with bookmarks:', bookmarks);
-    const queryString = encodeBookmarksToURL(bookmarks);
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('bookmarks', queryString);
-    router.push(`?${queryParams.toString()}`);
   };
 
   const [bookmarkSelected, setBookmarkSelected] = useState(false);
@@ -306,7 +295,7 @@ const Pages = () => {
               )}
               {isLoading ? (
                 <LoadingSpinner variant="offset" />
-              ) : displayedMeasures.length > 0 ? (
+              ) : displayedMeasures.length ? (
                 <MeasuresGrid
                   blueprints={displayedMeasures}
                   bookmarks={bookmarks}
