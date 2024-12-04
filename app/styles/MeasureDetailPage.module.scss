@@ -207,6 +207,9 @@
     background-color: none;
     margin: 0;
     padding-bottom: 10px;
+    &:hover {
+      background: none;
+    }
   }
 }
 
@@ -245,6 +248,10 @@
     color: rgb(247, 208, 12);
     background: none;
     padding-bottom: 5px;
+
+    &:hover {
+      background: none;
+    }
   }
 }
 
