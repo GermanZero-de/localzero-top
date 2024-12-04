@@ -233,7 +233,7 @@
   padding: 8px;
   margin-bottom: 1rem;
   position: sticky;
-  top:0;
+  top: 0;
   z-index: 10;
 
   .filter-icon-button,
@@ -290,12 +290,12 @@
   }
 
   .filter-icon-image {
-    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg)
-      brightness(0%) contrast(100%);
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%)
+      contrast(100%);
   }
 
   .close-overlay-button {
-    display:block;
+    display: block;
   }
 
   .share-bookmarks {
@@ -304,7 +304,7 @@
   }
 
   .bookmark-input {
-    margin: 0 0px
+    margin: 0 0px;
   }
 
   .create-button {
@@ -380,7 +380,6 @@
 }
 
 .blue-filter-bar {
-
   .back-button {
     background: none;
     border: 1px solid white;
@@ -415,5 +414,69 @@
 @media screen and (min-width: 601px) {
   .close-overlay-button {
     display: none;
+  }
+}
+
+.city-filter {
+  margin-bottom: 0.5rem;
+
+  &-header {
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between; // Ensures title and arrow are aligned
+    margin-bottom: 0.5rem;
+  }
+
+  &-title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  &-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+    align-items: center;
+
+    h4 {
+      color: #374151;
+      font-size: clamp(16px, 1.5vw, 20px);
+      margin-bottom: 10px;
+      display: inline-block;
+      line-height: 1.5;
+    }
+
+    .city-filter-arrow {
+      width: 15px;
+      height: 15px;
+      transition: transform 0.2s;
+      margin-left: 0.5rem;
+
+      &.arrow-right {
+        transform: rotate(0deg); // Default position
+      }
+
+      &.arrow-down {
+        transform: rotate(90deg); // Rotated when open
+      }
+    }
+  }
+
+  &-options {
+    color: #4b5563;
+    cursor: pointer;
+    font-size: clamp(13px, 1.2vw, 15px);
+  }
+
+  &-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    input {
+      margin-right: 0.5rem;
+    }
   }
 }
