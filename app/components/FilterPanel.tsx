@@ -38,6 +38,12 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   onSelectBookmark,
 }) => {
   const router = useRouter();
+  const [isClosing, setIsClosing] = React.useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(onClose, 200);
+  };
 
   const toggleItem = <T,>(array: T[], item: T) =>
     array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
@@ -118,10 +124,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   const toggleBookmarks = () => setShowBookmarks(!showBookmarks);
 
   return (
-    <div className={`filter-panel ${isOverlay ? 'overlay' : ''}`}>
-      {/* Header */}
+    <div
+      className={`filter-panel ${isOverlay ? 'overlay' : ''} ${
+        isClosing ? 'closing' : ''
+      }`}
+    >
       <div className="filter-header">
-        <div className="filter-icon">
+      <div className="filter-icon">
           <button className="filter-button" onClick={toggleBookmarks}>
             <Image
               src={filterIcon}
@@ -143,7 +152,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         </button>
         <button
           className="close-overlay-button small-screen-icon"
-          onClick={onClose}
+          onClick={handleClose}
         >
           &times;
         </button>
@@ -265,9 +274,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           </h4>
         </button>
         {showBookmarks && (
-          <>
-            <Bookmark onSelectBookmark={onSelectBookmark} />
-          </>
+          <Bookmark 
+            onSelectBookmark={onSelectBookmark} 
+            onClose={handleClose}
+          />
         )}
       </div>
     </div>
