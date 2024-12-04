@@ -186,9 +186,6 @@ const Pages = () => {
               onClose={() => setIsFilterPanelVisible(false)}
               onSelectBookmark={handleSelectBookmark}
               bookmarks={[]}
-              onCreateBookmark={() => {}}
-              onAddMeasureToBookmark={() => {}}
-              onDeleteBookmark={() => {}}
             />
           </div>
           <div className="main-content">
@@ -207,9 +204,6 @@ const Pages = () => {
                 onClose={() => setIsFilterPanelVisible(false)}
                 onSelectBookmark={handleSelectBookmark}
                 bookmarks={[]}
-                onCreateBookmark={() => {}}
-                onAddMeasureToBookmark={() => {}}
-                onDeleteBookmark={() => {}}
               />
             )}
             {isLoading ? (
