@@ -9,12 +9,14 @@ interface BlueFilterBarProps {
   onToggleFilterPanel?: () => void; // Optional, for filter button
   onGoBack: () => void; // For back button
   hideIcons?: boolean; // New prop to hide icons
+  hideBackButton?: boolean; // New prop to hide the back button
 }
 
 const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
   onToggleFilterPanel,
   onGoBack,
   hideIcons = false,
+  hideBackButton = false,
 }) => {
   const router = useRouter();
 
@@ -33,15 +35,15 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
   return (
     <div className="blue-filter-bar">
       {!hideIcons && (
-        <>
-          <button onClick={onToggleFilterPanel} className="filter-icon-button">
-            <Image src={filterIcon} alt="Filter Icon" width={24} height={24} />
-          </button>
-        </>
+        <button onClick={onToggleFilterPanel} className="filter-icon-button">
+          <Image src={filterIcon} alt="Filter Icon" width={24} height={24} />
+        </button>
       )}
-      <button onClick={onGoBack} className="back-button">
-        Back
-      </button>
+      {!hideBackButton && (
+        <button onClick={onGoBack} className="back-button">
+          Back
+        </button>
+      )}
     </div>
   );
 };

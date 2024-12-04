@@ -221,7 +221,7 @@ const MeasureDetailPage = () => {
             <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
           </div>
 
-          {/* Blue line at the bottomo */}
+          {/* Blue line at the bottom */}
           <div
             className={`${styles['blue-line']} ${styles['bottom-blue-line']}`}
           ></div>
@@ -236,7 +236,7 @@ const MeasureDetailPage = () => {
               ? Object.entries(
                   linkedMeasures.reduce(
                     (acc, localMeasure) => {
-                      const cityTitle = localMeasure.city.title;
+                      const cityTitle = localMeasure.city?.title; // Ensure city title is being assigned correctly
                       if (!acc[cityTitle]) {
                         acc[cityTitle] = [];
                       }
@@ -248,6 +248,18 @@ const MeasureDetailPage = () => {
                 ).map(([cityTitle, measures]) => {
                   const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
+                  // Handle case for "No city"
+                  if (cityTitle === 'No city') {
+                    return (
+                      <div key={cityTitle} className={styles['city-item']}>
+                        <p className={styles['no-city-message']}>
+                          No city has implemented this measure.
+                        </p>
+                      </div>
+                    );
+                  }
+
+                  // For other cities, render normal city dropdown
                   return (
                     <div key={cityTitle} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(cityTitle)}>

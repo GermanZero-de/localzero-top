@@ -27,19 +27,37 @@
   }
 }
 
-.measure-card {
-  display: flex;
-  flex-direction: column; /* Stack code, card, and other elements vertically */
-  align-items: flex-start; /* Align everything to the left */
-  margin-bottom: 2rem; /* Space below the measure card */
+.measure-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+
+  /* Hide on mobile screens */
+  @media (max-width: 645px) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .measure-card {
+    margin-top: -65px;
+    margin-left: 0px;
+  }
 }
 
 .measure-code {
   font-size: 1.5rem; /* Slightly larger font for prominence */
   font-weight: bold; /* Make the code stand out */
-  color: #4a0a78; /* Use theme color for consistency */
+  color: black; /* Use theme color for consistency */
   padding-left: 15px;
   padding-bottom: 10px;
+}
+
+.measure-card {
+  position: flex;
+  flex-direction: column; /* Stack code, card, and other elements vertically */
+  align-items: flex-start; /* Align everything to the left */
+  margin-bottom: 2rem; /* Space below the measure card */
 }
 
 .focuse-balls {
@@ -90,7 +108,7 @@
   align-items: center;
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 35px;
 
   h2 {
     color: #4a0a78;
@@ -293,4 +311,11 @@
   &:hover {
     background-color: #0369a1;
   }
+}
+.no-city-message {
+  font-size: 1rem;
+  color: #4a0a78; /* You can choose a color here */
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
 }
