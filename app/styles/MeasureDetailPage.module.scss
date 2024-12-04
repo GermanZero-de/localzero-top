@@ -28,13 +28,20 @@
 }
 
 .measure-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #000;
 
   /* Hide on mobile screens */
-  @media (max-width: 768px) {
+  @media (max-width: 645px) {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .measure-card {
+    margin-top: -65px;
+    margin-left: 0px;
   }
 }
 
@@ -101,7 +108,7 @@
   align-items: center;
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 35px;
 
   h2 {
     color: #4a0a78;
@@ -136,6 +143,8 @@
   font-weight: bold;
   margin-right: 5px; /* Space between the city name and the arrow */
   display: inline-block; /* Ensures the city name stays inline with the arrow */
+  background: none;
+  border: none;
 }
 
 .arrow-button {
@@ -183,6 +192,128 @@
   width: 100%; /* Ensure list takes full width of container */
 }
 
+.bookmark-container {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 20; /* Adjust this value as needed */
+  padding: 10px; /* Optional: Add some padding */
+  margin-right: 20vw;
+}
+
+.bookmark-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #e5f7fb;
+  color: #0284c7;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #cceef7;
+  }
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.bookmark-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 8px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.bookmark-dropdown-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #111827;
+  }
+}
+
+.bookmark-list {
+  padding: 16px;
+
+  .bookmark-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    label {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    input[type='checkbox'] {
+      margin-right: 12px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #d1d5db;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:checked {
+        background-color: #0284c7;
+        border-color: #0284c7;
+      }
+    }
+
+    .bookmark-name {
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .bookmark-date {
+      margin-left: auto;
+      font-size: 12px;
+      color: #6b7280;
+    }
+  }
+
+  .new-bookmark {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+  }
+}
+
+.save-button {
+  width: 100%;
+  padding: 8px 16px;
+  margin-top: 16px;
+  background-color: #0284c7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #0369a1;
+  }
+}
 .no-city-message {
   font-size: 1rem;
   color: #4a0a78; /* You can choose a color here */

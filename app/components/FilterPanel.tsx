@@ -3,7 +3,6 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import filterIcon from '../photos/filterPlaceholder.png';
 import bookmarkIcon from '../photos/bookmarkIcon.png';
-import clearIcon from '../photos/clearIcon.png';
 import '../styles/Filterpanel.scss';
 import { Filter } from '@/app/models/Filter';
 import { Sector } from '@/app/models/sector';
@@ -27,10 +26,7 @@ interface FilterPanelProps {
   onClose: () => void;
   isOverlay?: boolean;
   bookmarks: Bookmark[];
-  onCreateBookmark: (name: string) => void;
-  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
   onSelectBookmark: (bookmark: Bookmark) => void;
-  onDeleteBookmark: (name: string) => void;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
@@ -39,11 +35,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   data,
   onClose,
   isOverlay = false,
-  bookmarks,
-  onCreateBookmark,
-  onAddMeasureToBookmark,
   onSelectBookmark,
-  onDeleteBookmark,
 }) => {
   const router = useRouter();
 
@@ -274,13 +266,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         </button>
         {showBookmarks && (
           <>
-            <Bookmark
-              bookmarks={bookmarks}
-              onCreateBookmark={onCreateBookmark}
-              onAddMeasureToBookmark={onAddMeasureToBookmark}
-              onSelectBookmark={(bookmark) => onSelectBookmark(bookmark)}
-              onDeleteBookmark={onDeleteBookmark}
-            />
+            <Bookmark onSelectBookmark={onSelectBookmark} />
           </>
         )}
       </div>
