@@ -232,6 +232,9 @@
   background-color: #00aaff; // Set the blue background color
   padding: 8px;
   margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
   .filter-icon-button,
   .bookmark-icon-button {
@@ -287,12 +290,12 @@
   }
 
   .filter-icon-image {
-    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg)
-      brightness(0%) contrast(100%);
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%)
+      contrast(100%);
   }
 
   .close-overlay-button {
-    display:block;
+    display: block;
   }
 
   .share-bookmarks {
@@ -301,7 +304,7 @@
   }
 
   .bookmark-input {
-    margin: 0 0px
+    margin: 0 0px;
   }
 
   .create-button {
@@ -377,14 +380,14 @@
 }
 
 .blue-filter-bar {
+  max-height: 50px;
 
   .back-button {
     background: none;
-    border: 1px solid white;
+    border: 0px solid white;
     color: white;
     padding: 8px 16px;
     cursor: pointer;
-    margin-left: auto; // Push it to the left
   }
 
   .filter-icon-button {
@@ -393,6 +396,19 @@
     color: white;
     cursor: pointer;
     margin-left: 0px;
+  }
+
+  .share-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    margin-bottom: 25px;
+    margin-right: 40vw;
+
+    &:hover {
+      background: none;
+    }
   }
 }
 
@@ -413,4 +429,21 @@
   .close-overlay-button {
     display: none;
   }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateX(-100%);
+  }
+}
+
+.filter-panel.closing {
+  animation: fadeOutLeft 0.25s ease-in forwards;
+  // position: relative;
+  // overflow: hidden;
 }
