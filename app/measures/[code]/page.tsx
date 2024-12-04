@@ -142,7 +142,9 @@ const MeasureDetailPage = () => {
                   <label>
                     <input
                       type="checkbox"
-                      checked={selectedBookmarks.includes(bookmark.name)}
+                      checked={
+                        measure ? bookmark.measures.includes(measure) : false
+                      }
                       onChange={() => toggleBookmark(bookmark.name)}
                     />
                     <span className={styles['bookmark-name']}>
