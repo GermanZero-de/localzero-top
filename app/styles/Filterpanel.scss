@@ -232,6 +232,9 @@
   background-color: #00aaff; // Set the blue background color
   padding: 8px;
   margin-bottom: 1rem;
+  position: sticky;
+  top:0;
+  z-index: 10;
 
   .filter-icon-button,
   .bookmark-icon-button {
