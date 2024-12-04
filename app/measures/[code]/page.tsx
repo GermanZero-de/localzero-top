@@ -263,12 +263,11 @@ const MeasureDetailPage = () => {
                   return (
                     <div key={cityTitle} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(cityTitle)}>
-                        <a
-                          href={`#${cityTitle}`}
+                        <button
                           className={styles['city-item-link']}
                         >
                           {cityTitle}
-                        </a>
+                        </button>
                         <ArrowRight
                           color="#4a0a78"
                           className={`${styles['arrow-button']} ${
