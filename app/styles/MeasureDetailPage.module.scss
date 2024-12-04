@@ -27,19 +27,30 @@
   }
 }
 
-.measure-card {
-  display: flex;
-  flex-direction: column; /* Stack code, card, and other elements vertically */
-  align-items: flex-start; /* Align everything to the left */
-  margin-bottom: 2rem; /* Space below the measure card */
+.measure-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #000;
+
+  /* Hide on mobile screens */
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .measure-code {
   font-size: 1.5rem; /* Slightly larger font for prominence */
   font-weight: bold; /* Make the code stand out */
-  color: #4a0a78; /* Use theme color for consistency */
+  color: black; /* Use theme color for consistency */
   padding-left: 15px;
   padding-bottom: 10px;
+}
+
+.measure-card {
+  position: flex;
+  flex-direction: column; /* Stack code, card, and other elements vertically */
+  align-items: flex-start; /* Align everything to the left */
+  margin-bottom: 2rem; /* Space below the measure card */
 }
 
 .focuse-balls {
@@ -170,4 +181,12 @@
   align-items: stretch; /* Stretch city items to fill container width */
   padding-left: 20px;
   width: 100%; /* Ensure list takes full width of container */
+}
+
+.no-city-message {
+  font-size: 1rem;
+  color: #4a0a78; /* You can choose a color here */
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
 }

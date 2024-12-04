@@ -88,26 +88,32 @@ const MeasureDetailPage = () => {
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
-      <h1>{measure?.title}</h1>
+      {/* Measure Title */}
+      <h1 className={styles['measure-title']}>{measure?.title}</h1>
+
       <div className={styles['measure-detail-container']}>
-        {/* Left Column: Measure Card */}
-        <div className={styles['measure-card']}>
-          {/* Display Measure Code */}
-          {measure?.code && (
-            <div className={styles['measure-code']}>
-              <h3>{measure.code}</h3>
-            </div>
-          )}
-          {measure && (
-            <MeasureCard
-              blueprint={measure}
-              hideArrow={true}
-              hideCities={true}
-              onAddMeasureToBookmark={() => {}}
-              bookmarks={[]}
-              hideBookmark={true}
-            />
-          )}
+        {/* Left Column */}
+        <div>
+          <div className={styles['measure-card']}>
+            {/* Display Measure Code */}
+            {measure?.code && (
+              <div className={styles['measure-code']}>
+                <h3>{measure.code}</h3>
+              </div>
+            )}
+            {measure && (
+              <MeasureCard
+                blueprint={measure}
+                hideArrow={true}
+                hideCities={true}
+                onAddMeasureToBookmark={() => {}}
+                bookmarks={[]}
+                hideBookmark={true}
+              />
+            )}
+          </div>
+
+          {/* Focus Balls */}
           <div className={styles['focuse-balls']}>
             <FocuseBallsDetails
               measureFocuses={measure?.focuses}
@@ -130,7 +136,7 @@ const MeasureDetailPage = () => {
             <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
           </div>
 
-          {/* Blue line at the bottomo */}
+          {/* Blue line at the bottom */}
           <div
             className={`${styles['blue-line']} ${styles['bottom-blue-line']}`}
           ></div>
@@ -145,7 +151,7 @@ const MeasureDetailPage = () => {
               ? Object.entries(
                   linkedMeasures.reduce(
                     (acc, localMeasure) => {
-                      const cityTitle = localMeasure.city.title;
+                      const cityTitle = localMeasure.city?.title; // Ensure city title is being assigned correctly
                       if (!acc[cityTitle]) {
                         acc[cityTitle] = [];
                       }
@@ -157,6 +163,18 @@ const MeasureDetailPage = () => {
                 ).map(([cityTitle, measures]) => {
                   const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
+                  // Handle case for "No city"
+                  if (cityTitle === 'No city') {
+                    return (
+                      <div key={cityTitle} className={styles['city-item']}>
+                        <p className={styles['no-city-message']}>
+                          No city has implemented this measure.
+                        </p>
+                      </div>
+                    );
+                  }
+
+                  // For other cities, render normal city dropdown
                   return (
                     <div key={cityTitle} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(cityTitle)}>
