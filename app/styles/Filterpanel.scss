@@ -430,3 +430,20 @@
     display: none;
   }
 }
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateX(-100%);
+  }
+}
+
+.filter-panel.closing {
+  animation: fadeOutLeft 0.25s ease-in forwards;
+  // position: relative;
+  // overflow: hidden;
+}
