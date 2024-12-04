@@ -167,7 +167,7 @@ const Pages = () => {
   };
 
   useEffect(() => {
-    if (bookmarkSelected) {
+    if (!bookmarkSelected) {
       setDisplayedMeasures(filteredMeasures);
     }
   }, [bookmarkSelected]);
