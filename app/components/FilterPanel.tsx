@@ -26,10 +26,7 @@ interface FilterPanelProps {
   onClose: () => void;
   isOverlay?: boolean;
   bookmarks: Bookmark[];
-  onCreateBookmark: (name: string) => void;
-  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
   onSelectBookmark: (bookmark: Bookmark) => void;
-  onDeleteBookmark: (name: string) => void;
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({

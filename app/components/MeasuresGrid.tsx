@@ -71,12 +71,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
     <div className="measures-grid">
       {/* Display only the visible measures */}
       {blueprints.slice(0, visibleCount).map((blueprint, index) => (
-        <MeasureCard
-          key={index}
-          blueprint={blueprint}
-          bookmarks={bookmarks}
-          onAddMeasureToBookmark={onAddMeasureToBookmark}
-        />
+        <MeasureCard key={index} blueprint={blueprint} />
       ))}
 
       {/* Loading indicator */}
