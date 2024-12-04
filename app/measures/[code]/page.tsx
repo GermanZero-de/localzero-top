@@ -86,7 +86,7 @@ const MeasureDetailPage = () => {
     fetchMeasureData();
   }, [code]); // Fetch measure linkedMeasures when code changes
 
-  if (loading) return <LoadingSpinner />;
+  if (loading) return <LoadingSpinner variant="offset" />;
   if (error) return <p>{error}</p>;
 
   // Determine the CSS class for the cities overlay based on measure priority
