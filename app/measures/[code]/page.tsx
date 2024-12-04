@@ -133,7 +133,7 @@ const MeasureDetailPage = () => {
           ) : (
             <GoBookmark />
           )}
-          Merken
+          <span className={styles['merken-text']}>Merken</span>
         </button>
 
         {showBookmarkDropdown && (
@@ -232,6 +232,12 @@ const MeasureDetailPage = () => {
           <h2>Städte</h2>
 
           <div className={styles['cities-list']}>
+            {(!linkedMeasures || linkedMeasures.length === 0) &&
+            <div className={styles['city-item']}>
+              <p className={styles['no-city-message']}>
+                No city has implemented this measure.
+              </p>
+            </div>}
             {linkedMeasures?.length
               ? Object.entries(
                   linkedMeasures.reduce(
@@ -248,24 +254,11 @@ const MeasureDetailPage = () => {
                 ).map(([cityTitle, measures]) => {
                   const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
 
-                  // Handle case for "No city"
-                  if (cityTitle === 'No city') {
-                    return (
-                      <div key={cityTitle} className={styles['city-item']}>
-                        <p className={styles['no-city-message']}>
-                          No city has implemented this measure.
-                        </p>
-                      </div>
-                    );
-                  }
-
                   // For other cities, render normal city dropdown
                   return (
                     <div key={cityTitle} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(cityTitle)}>
-                        <button
-                          className={styles['city-item-link']}
-                        >
+                        <button className={styles['city-item-link']}>
                           {cityTitle}
                         </button>
                         <ArrowRight

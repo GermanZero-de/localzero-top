@@ -3,7 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation'; // Correct import for the App Directory
 import filterIcon from '../photos/filterPlaceholder.png';
-import bookmarkIcon from '../photos/bookmarkIcon.png';
+import { FaShareAlt } from 'react-icons/fa';
 
 interface BlueFilterBarProps {
   onToggleFilterPanel?: () => void; // Optional, for filter button
@@ -19,6 +19,19 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
   hideBackButton = false,
 }) => {
   const router = useRouter();
+
+  const handleShare = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard.writeText(currentURL).then(
+      () => {
+        console.log('Link copied to clipboard');
+        alert('Link copied to clipboard');
+      },
+      (err) => {
+        console.error('Failed to copy the link: ', err);
+      },
+    );
+  };
 
   const handleGoBack = () => {
     try {
@@ -42,6 +55,11 @@ const BlueFilterBar: React.FC<BlueFilterBarProps> = ({
       {!hideBackButton && (
         <button onClick={onGoBack} className="back-button">
           Back
+        </button>
+      )}
+      {!hideBackButton && (
+        <button onClick={handleShare} className="share-button">
+          <FaShareAlt />
         </button>
       )}
     </div>
