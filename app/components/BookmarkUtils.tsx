@@ -170,7 +170,6 @@ export const decodeBookmarksFromURL = (
   }
 };
 
-// Sharing Hook
 export const useBookmarkSharing = (bookmarks: Bookmark[]) => {
   const shareBookmarks = () => {
     if (!bookmarks.length) {

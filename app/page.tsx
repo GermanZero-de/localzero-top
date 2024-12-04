@@ -15,16 +15,14 @@ import { City } from '@/app/models/city';
 import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
-import Bookmark from '@/app/components/Bookmark';
 import LoadingSpinner from '@/app/components/LoadingScreen';
-import {
-  decodeBookmarksFromURL,
-  loadBookmarksFromStorage,
-  createBookmark,
-  deleteBookmark,
-  addMeasureToBookmark,
-  saveBookmarksToStorage,
-} from '@/app/components/BookmarkShare';
+import { BookmarkProvider } from '@/app/components/BookmarkContext';
+
+interface Bookmark {
+  name: string;
+  measures: Blueprint[];
+  date: string;
+}
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -95,59 +93,17 @@ const Pages = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
 
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-
-  useEffect(() => {
-    setBookmarks(loadBookmarksFromStorage());
-  }, []);
-
-  const handleCreateBookmark = (name: string) => {
-    const updatedBookmarks = createBookmark(bookmarks, name);
-    setBookmarks(updatedBookmarks);
-    saveBookmarksToStorage(updatedBookmarks);
-  };
-
-  const handleDeleteBookmark = (name: string) => {
-    const updatedBookmarks = deleteBookmark(bookmarks, name);
-    setBookmarks(updatedBookmarks);
-    saveBookmarksToStorage(updatedBookmarks);
-  };
-
-  const handleAddMeasureToBookmark = (
-    bookmarkName: string,
-    measure: Blueprint,
-  ) => {
-    const updatedBookmarks = addMeasureToBookmark(
-      bookmarks,
-      bookmarkName,
-      measure,
-    );
-    setBookmarks(updatedBookmarks);
-    saveBookmarksToStorage(updatedBookmarks);
-  };
+  const [bookmarkSelected, setBookmarkSelected] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       fetchSheetsData().then((fetchedData: AppData) => {
         setData(fetchedData);
-
         const filtersFromQuery = parseQueryParams(
           new URLSearchParams(searchParams.toString()),
           fetchedData,
         );
         setActiveFilters(filtersFromQuery);
-
-        if (window.location.search.includes('bookmarks')) {
-          const urlBookmarks = decodeBookmarksFromURL(
-            window.location.search,
-            fetchedData,
-          );
-          if (urlBookmarks.length) {
-            setBookmarks(urlBookmarks);
-            saveBookmarksToStorage(urlBookmarks);
-          }
-        }
-
         setIsLoading(false);
       });
     }
@@ -188,19 +144,6 @@ const Pages = () => {
     cities: City[],
   ) => {
     setActiveFilters({ prioritys: priorities, sectors, focuses, cities });
-    const queryParams = new URLSearchParams();
-    if (priorities.length)
-      queryParams.append(
-        'priorities',
-        priorities.map((p) => p.stars).join(','),
-      );
-    if (sectors.length)
-      queryParams.append('sectors', sectors.map((s) => s.title).join(','));
-    if (focuses.length)
-      queryParams.append('focuses', focuses.map((f) => f.title).join(','));
-    if (cities.length)
-      queryParams.append('cities', cities.map((c) => c.title).join(','));
-    router.push(`?${queryParams.toString()}`);
   };
 
   const handleGoBack = () => {
@@ -211,14 +154,23 @@ const Pages = () => {
     }
   };
 
-  const [bookmarkSelected, setBookmarkSelected] = useState(false);
-
-  const handleSelectBookmark = (bookmark: Bookmark) => {
-    setDisplayedMeasures(
-      bookmarkSelected ? filteredMeasures : bookmark.measures,
-    );
+  const handleSelectBookmark = (bookmark?: Bookmark) => {
+    if (bookmark) {
+      const bookmarkedMeasures = filteredMeasures.filter((measure) =>
+        bookmark.measures.some((bm) => bm.code === measure.code),
+      );
+      setDisplayedMeasures(bookmarkedMeasures);
+    } else {
+      setDisplayedMeasures(filteredMeasures);
+    }
     setBookmarkSelected(!bookmarkSelected);
   };
+
+  useEffect(() => {
+    if (bookmarkSelected) {
+      setDisplayedMeasures(filteredMeasures);
+    }
+  }, [bookmarkSelected]);
 
   return (
     <div>
@@ -232,11 +184,11 @@ const Pages = () => {
               filters={activeFilters}
               onFilterChange={changeFilters}
               onClose={() => setIsFilterPanelVisible(false)}
-              bookmarks={bookmarks}
-              onCreateBookmark={handleCreateBookmark}
-              onAddMeasureToBookmark={handleAddMeasureToBookmark}
               onSelectBookmark={handleSelectBookmark}
-              onDeleteBookmark={handleDeleteBookmark}
+              bookmarks={[]}
+              onCreateBookmark={() => {}}
+              onAddMeasureToBookmark={() => {}}
+              onDeleteBookmark={() => {}}
             />
           </div>
           <div className="main-content">
@@ -248,15 +200,15 @@ const Pages = () => {
             {isFilterPanelVisible && (
               <FilterPanel
                 data={data}
-                isOverlay={true}
+                isOverlay={false}
                 filters={activeFilters}
                 onFilterChange={changeFilters}
                 onClose={() => setIsFilterPanelVisible(false)}
-                bookmarks={bookmarks}
-                onCreateBookmark={handleCreateBookmark}
-                onAddMeasureToBookmark={handleAddMeasureToBookmark}
                 onSelectBookmark={handleSelectBookmark}
-                onDeleteBookmark={handleDeleteBookmark}
+                bookmarks={[]}
+                onCreateBookmark={() => {}}
+                onAddMeasureToBookmark={() => {}}
+                onDeleteBookmark={() => {}}
               />
             )}
             {isLoading ? (
@@ -264,8 +216,8 @@ const Pages = () => {
             ) : displayedMeasures.length > 0 ? (
               <MeasuresGrid
                 blueprints={displayedMeasures}
-                bookmarks={bookmarks}
-                onAddMeasureToBookmark={handleAddMeasureToBookmark}
+                bookmarks={[]}
+                onAddMeasureToBookmark={() => {}}
               />
             ) : (
               <p>Keine Treffer gefunden</p>
@@ -281,7 +233,9 @@ const Pages = () => {
 export default function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <Pages />
+      <BookmarkProvider>
+        <Pages />
+      </BookmarkProvider>
     </Suspense>
   );
 }

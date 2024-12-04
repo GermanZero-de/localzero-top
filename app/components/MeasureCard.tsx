@@ -1,26 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import ArrowRight from '@/app/components/Arrow-Right';
 import '../styles/Focuses.scss';
 import { Blueprint } from '@/app/models/blueprint';
 import Image from 'next/image';
 import cityIcon from '../photos/cityIconAlt.png';
-
-import { GoBookmark } from "react-icons/go";
-import { GoBookmarkFill } from "react-icons/go";
-
-interface Bookmark {
-  name: string;
-  measures: Blueprint[];
-}
+import { GoBookmark, GoBookmarkFill } from 'react-icons/go';
+import { useBookmarks } from '@/app/components/BookmarkContext';
 
 interface MeasureCardProps {
   blueprint: Blueprint;
   hideArrow?: boolean;
   hideCities?: boolean;
-  currentFilters?: string; // Include current filters to persist
-  bookmarks: Bookmark[];
-  onAddMeasureToBookmark: (bookmarkName: string, measure: Blueprint) => void;
+  currentFilters?: string;
   hideBookmark?: boolean;
 }
 
@@ -29,15 +21,12 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
   hideArrow,
   hideCities,
   currentFilters,
-  onAddMeasureToBookmark,
-  bookmarks,
   hideBookmark,
 }) => {
   const { title, sector, priority, focuses, code, cities } = blueprint;
   const [showDropdown, setShowDropdown] = useState(false);
-  const isBookmarked = bookmarks.some((bookmark) =>
-    bookmark.measures.some((measure) => measure.code === blueprint.code),
-  );
+  const { bookmarks, addMeasureToBookmark, isMeasureBookmarked } =
+    useBookmarks();
 
   const focuseBalls = focuses.map((focus, index) => (
     <div key={index} className="focus-item">
@@ -48,40 +37,27 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
     </div>
   ));
 
-  const handleAddToBookmark = async (bookmarkName: string) => {
-    try {
-      const blueprintToAdd = {
-        ...blueprint,
-        code: blueprint.code,
-        title: blueprint.title,
-        sector: { ...blueprint.sector },
-        priority: { ...blueprint.priority },
-        focuses: blueprint.focuses.map((focus) => ({ ...focus })),
-        cities: blueprint.cities.map((city) => ({ ...city })),
-        description: blueprint.description,
-      };
-      onAddMeasureToBookmark(bookmarkName, blueprintToAdd);
-      setShowDropdown(false);
-    } catch (error) {
-      console.error('Failed to add measure to bookmark:', error);
+  const handleAddToBookmark = (bookmarkName: string) => {
+    if (addMeasureToBookmark) {
+      addMeasureToBookmark(bookmarkName, blueprint);
     }
   };
 
   return (
-    <div className={`measure-card priority-${priority.stars} ${hideBookmark ? 'hide-bookmark' : ''}`}>
+    <div
+      className={`measure-card priority-${priority.stars} ${hideBookmark ? 'hide-bookmark' : ''}`}
+    >
       <div className="card-header">
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
-        {/* Bookmark icon and dropdown */}
         {!hideBookmark && (
           <div
             className="bookmark-container"
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
-            {/* Toggle bookmark icon */}
             <div className="bookmark-toggle">
-              {isBookmarked ? (
+              {isMeasureBookmarked && isMeasureBookmarked(code) ? (
                 <GoBookmarkFill
                   size={32}
                   style={{
@@ -97,10 +73,9 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
                 />
               )}
             </div>
-            {/* Dropdown menu for bookmark selection */}
-            {showDropdown && bookmarks.length > 0 && (
+            {showDropdown && (bookmarks?.length ?? 0) > 0 && (
               <div className="bookmark-dropdown">
-                {bookmarks.map((bookmark) => (
+                {(bookmarks ?? []).map((bookmark: { name: string }) => (
                   <div
                     key={bookmark.name}
                     onClick={() => handleAddToBookmark(bookmark.name)}
@@ -114,6 +89,7 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           </div>
         )}
       </div>
+      {/* Rest of the component remains the same */}
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
