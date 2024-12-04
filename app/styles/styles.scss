@@ -29,10 +29,10 @@
 .mobile-page-title {
   display: none; /* Hidden by default */
 
-  @media (max-width: 768px) {
+  @media (max-width: 645px) {
     display: block; /* Show on mobile screens */
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     color: black; /* Match theme color */
     margin-top: 1rem; /* Add spacing above the BlueFilterBar */
@@ -416,8 +416,9 @@ footer a:hover {
     margin-top: 1px;
 
     .measure-card {
-      margin-left: 35px;
-      margin-right: 35px;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-bottom: 10px;
     }
   }
 }

@@ -28,13 +28,20 @@
 }
 
 .measure-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #000;
 
   /* Hide on mobile screens */
-  @media (max-width: 768px) {
+  @media (max-width: 645px) {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .measure-card {
+    margin-top: -65px;
+    margin-left: 0px;
   }
 }
 
@@ -101,7 +108,7 @@
   align-items: center;
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 35px;
 
   h2 {
     color: #4a0a78;
