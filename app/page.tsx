@@ -154,6 +154,19 @@ const Pages = () => {
     }
   };
 
+  const handleShare = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard.writeText(currentURL).then(
+      () => {
+        console.log('Link copied to clipboard');
+        alert('Link copied to clipboard');
+      },
+      (err) => {
+        console.error('Failed to copy the link: ', err);
+      },
+    );
+  };
+
   const handleSelectBookmark = (bookmark?: Bookmark) => {
     if (bookmark) {
       const bookmarkedMeasures = filteredMeasures.filter((measure) =>
@@ -193,6 +206,7 @@ const Pages = () => {
             <BlueFilterBar
               onToggleFilterPanel={toggleFilterPanel}
               onGoBack={handleGoBack}
+              onShare={handleShare}
               hideBackButton={true}
             />
             {isFilterPanelVisible && (

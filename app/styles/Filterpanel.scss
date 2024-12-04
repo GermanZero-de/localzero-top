@@ -380,6 +380,8 @@
 }
 
 .blue-filter-bar {
+  max-height: 50px;
+
   .back-button {
     background: none;
     border: 1px solid white;
@@ -394,6 +396,15 @@
     color: white;
     cursor: pointer;
     margin-left: 0px;
+  }
+
+  .share-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    margin-bottom: 25px;
+    margin-right: 40vw;
   }
 }
 
