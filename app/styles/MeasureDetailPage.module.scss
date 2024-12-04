@@ -143,6 +143,8 @@
   font-weight: bold;
   margin-right: 5px; /* Space between the city name and the arrow */
   display: inline-block; /* Ensures the city name stays inline with the arrow */
+  background: none;
+  border: none;
 }
 
 .arrow-button {
