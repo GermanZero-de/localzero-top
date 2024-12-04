@@ -124,9 +124,9 @@ const MeasureDetailPage = () => {
           onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
         >
           {measure?.code && isMeasureBookmarked(measure.code) ? (
-            <GoBookmark />
-          ) : (
             <GoBookmarkFill />
+          ) : (
+            <GoBookmark />
           )}
           Merken
         </button>
@@ -149,7 +149,12 @@ const MeasureDetailPage = () => {
                       {bookmark.name}
                     </span>
                     <span className={styles['bookmark-date']}>
-                      letzte Änderung: {bookmark.date || 'N/A'}
+                      letzte Änderung:{' '}
+                      {new Date(bookmark.date).toLocaleDateString('de-DE')}{' '}
+                      {new Date(bookmark.date).toLocaleTimeString('de-DE', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
                     </span>
                   </label>
                 </div>
