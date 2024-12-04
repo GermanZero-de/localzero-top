@@ -201,7 +201,7 @@ const Pages = () => {
             {isFilterPanelVisible && (
               <FilterPanel
                 data={data}
-                isOverlay={false}
+                isOverlay={true}
                 filters={activeFilters}
                 onFilterChange={changeFilters}
                 onClose={() => setIsFilterPanelVisible(false)}
