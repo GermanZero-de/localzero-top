@@ -14,10 +14,12 @@ interface Bookmark {
 
 interface BookmarkProps {
   onSelectBookmark: (bookmark: Bookmark) => void;
+  onClose: () => void; // Add this prop for the closing function
 }
 
-const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark }) => {
+const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark, onClose }) => {
   const [newBookmarkName, setNewBookmarkName] = useState<string>('');
+  const [isClosing, setIsClosing] = useState(false); // Add state for closing animation
   const { bookmarks, createBookmark, deleteBookmark, shareBookmarks } =
     useBookmarks();
 
@@ -34,9 +36,17 @@ const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark }) => {
     shareBookmarks();
   };
 
+  const handleViewBookmark = (bookmark: Bookmark) => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onSelectBookmark(bookmark); 
+      onClose();
+    }, 0);
+  };
+
   return (
     <BookmarkProvider>
-      <div>
+      <div className={`bookmark-container ${isClosing ? 'closing' : ''}`}>
         <div className="create-bookmark">
           <input
             type="text"
@@ -55,7 +65,7 @@ const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark }) => {
               <div className="bookmark-header">
                 <button
                   className="view-bookmark"
-                  onClick={() => onSelectBookmark(bookmark)}
+                  onClick={() => handleViewBookmark(bookmark)}
                 >
                   <div className="bookmark-view">
                     <h3 className="bookmark-name">{bookmark.name}</h3>
