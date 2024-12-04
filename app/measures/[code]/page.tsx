@@ -122,7 +122,7 @@ const MeasureDetailPage = () => {
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
-      <h1>{measure?.title}</h1>
+      <h1 className={styles['measure-title']}>{measure?.title} </h1>
       <div className={styles['bookmark-container']}>
         <button
           className={styles['bookmark-button']}
