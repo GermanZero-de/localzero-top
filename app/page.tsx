@@ -15,9 +15,14 @@ import { City } from '@/app/models/city';
 import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
-import Bookmark from '@/app/components/Bookmark';
 import LoadingSpinner from '@/app/components/LoadingScreen';
-import { decodeBookmarksFromURL } from '@/app/components/BookmarkShare';
+import { BookmarkProvider } from '@/app/components/BookmarkContext';
+
+interface Bookmark {
+  name: string;
+  measures: Blueprint[];
+  date: string;
+}
 
 const parseQueryParams = (
   searchParams: URLSearchParams,
@@ -88,41 +93,17 @@ const Pages = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
 
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedBookmarks = localStorage.getItem('bookmarks');
-      try {
-        setBookmarks(savedBookmarks ? JSON.parse(savedBookmarks) : []);
-      } catch (e) {
-        console.error('Error loading bookmarks from localStorage:', e);
-      }
-    }
-  }, []);
+  const [bookmarkSelected, setBookmarkSelected] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       fetchSheetsData().then((fetchedData: AppData) => {
         setData(fetchedData);
-
         const filtersFromQuery = parseQueryParams(
           new URLSearchParams(searchParams.toString()),
           fetchedData,
         );
         setActiveFilters(filtersFromQuery);
-
-        if (window.location.search.includes('bookmarks')) {
-          const urlBookmarks = decodeBookmarksFromURL(
-            window.location.search,
-            fetchedData,
-          );
-          if (urlBookmarks.length) {
-            setBookmarks(urlBookmarks);
-            saveBookmarksToLocalStorage(urlBookmarks);
-          }
-        }
-
         setIsLoading(false);
       });
     }
@@ -163,19 +144,6 @@ const Pages = () => {
     cities: City[],
   ) => {
     setActiveFilters({ prioritys: priorities, sectors, focuses, cities });
-    const queryParams = new URLSearchParams();
-    if (priorities.length)
-      queryParams.append(
-        'priorities',
-        priorities.map((p) => p.stars).join(','),
-      );
-    if (sectors.length)
-      queryParams.append('sectors', sectors.map((s) => s.title).join(','));
-    if (focuses.length)
-      queryParams.append('focuses', focuses.map((f) => f.title).join(','));
-    if (cities.length)
-      queryParams.append('cities', cities.map((c) => c.title).join(','));
-    router.push(`?${queryParams.toString()}`);
   };
 
   const handleGoBack = () => {
@@ -186,63 +154,23 @@ const Pages = () => {
     }
   };
 
-  const saveBookmarksToLocalStorage = (bookmarks: Bookmark[]) => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    }
-  };
-
-  const deleteBookmark = (name: String) => {
-    const newBookmarks = bookmarks.filter((bookmark) => bookmark.name !== name);
-    setBookmarks(newBookmarks);
-    saveBookmarksToLocalStorage(newBookmarks);
-  };
-
-  const createBookmark = (name: string) => {
-    if (!bookmarks.some((bookmark) => bookmark.name === name)) {
-      const date = new Date().toISOString();
-      const newBookmarks = [...bookmarks, { name, measures: [], date }];
-      setBookmarks(newBookmarks);
-      saveBookmarksToLocalStorage(newBookmarks);
-    }
-  };
-
-  const addMeasureToBookmark = (bookmarkName: string, measure: Blueprint) => {
-    console.log('Adding measure to bookmark:', bookmarkName, measure);
-    const newBookmarks = bookmarks.map((bookmark) => {
-      if (bookmark.name === bookmarkName) {
-        const measureExists = bookmark.measures.some(
-          (m) => m.code === measure.code,
-        );
-        const updatedMeasures = measureExists
-          ? bookmark.measures.filter((m) => m.code !== measure.code)
-          : [...bookmark.measures, measure];
-        return {
-          ...bookmark,
-          measures: updatedMeasures,
-        };
-      }
-      return bookmark;
-    });
-    setBookmarks(newBookmarks);
-    saveBookmarksToLocalStorage(newBookmarks);
-    if (bookmarkSelected) {
-      newBookmarks.find((bookmark) => bookmark.name === bookmarkName);
-      setDisplayedMeasures(
-        newBookmarks.find((bookmark) => bookmark.name === bookmarkName)
-          ?.measures || [],
+  const handleSelectBookmark = (bookmark?: Bookmark) => {
+    if (bookmark) {
+      const bookmarkedMeasures = filteredMeasures.filter((measure) =>
+        bookmark.measures.some((bm) => bm.code === measure.code),
       );
+      setDisplayedMeasures(bookmarkedMeasures);
+    } else {
+      setDisplayedMeasures(filteredMeasures);
     }
-  };
-
-  const [bookmarkSelected, setBookmarkSelected] = useState(false);
-
-  const handleSelectBookmark = (bookmark: Bookmark) => {
-    setDisplayedMeasures(
-      bookmarkSelected ? filteredMeasures : bookmark.measures,
-    );
     setBookmarkSelected(!bookmarkSelected);
   };
+
+  useEffect(() => {
+    if (!bookmarkSelected) {
+      setDisplayedMeasures(filteredMeasures);
+    }
+  }, [bookmarkSelected]);
 
   return (
     <div>
@@ -256,11 +184,11 @@ const Pages = () => {
               filters={activeFilters}
               onFilterChange={changeFilters}
               onClose={() => setIsFilterPanelVisible(false)}
-              bookmarks={bookmarks}
-              onCreateBookmark={createBookmark}
-              onAddMeasureToBookmark={addMeasureToBookmark}
               onSelectBookmark={handleSelectBookmark}
-              onDeleteBookmark={deleteBookmark}
+              bookmarks={[]}
+              onCreateBookmark={() => {}}
+              onAddMeasureToBookmark={() => {}}
+              onDeleteBookmark={() => {}}
             />
           </div>
           <div className="main-content">
@@ -273,15 +201,15 @@ const Pages = () => {
             {isFilterPanelVisible && (
               <FilterPanel
                 data={data}
-                isOverlay={true}
+                isOverlay={false}
                 filters={activeFilters}
                 onFilterChange={changeFilters}
                 onClose={() => setIsFilterPanelVisible(false)}
-                bookmarks={bookmarks}
-                onCreateBookmark={createBookmark}
-                onAddMeasureToBookmark={addMeasureToBookmark}
                 onSelectBookmark={handleSelectBookmark}
-                onDeleteBookmark={deleteBookmark}
+                bookmarks={[]}
+                onCreateBookmark={() => {}}
+                onAddMeasureToBookmark={() => {}}
+                onDeleteBookmark={() => {}}
               />
             )}
             {isLoading ? (
@@ -289,8 +217,8 @@ const Pages = () => {
             ) : displayedMeasures.length > 0 ? (
               <MeasuresGrid
                 blueprints={displayedMeasures}
-                bookmarks={bookmarks}
-                onAddMeasureToBookmark={addMeasureToBookmark}
+                bookmarks={[]}
+                onAddMeasureToBookmark={() => {}}
               />
             ) : (
               <p>Keine Treffer gefunden</p>
@@ -306,7 +234,9 @@ const Pages = () => {
 export default function App() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <Pages />
+      <BookmarkProvider>
+        <Pages />
+      </BookmarkProvider>
     </Suspense>
   );
 }

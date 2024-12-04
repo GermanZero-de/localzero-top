@@ -13,6 +13,13 @@ import LoadingSpinner from '@/app/components/LoadingScreen';
 import { LocalMeasure } from '@/app/models/LocalMeasure';
 import FocuseBallsDetails from '@/app/components/FocuseBallsDetails';
 import { Focus } from '@/app/models/focus';
+import { GoBookmark } from 'react-icons/go';
+import { GoBookmarkFill } from 'react-icons/go';
+import {
+  BookmarkProvider,
+  useBookmarks,
+} from '@/app/components/BookmarkContext';
+import { saveBookmarksToStorage } from '@/app/components/BookmarkUtils';
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -26,6 +33,15 @@ const MeasureDetailPage = () => {
     [key: string]: boolean;
   }>({});
   const [focuses, setFocuses] = useState<Focus[] | null>(null);
+
+  const [showBookmarkDropdown, setShowBookmarkDropdown] = useState(false);
+  const {
+    bookmarks,
+    addMeasureToBookmark,
+    isMeasureBookmarked,
+    isMeasureInThisBookmark,
+  } = useBookmarks();
+  const [selectedBookmarks, setSelectedBookmarks] = useState<string[]>([]);
 
   const toggleDropdown = (cityTitle: string) => {
     setDropdownStates((prevState) => ({
@@ -76,6 +92,24 @@ const MeasureDetailPage = () => {
   // Determine the CSS class for the cities overlay based on measure priority
   const PriorityClass = measure ? `priority-${measure.priority.stars}` : '';
 
+  const toggleBookmark = (bookmarkName: string) => {
+    if (!measure) return;
+    if (selectedBookmarks.includes(bookmarkName)) {
+      setSelectedBookmarks(
+        selectedBookmarks.filter((name) => name !== bookmarkName),
+      );
+    } else {
+      setSelectedBookmarks([...selectedBookmarks, bookmarkName]);
+    }
+    addMeasureToBookmark(bookmarkName, measure);
+    console.log('measure added to' + bookmarkName);
+  };
+
+  const handleSaveBookmarks = () => {
+    setShowBookmarkDropdown(false);
+    saveBookmarksToStorage(bookmarks);
+  };
+
   return (
     <Layout
       data={{
@@ -88,32 +122,83 @@ const MeasureDetailPage = () => {
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
-      {/* Measure Title */}
-      <h1 className={styles['measure-title']}>{measure?.title}</h1>
+      <h1>{measure?.title}</h1>
+      <div className={styles['bookmark-container']}>
+        <button
+          className={styles['bookmark-button']}
+          onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
+        >
+          {measure?.code && isMeasureBookmarked(measure.code) ? (
+            <GoBookmarkFill />
+          ) : (
+            <GoBookmark />
+          )}
+          Merken
+        </button>
+
+        {showBookmarkDropdown && (
+          <div className={styles['bookmark-dropdown']}>
+            <div className={styles['bookmark-dropdown-header']}>
+              <h3>Auf Merkzettel speichern</h3>
+            </div>
+            <div className={styles['bookmark-list']}>
+              {bookmarks.map((bookmark) => (
+                <div key={bookmark.name} className={styles['bookmark-item']}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={
+                        measure
+                          ? isMeasureInThisBookmark(bookmark.name, measure.code)
+                          : false
+                      }
+                      onChange={() => toggleBookmark(bookmark.name)}
+                    />
+                    <span className={styles['bookmark-name']}>
+                      {bookmark.name}
+                    </span>
+                    <span className={styles['bookmark-date']}>
+                      letzte Änderung:{' '}
+                      {new Date(bookmark.date).toLocaleDateString('de-DE')}{' '}
+                      {new Date(bookmark.date).toLocaleTimeString('de-DE', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </label>
+                </div>
+              ))}
+              <div
+                className={`${styles['bookmark-item']} ${styles['new-bookmark']}`}
+              ></div>
+              <button
+                className={styles['save-button']}
+                onClick={handleSaveBookmarks}
+              >
+                Speichern
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className={styles['measure-detail-container']}>
-        {/* Left Column */}
-        <div>
-          <div className={styles['measure-card']}>
-            {/* Display Measure Code */}
-            {measure?.code && (
-              <div className={styles['measure-code']}>
-                <h3>{measure.code}</h3>
-              </div>
-            )}
-            {measure && (
-              <MeasureCard
-                blueprint={measure}
-                hideArrow={true}
-                hideCities={true}
-                onAddMeasureToBookmark={() => {}}
-                bookmarks={[]}
-                hideBookmark={true}
-              />
-            )}
-          </div>
-
-          {/* Focus Balls */}
+        {/* Left Column: Measure Card */}
+        <div className={styles['measure-card']}>
+          {/* Display Measure Code */}
+          {measure?.code && (
+            <div className={styles['measure-code']}>
+              <h3>{measure.code}</h3>
+            </div>
+          )}
+          {measure && (
+            <MeasureCard
+              blueprint={measure}
+              hideArrow={true}
+              hideCities={true}
+              hideBookmark={true}
+            />
+          )}
           <div className={styles['focuse-balls']}>
             <FocuseBallsDetails
               measureFocuses={measure?.focuses}
@@ -221,4 +306,12 @@ const MeasureDetailPage = () => {
   );
 };
 
-export default MeasureDetailPage;
+const MeasureDetailPageProvider = () => {
+  return (
+    <BookmarkProvider>
+      <MeasureDetailPage />
+    </BookmarkProvider>
+  );
+};
+
+export default MeasureDetailPageProvider;
