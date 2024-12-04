@@ -1,7 +1,7 @@
 import { Blueprint } from '@/app/models/blueprint';
 import { AppData } from '@/app/models/appData';
 
-interface Bookmark {
+export interface Bookmark {
   name: string;
   measures: Blueprint[];
   date: string;
@@ -20,7 +20,6 @@ interface SerializedBookmark {
 const urlSafeBase64Encode = (str: string): string => {
   try {
     const base64 = Buffer.from(str).toString('base64');
-    // Replace standard Base64 characters with URL-safe characters
     return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   } catch (error) {
     console.error('Failed to encode string:', error);
@@ -30,27 +29,92 @@ const urlSafeBase64Encode = (str: string): string => {
 
 const urlSafeBase64Decode = (str: string): string => {
   try {
-    console.log('Input string:', str);
-
     const prefix = 'bookmarks=';
     if (str.startsWith(prefix)) {
       str = str.slice(prefix.length);
     }
-
-    const decoded = new TextDecoder().decode(Buffer.from(str, 'base64'));
-    console.log('After decoding:', decoded);
-
-    return decoded;
+    return new TextDecoder().decode(Buffer.from(str, 'base64'));
   } catch (error) {
     console.error('Failed to decode string:', error);
     throw new Error('Failed to decode bookmark data');
   }
 };
 
-export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
-  if (!bookmarks || bookmarks.length === 0) {
-    return '';
+export const loadBookmarksFromStorage = (): Bookmark[] => {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const savedBookmarks = localStorage.getItem('bookmarks');
+    return savedBookmarks ? JSON.parse(savedBookmarks) : [];
+  } catch (error) {
+    console.error('Error loading bookmarks from localStorage:', error);
+    return [];
   }
+};
+
+export const saveBookmarksToStorage = (bookmarks: Bookmark[]): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+};
+
+export const createBookmark = (
+  bookmarks: Bookmark[],
+  name: string,
+): Bookmark[] => {
+  if (bookmarks.some((bookmark) => bookmark.name === name)) {
+    return bookmarks;
+  }
+
+  const newBookmark: Bookmark = {
+    name,
+    measures: [],
+    date: new Date().toISOString(),
+  };
+
+  return [...bookmarks, newBookmark];
+};
+
+export const deleteBookmark = (
+  bookmarks: Bookmark[],
+  name: string,
+): Bookmark[] => {
+  return bookmarks.filter((bookmark) => bookmark.name !== name);
+};
+
+export const addMeasureToBookmark = (
+  bookmarks: Bookmark[],
+  bookmarkName: string,
+  measure: Blueprint,
+): Bookmark[] => {
+  return bookmarks.map((bookmark) => {
+    if (bookmark.name === bookmarkName) {
+      const measureExists = bookmark.measures.some(
+        (m) => m.code === measure.code,
+      );
+      const updatedMeasures = measureExists
+        ? bookmark.measures.filter((m) => m.code !== measure.code)
+        : [...bookmark.measures, measure];
+
+      return {
+        ...bookmark,
+        measures: updatedMeasures,
+      };
+    }
+    return bookmark;
+  });
+};
+
+export const isMeasureBookmarked = (
+  bookmarks: Bookmark[],
+  measureCode: string,
+): boolean => {
+  return bookmarks.some((bookmark) =>
+    bookmark.measures.some((measure) => measure.code === measureCode),
+  );
+};
+
+export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
+  if (!bookmarks?.length) return '';
 
   const serializedBookmarks: SerializedBookmark[] = bookmarks.map(
     (bookmark) => ({
@@ -81,29 +145,15 @@ export const decodeBookmarksFromURL = (
     const params = new URLSearchParams(queryString);
     const bookmarksParam = params.get('bookmarks');
 
-    // Early return for empty or invalid bookmark parameter
-    if (!bookmarksParam) {
-      return [];
-    }
+    if (!bookmarksParam) return [];
 
     const decodedString = urlSafeBase64Decode(
       decodeURIComponent(bookmarksParam),
     );
-
-    // Validate decoded string is valid JSON
-    if (!decodedString.trim().startsWith('[')) {
-      console.error('Invalid JSON format in decoded string');
-      console.log(decodedString);
-      return [];
-    }
+    if (!decodedString.trim().startsWith('[')) return [];
 
     const serializedBookmarks: SerializedBookmark[] = JSON.parse(decodedString);
-
-    // Validate serialized bookmarks structure
-    if (!Array.isArray(serializedBookmarks)) {
-      console.error('Decoded data is not an array');
-      return [];
-    }
+    if (!Array.isArray(serializedBookmarks)) return [];
 
     return serializedBookmarks.map((serializedBookmark) => ({
       name: serializedBookmark.name,
@@ -120,6 +170,7 @@ export const decodeBookmarksFromURL = (
   }
 };
 
+// Sharing Hook
 export const useBookmarkSharing = (bookmarks: Bookmark[]) => {
   const shareBookmarks = () => {
     if (!bookmarks.length) {
