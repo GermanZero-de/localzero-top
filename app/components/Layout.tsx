@@ -13,6 +13,7 @@ interface LayoutProps {
   data?: AppData; // Make data optional
   activeFilters?: Filter; // Make activeFilters optional
 }
+
 const handleGoBack = () => {
   if (typeof window !== 'undefined' && window.history.length > 1) {
     window.history.back(); // Navigate back in browser history
@@ -30,6 +31,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <Navbar />
       <div className="app flex-grow-1">
         <div className="main-content">
+          {/* Mobile Page Title */}
+          {isMeasureDetailPage && (
+            <h1 className="mobile-page-title">TOP-Massnahmen</h1>
+          )}
+
           <BlueFilterBar
             onGoBack={handleGoBack}
             hideIcons={isMeasureDetailPage} // Hide icons only on MeasureDetailPage
