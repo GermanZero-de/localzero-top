@@ -133,7 +133,7 @@ const MeasureDetailPage = () => {
           ) : (
             <GoBookmark />
           )}
-          Merken
+          <span className={styles['merken-text']}>Merken</span>
         </button>
 
         {showBookmarkDropdown && (
@@ -263,9 +263,7 @@ const MeasureDetailPage = () => {
                   return (
                     <div key={cityTitle} className={styles['city-item']}>
                       <div onClick={() => toggleDropdown(cityTitle)}>
-                        <button
-                          className={styles['city-item-link']}
-                        >
+                        <button className={styles['city-item-link']}>
                           {cityTitle}
                         </button>
                         <ArrowRight

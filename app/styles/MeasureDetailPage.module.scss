@@ -196,9 +196,23 @@
   display: flex;
   position: absolute;
   right: 0;
-  top: 20; /* Adjust this value as needed */
   padding: 10px; /* Optional: Add some padding */
   margin-right: 20vw;
+
+  @media (max-width: 640px) {
+    margin-right: 25vw;
+    transform: translateY(-120%);
+    z-index: 100;
+    background-color: none;
+  }
+}
+
+.merken-text {
+  display: block;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 }
 
 .bookmark-button {
@@ -222,6 +236,11 @@
   svg {
     width: 30px;
     height: 30px;
+  }
+
+  @media (max-width: 640px) {
+    color: rgb(247, 208, 12);
+    background: none;
   }
 }
 
