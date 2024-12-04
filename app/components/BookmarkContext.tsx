@@ -20,6 +20,7 @@ interface BookmarkContextType {
   shareBookmarks: () => void;
   loadBookmarksFromURL: (queryString: string, appData: AppData) => void;
   isMeasureBookmarked: (measureCode: string) => boolean;
+  isMeasureInThisBookmark: (bookmark: string, measureCode: string) => boolean;
 }
 
 const BookmarkContext = createContext<BookmarkContextType | undefined>(
@@ -103,6 +104,15 @@ export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const isMeasureInThisBookmark = (
+    bookmark: string,
+    measureCode: string,
+  ): boolean => {
+    const bookmarkedMeasures = bookmarks.find((bm) => bm.name === bookmark);
+    if (!bookmarkedMeasures) return false;
+    else return bookmarkedMeasures.measures.some((m) => m.code === measureCode);
+  };
+
   const value = {
     bookmarks,
     createBookmark,
@@ -111,6 +121,7 @@ export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({
     shareBookmarks,
     loadBookmarksFromURL,
     isMeasureBookmarked,
+    isMeasureInThisBookmark,
   };
 
   return (

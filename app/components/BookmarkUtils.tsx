@@ -104,15 +104,6 @@ export const addMeasureToBookmark = (
   });
 };
 
-export const isMeasureBookmarked = (
-  bookmarks: Bookmark[],
-  measureCode: string,
-): boolean => {
-  return bookmarks.some((bookmark) =>
-    bookmark.measures.some((measure) => measure.code === measureCode),
-  );
-};
-
 export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
   if (!bookmarks?.length) return '';
 

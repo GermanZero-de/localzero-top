@@ -35,8 +35,12 @@ const MeasureDetailPage = () => {
   const [focuses, setFocuses] = useState<Focus[] | null>(null);
 
   const [showBookmarkDropdown, setShowBookmarkDropdown] = useState(false);
-  const { bookmarks, addMeasureToBookmark, isMeasureBookmarked } =
-    useBookmarks();
+  const {
+    bookmarks,
+    addMeasureToBookmark,
+    isMeasureBookmarked,
+    isMeasureInThisBookmark,
+  } = useBookmarks();
   const [selectedBookmarks, setSelectedBookmarks] = useState<string[]>([]);
 
   const toggleDropdown = (cityTitle: string) => {
@@ -98,6 +102,7 @@ const MeasureDetailPage = () => {
       setSelectedBookmarks([...selectedBookmarks, bookmarkName]);
     }
     addMeasureToBookmark(bookmarkName, measure);
+    console.log('measure added to' + bookmarkName);
   };
 
   const handleSaveBookmarks = () => {
@@ -143,7 +148,9 @@ const MeasureDetailPage = () => {
                     <input
                       type="checkbox"
                       checked={
-                        measure ? bookmark.measures.includes(measure) : false
+                        measure
+                          ? isMeasureInThisBookmark(bookmark.name, measure.code)
+                          : false
                       }
                       onChange={() => toggleBookmark(bookmark.name)}
                     />
