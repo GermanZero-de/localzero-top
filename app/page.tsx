@@ -268,6 +268,7 @@ const Pages = () => {
             <BlueFilterBar
               onToggleFilterPanel={toggleFilterPanel}
               onGoBack={handleGoBack}
+              hideBackButton={true}
             />
             {isFilterPanelVisible && (
               <FilterPanel
