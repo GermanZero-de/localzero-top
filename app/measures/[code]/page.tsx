@@ -122,9 +122,9 @@ const MeasureDetailPage = () => {
           onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
         >
           {measure?.code && isMeasureBookmarked(measure.code) ? (
-            <GoBookmarkFill />
-          ) : (
             <GoBookmark />
+          ) : (
+            <GoBookmarkFill />
           )}
           Merken
         </button>
@@ -180,6 +180,7 @@ const MeasureDetailPage = () => {
               blueprint={measure}
               hideArrow={true}
               hideCities={true}
+              hideBookmark={true}
             />
           )}
           <div className={styles['focuse-balls']}>
