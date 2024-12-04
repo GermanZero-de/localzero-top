@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEye, FaTrash, FaShareAlt } from 'react-icons/fa';
 import { MdCreateNewFolder } from 'react-icons/md';
 import '../styles/Bookmark.scss';
@@ -14,14 +14,19 @@ interface Bookmark {
 
 interface BookmarkProps {
   onSelectBookmark: (bookmark: Bookmark) => void;
-  onClose: () => void; // Add this prop for the closing function
+  onClose: () => void;
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark, onClose }) => {
   const [newBookmarkName, setNewBookmarkName] = useState<string>('');
-  const [isClosing, setIsClosing] = useState(false); // Add state for closing animation
+  const [isClosing, setIsClosing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const { bookmarks, createBookmark, deleteBookmark, shareBookmarks } =
     useBookmarks();
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
 
   const handleCreateBookmark = () => {
     createBookmark(newBookmarkName);
@@ -39,14 +44,18 @@ const Bookmark: React.FC<BookmarkProps> = ({ onSelectBookmark, onClose }) => {
   const handleViewBookmark = (bookmark: Bookmark) => {
     setIsClosing(true);
     setTimeout(() => {
-      onSelectBookmark(bookmark); 
+      onSelectBookmark(bookmark);
       onClose();
     }, 0);
   };
 
   return (
     <BookmarkProvider>
-      <div className={`bookmark-container ${isClosing ? 'closing' : ''}`}>
+      <div
+        className={`bookmark-container ${isClosing ? 'closing' : ''} ${
+          isOpen ? 'opening' : ''
+        }`}
+      >
         <div className="create-bookmark">
           <input
             type="text"
