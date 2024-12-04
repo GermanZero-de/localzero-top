@@ -19,6 +19,7 @@ import {
   BookmarkProvider,
   useBookmarks,
 } from '@/app/components/BookmarkContext';
+import { saveBookmarksToStorage } from '@/app/components/BookmarkUtils';
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -101,6 +102,7 @@ const MeasureDetailPage = () => {
 
   const handleSaveBookmarks = () => {
     setShowBookmarkDropdown(false);
+    saveBookmarksToStorage(bookmarks);
   };
 
   return (
