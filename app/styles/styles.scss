@@ -117,8 +117,8 @@ h1 {
 
   .cities {
     position: absolute;
-    right: 10px;
-    bottom: 85px;
+    bottom: 10px;
+    left: 100px;
     display: flex;
     align-items: center;
 
@@ -131,10 +131,10 @@ h1 {
       z-index: 10;
       border: 1px solid #000000;
       font-size: 14px;
-      max-height: 95px;
+      max-height: 50px;
       max-width: 150px;
       overflow-y: auto;
-      right: 25px;
+      left: 30px;
       overflow-x: hidden;
 
       span {
@@ -436,6 +436,6 @@ footer a:hover {
     margin-top: -10px;
   }
   .measures-grid .stars {
-    margin-left:0%
+    margin-left: 0%;
   }
 }

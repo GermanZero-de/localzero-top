@@ -93,6 +93,9 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
+        <div className="code">
+          <p>{code}</p>
+        </div>
         {!hideCities && (
           <div className="cities">
             <Image src={cityIcon} alt="City Icon" width={32} height={32} />
@@ -105,9 +108,6 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
             </div>
           </div>
         )}
-        <div className="code">
-          <p>{code}</p>
-        </div>
       </div>
       <div className="card-footer">
         {!hideArrow && (
