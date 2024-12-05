@@ -197,19 +197,30 @@
   display: flex;
   position: absolute;
   right: 0;
-  padding: 10px; /* Optional: Add some padding */
+  padding: 10px;
   margin-right: 20vw;
+  transition: all 0.3s ease;
 
   @media (max-width: 640px) {
     transform: translateY(-120%);
     z-index: 100;
-    margin-left: 100px;
-    background-color: none;
     margin: 0;
     padding-bottom: 10px;
-    &:hover {
-      background: none;
+
+    &.not-sticky {
+      position: absolute;
+      top: initial;
     }
+
+    &.sticky {
+      position: fixed;
+      z-index: 100;
+      top: 70px;
+    }
+  }
+
+  &:hover {
+    background-color: none;
   }
 }
 
