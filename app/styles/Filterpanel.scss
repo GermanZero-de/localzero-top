@@ -246,7 +246,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 646px) {
   .main-content {
     .blue-filter-bar {
       display: flex;
@@ -370,7 +370,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 601px) {
   // .large-screen-icon {
   //   display: none; // hide clear icon on small screens
   // }
@@ -454,11 +454,12 @@
   }
 }
 
-.filter-panel.opening {
-  animation: slideInLeftToRight 0.3s ease-out forwards;
-}
+@media (max-width: 601px) {
+  .filter-panel.opening {
+    animation: slideInLeftToRight 0.3s ease-out forwards;
+  }
 
-.filter-panel.closing {
-  animation: slideOutRightToLeft 0.3s ease-in forwards;
+  .filter-panel.closing {
+    animation: slideOutRightToLeft 0.3s ease-in forwards;
+  }
 }
-
