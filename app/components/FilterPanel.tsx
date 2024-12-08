@@ -185,7 +185,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       handleChange(priority, undefined, undefined, undefined)
                     }
                   />
-                  <span className="stars">{'★'.repeat(priority.stars)}</span>
+                  <div
+                    onClick={() =>
+                      handleChange(priority, undefined, undefined, undefined)
+                    }
+                    style={{ cursor: 'pointer', display: 'inline-block' }}
+                  >
+                    <span className="stars">{'★'.repeat(priority.stars)}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -207,7 +214,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       handleChange(undefined, sector, undefined, undefined)
                     }
                   />
-                  <span>{sector.title}</span>
+                  <span
+                    onClick={() =>
+                      handleChange(undefined, sector, undefined, undefined)
+                    }
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {sector.title}
+                  </span>
                 </div>
               ))}
             </div>
@@ -232,7 +246,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       <span className="check-icon">✓</span>
                     )}
                   </button>
-                  <span className="focus-label">{focus.title}</span>
+                  <div
+                    onClick={() =>
+                      handleChange(undefined, undefined, focus, undefined)
+                    }
+                    style={{ cursor: 'pointer', display: 'inline-block' }}
+                  >
+                    <span className="focus-label">{focus.title}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -259,7 +280,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                         handleChange(undefined, undefined, undefined, city)
                       }
                     />
-                    <span>{city.title}</span>
+                    <span
+                      onClick={() =>
+                        handleChange(undefined, undefined, undefined, city)
+                      }
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {city.title}
+                    </span>
                   </div>
                 ))}
               </div>
