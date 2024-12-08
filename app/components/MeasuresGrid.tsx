@@ -30,7 +30,7 @@ const MeasuresGrid: React.FC<MeasuresGridProps> = ({
   const [loading, setLoading] = useState(false); // Track if data is being loaded
 
   const INITIAL_VISIBLE_COUNT = 9;
-  const LOAD_MORE_THRESHOLD = 500; // Distance (in px) from the bottom to trigger loading more
+  const LOAD_MORE_THRESHOLD = 470; // Distance (in px) from the bottom to trigger loading more
 
   // Function to handle scroll event
   const handleScroll = () => {
