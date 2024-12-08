@@ -106,6 +106,7 @@ export const addMeasureToBookmark = (
 
 export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
   if (!bookmarks?.length) return '';
+  console.log('bookmarks:', bookmarks);
 
   const serializedBookmarks: SerializedBookmark[] = bookmarks.map(
     (bookmark) => ({
@@ -121,6 +122,7 @@ export const encodeBookmarksToURL = (bookmarks: Bookmark[]): string => {
     const encodedData = urlSafeBase64Encode(
       JSON.stringify(serializedBookmarks),
     );
+    console.log('encodedData:', encodedData);
     return `bookmarks=${encodeURIComponent(encodedData)}`;
   } catch (error) {
     console.error('Failed to encode bookmarks:', error);
@@ -135,12 +137,14 @@ export const decodeBookmarksFromURL = (
   try {
     const params = new URLSearchParams(queryString);
     const bookmarksParam = params.get('bookmarks');
+    console.log('bookmarksParam:', bookmarksParam);
 
     if (!bookmarksParam) return [];
 
     const decodedString = urlSafeBase64Decode(
       decodeURIComponent(bookmarksParam),
     );
+    console.log('decodedString:', decodedString);
     if (!decodedString.trim().startsWith('[')) return [];
 
     const serializedBookmarks: SerializedBookmark[] = JSON.parse(decodedString);

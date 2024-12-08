@@ -93,6 +93,7 @@ export const BookmarkProvider: React.FC<{ children: React.ReactNode }> = ({
   const loadBookmarksFromURL = (queryString: string, appData: AppData) => {
     const urlBookmarks = decodeBookmarksFromURL(queryString, appData);
     if (urlBookmarks.length) {
+      console.log('Loaded bookmarks from URL:', urlBookmarks);
       setBookmarks(urlBookmarks);
       saveBookmarksToStorage(urlBookmarks);
     }

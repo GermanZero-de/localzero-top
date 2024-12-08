@@ -16,7 +16,10 @@ import { Blueprint } from '@/app/models/blueprint';
 import { fetchSheetsData } from '@/app/data/fetchData';
 import MeasuresGrid from '@/app/components/MeasuresGrid';
 import LoadingSpinner from '@/app/components/LoadingScreen';
-import { BookmarkProvider } from '@/app/components/BookmarkContext';
+import {
+  BookmarkProvider,
+  useBookmarks,
+} from '@/app/components/BookmarkContext';
 
 interface Bookmark {
   name: string;
@@ -92,8 +95,9 @@ const Pages = () => {
   const [displayedMeasures, setDisplayedMeasures] = useState<Blueprint[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isFilterPanelVisible, setIsFilterPanelVisible] = useState(false);
-
   const [bookmarkSelected, setBookmarkSelected] = useState(false);
+
+  const { loadBookmarksFromURL } = useBookmarks();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -104,6 +108,9 @@ const Pages = () => {
           fetchedData,
         );
         setActiveFilters(filtersFromQuery);
+        if (searchParams.has('bookmarks')) {
+          loadBookmarksFromURL(searchParams.toString(), fetchedData);
+        }
         setIsLoading(false);
       });
     }
