@@ -108,18 +108,17 @@
 }
 
 .cities-overlay {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
   margin-bottom: 35px;
-  margin-right: -20px;
-  max-width: auto;
+  margin-right: -50px;
+  max-width: 95vw;
 
   h2 {
     color: #4a0a78;
     margin-top: 1rem;
+    text-align: center;
   }
 
   &.priority-1 {
@@ -141,11 +140,10 @@
   align-items: flex-start; /* Align city name and arrow to the left */
   width: 100%; /* Ensure it takes up the full width */
   margin-bottom: 10px; /* Optional: Add spacing between items */
-  text-wrap: nowrap;
-  align-items: flex-start;
 }
 
 .city-item-link {
+  margin-left: 5px;
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
