@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import filterIcon from '../photos/filterPlaceholder.png';
@@ -11,7 +11,6 @@ import { AppData } from '@/app/models/appData';
 import { Priority } from '@/app/models/priority';
 import { City } from '@/app/models/city';
 import Bookmark from '@/app/components/Bookmark';
-import { Blueprint } from '@/app/models/blueprint';
 import { FaShareAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 interface FilterPanelProps {
@@ -38,11 +37,20 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   onSelectBookmark,
 }) => {
   const router = useRouter();
-  const [isClosing, setIsClosing] = React.useState(false);
+
+  const [isClosing, setIsClosing] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHasMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleClose = () => {
     setIsClosing(true);
-    setTimeout(onClose, 200);
+    setTimeout(() => {
+      onClose();
+    }, 300);
   };
 
   const toggleItem = <T,>(array: T[], item: T) =>
@@ -106,7 +114,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   };
 
   const handleShare = () => {
-    const currentURL = window.location.href; // Get the current URL
+    const currentURL = window.location.href;
     navigator.clipboard.writeText(currentURL).then(
       () => {
         alert('Link copied to clipboard');
@@ -117,20 +125,20 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     );
   };
 
-  const [showFilter, setShowFilter] = React.useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const toggleFilter = () => setShowFilter(!showFilter);
 
-  const [showBookmarks, setShowBookmarks] = React.useState(false);
+  const [showBookmarks, setShowBookmarks] = useState(false);
   const toggleBookmarks = () => setShowBookmarks(!showBookmarks);
 
   return (
     <div
       className={`filter-panel ${isOverlay ? 'overlay' : ''} ${
-        isClosing ? 'closing' : ''
+        hasMounted ? (isClosing ? 'closing' : 'opening') : ''
       }`}
     >
       <div className="filter-header">
-      <div className="filter-icon">
+        <div className="filter-icon">
           <button className="filter-button" onClick={toggleBookmarks}>
             <Image
               src={filterIcon}
@@ -158,6 +166,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         </button>
       </div>
 
+      {/* Body */}
       {!showBookmarks && (
         <div className="filteroptions-container">
           {/* Priority Filter */}
@@ -171,12 +180,19 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     id={`priority${priority.stars}`}
                     checked={filters.prioritys.some(
                       (p) => p.stars === priority.stars,
-                    )} // Match by stars
+                    )}
                     onChange={() =>
                       handleChange(priority, undefined, undefined, undefined)
                     }
                   />
-                  <span className="stars">{'★'.repeat(priority.stars)}</span>
+                  <div
+                    onClick={() =>
+                      handleChange(priority, undefined, undefined, undefined)
+                    }
+                    style={{ cursor: 'pointer', display: 'inline-block' }}
+                  >
+                    <span className="stars">{'★'.repeat(priority.stars)}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -198,7 +214,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       handleChange(undefined, sector, undefined, undefined)
                     }
                   />
-                  <span>{sector.title}</span>
+                  <span
+                    onClick={() =>
+                      handleChange(undefined, sector, undefined, undefined)
+                    }
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {sector.title}
+                  </span>
                 </div>
               ))}
             </div>
@@ -223,7 +246,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                       <span className="check-icon">✓</span>
                     )}
                   </button>
-                  <span className="focus-label">{focus.title}</span>
+                  <div
+                    onClick={() =>
+                      handleChange(undefined, undefined, focus, undefined)
+                    }
+                    style={{ cursor: 'pointer', display: 'inline-block' }}
+                  >
+                    <span className="focus-label">{focus.title}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -250,7 +280,14 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                         handleChange(undefined, undefined, undefined, city)
                       }
                     />
-                    <span>{city.title}</span>
+                    <span
+                      onClick={() =>
+                        handleChange(undefined, undefined, undefined, city)
+                      }
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {city.title}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -274,10 +311,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           </h4>
         </button>
         {showBookmarks && (
-          <Bookmark 
-            onSelectBookmark={onSelectBookmark} 
-            onClose={handleClose}
-          />
+          <Bookmark onSelectBookmark={onSelectBookmark} onClose={handleClose} />
         )}
       </div>
     </div>

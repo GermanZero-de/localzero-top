@@ -42,6 +42,7 @@ const MeasureDetailPage = () => {
     isMeasureInThisBookmark,
   } = useBookmarks();
   const [selectedBookmarks, setSelectedBookmarks] = useState<string[]>([]);
+  const [isBookmarkSticky, setIsBookmarkSticky] = useState(false);
 
   const toggleDropdown = (cityTitle: string) => {
     setDropdownStates((prevState) => ({
@@ -86,6 +87,27 @@ const MeasureDetailPage = () => {
     fetchMeasureData();
   }, [code]); // Fetch measure linkedMeasures when code changes
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get the blue filter bar's position
+      const filterBar = document.querySelector('.blue-filter-bar');
+      if (!filterBar) return;
+
+      const filterBarRect = filterBar.getBoundingClientRect();
+      const filterBarTop = filterBarRect.top;
+
+      // Check if we've scrolled past the point where the filter bar becomes sticky
+      if (filterBarTop <= 0) {
+        setIsBookmarkSticky(true);
+      } else {
+        setIsBookmarkSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (loading) return <LoadingSpinner variant="offset" />;
   if (error) return <p>{error}</p>;
 
@@ -123,7 +145,9 @@ const MeasureDetailPage = () => {
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
       <h1 className={styles['measure-title']}>{measure?.title} </h1>
-      <div className={styles['bookmark-container']}>
+      <div
+        className={`${styles['bookmark-container']} ${isBookmarkSticky ? styles.sticky : styles['not-sticky']}`}
+      >
         <button
           className={styles['bookmark-button']}
           onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
@@ -232,12 +256,13 @@ const MeasureDetailPage = () => {
           <h2>Städte</h2>
 
           <div className={styles['cities-list']}>
-            {(!linkedMeasures || linkedMeasures.length === 0) &&
-            <div className={styles['city-item']}>
-              <p className={styles['no-city-message']}>
-                No city has implemented this measure.
-              </p>
-            </div>}
+            {(!linkedMeasures || linkedMeasures.length === 0) && (
+              <div className={styles['city-item']}>
+                <p className={styles['no-city-message']}>
+                  No city has implemented this measure.
+                </p>
+              </div>
+            )}
             {linkedMeasures?.length
               ? Object.entries(
                   linkedMeasures.reduce(
