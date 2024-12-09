@@ -114,6 +114,7 @@
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
   margin-bottom: 35px;
+  margin-right: -20px;
 
   h2 {
     color: #4a0a78;
@@ -139,6 +140,7 @@
   align-items: flex-start; /* Align city name and arrow to the left */
   width: 100%; /* Ensure it takes up the full width */
   margin-bottom: 10px; /* Optional: Add spacing between items */
+  text-wrap: nowrap;
 }
 
 .city-item-link {
@@ -193,8 +195,6 @@
   display: flex;
   flex-direction: column;
   align-items: stretch; /* Stretch city items to fill container width */
-  padding-left: 20px;
-  width: 100%; /* Ensure list takes full width of container */
 }
 
 .bookmark-container {
