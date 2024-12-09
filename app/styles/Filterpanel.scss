@@ -389,6 +389,7 @@
     color: white;
     padding: 8px 16px;
     cursor: pointer;
+    margin-left: auto; // Push it to the left
   }
 
   .filter-icon-button {
@@ -461,5 +462,69 @@
 
   .filter-panel.closing {
     animation: slideOutRightToLeft 0.3s ease-in forwards;
+  }
+}
+
+.city-filter {
+  margin-bottom: 0.5rem;
+
+  &-header {
+    display: inline-block;
+    align-items: center;
+    justify-content: space-between; // Ensures title and arrow are aligned
+    margin-bottom: 0.5rem;
+  }
+
+  &-title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  &-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+    align-items: center;
+
+    h4 {
+      color: #374151;
+      font-size: clamp(16px, 1.5vw, 20px);
+      margin-bottom: 10px;
+      display: inline-block;
+      line-height: 1.5;
+    }
+
+    .city-filter-arrow {
+      width: 15px;
+      height: 15px;
+      transition: transform 0.2s;
+      margin-left: 0.5rem;
+
+      &.arrow-right {
+        transform: rotate(0deg); // Default position
+      }
+
+      &.arrow-down {
+        transform: rotate(90deg); // Rotated when open
+      }
+    }
+  }
+
+  &-options {
+    color: #4b5563;
+    cursor: pointer;
+    font-size: clamp(13px, 1.2vw, 15px);
+  }
+
+  &-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    input {
+      margin-right: 0.5rem;
+    }
   }
 }

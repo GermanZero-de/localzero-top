@@ -12,6 +12,7 @@ import { Priority } from '@/app/models/priority';
 import { City } from '@/app/models/city';
 import Bookmark from '@/app/components/Bookmark';
 import { FaShareAlt, FaRegTrashAlt } from 'react-icons/fa';
+import ArrowRight from '@/app/components/Arrow-Right';
 
 interface FilterPanelProps {
   onFilterChange: (
@@ -262,14 +263,18 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           <div className="filter-divider" />
 
           {/* City Filter */}
-          <div className="filter-section">
-            <button className="filter-button" onClick={toggleFilter}>
+          <div className="city-filter">
+            <button className="city-filter-toggle" onClick={toggleFilter}>
               <h4>Städte</h4>
+              <ArrowRight
+                className={`city-filter-arrow ${showFilter ? 'arrow-down' : 'arrow-right'}`}
+              />
             </button>
+
             {showFilter && (
-              <div className="filter-options">
+              <div className="city-filter-options">
                 {data.cities.map((city) => (
-                  <div key={city.title} className="filter-option">
+                  <div key={city.title} className="city-filter-option">
                     <input
                       type="checkbox"
                       id={`city${city.title}`}
