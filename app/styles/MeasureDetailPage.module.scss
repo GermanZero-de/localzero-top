@@ -140,6 +140,7 @@
   align-items: flex-start; /* Align city name and arrow to the left */
   width: 100%; /* Ensure it takes up the full width */
   margin-bottom: 10px; /* Optional: Add spacing between items */
+  text-wrap: nowrap;
 }
 
 .city-item-link {
@@ -176,6 +177,7 @@
 
 .dropdown-menu {
   margin-top: 1px; /* Adds space between the city name/arrow and the dropdown */
+  text-wrap: wrap;
 }
 
 .city-link {
