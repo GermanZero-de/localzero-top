@@ -202,7 +202,7 @@
   position: absolute;
   right: 0;
   padding: 10px;
-  margin-right: 20vw;
+  margin-right: 17vw;
   transition: all 0.3s ease;
 
   @media (max-width: 640px) {
@@ -291,6 +291,29 @@
     margin: 0;
     font-size: 18px;
     color: #111827;
+  }
+}
+
+.share-measure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-right: 20px;
+  background-color: #e5f7fb;
+  color: #0284c7;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: none;
+  }
+
+  @media (max-width: 640px) {
+    display: none;
   }
 }
 
