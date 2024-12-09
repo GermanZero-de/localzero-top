@@ -242,7 +242,9 @@ const MeasureDetailPage = () => {
 
           {/* Description text */}
           <div className={styles['description-text']}>
-            <p>{measure?.description?.replace(/<br>/g, '\n')}</p>
+            {measure?.description?.split('[NEWLINE]').map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
           </div>
 
           {/* Blue line at the bottom */}
