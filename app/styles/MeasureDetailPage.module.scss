@@ -2,7 +2,7 @@
 
 .measure-detail-container {
   display: grid;
-  grid-template-columns: 25% 55% 15%; /* Three columns: left 1fr, middle 2fr, right 1fr */
+  grid-template-columns: 25% 55% 25%; /* Three columns: left 1fr, middle 2fr, right 1fr */
   gap: 20px; /* Add space between the columns */
   margin-top: 6rem;
   margin-left: 250px;
@@ -115,6 +115,7 @@
   border-radius: 8px;
   margin-bottom: 35px;
   margin-right: -20px;
+  max-width: auto;
 
   h2 {
     color: #4a0a78;
@@ -141,6 +142,7 @@
   width: 100%; /* Ensure it takes up the full width */
   margin-bottom: 10px; /* Optional: Add spacing between items */
   text-wrap: nowrap;
+  align-items: flex-start;
 }
 
 .city-item-link {
