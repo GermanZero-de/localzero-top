@@ -2,7 +2,7 @@
 
 .measure-detail-container {
   display: grid;
-  grid-template-columns: 25% 55% 15%; /* Three columns: left 1fr, middle 2fr, right 1fr */
+  grid-template-columns: 25% 55% 25%; /* Three columns: left 1fr, middle 2fr, right 1fr */
   gap: 20px; /* Add space between the columns */
   margin-top: 6rem;
   margin-left: 250px;
@@ -108,16 +108,17 @@
 }
 
 .cities-overlay {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: rgb(190 252 255 / 90%);
   border-radius: 8px;
   margin-bottom: 35px;
+  margin-right: -20px;
+  max-width: 95vw;
 
   h2 {
     color: #4a0a78;
     margin-top: 1rem;
+    text-align: center;
   }
 
   &.priority-1 {
@@ -139,9 +140,11 @@
   align-items: flex-start; /* Align city name and arrow to the left */
   width: 100%; /* Ensure it takes up the full width */
   margin-bottom: 10px; /* Optional: Add spacing between items */
+  text-wrap: nowrap;
 }
 
 .city-item-link {
+  margin-left: 5px;
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
@@ -174,6 +177,7 @@
 
 .dropdown-menu {
   margin-top: 1px; /* Adds space between the city name/arrow and the dropdown */
+  text-wrap: wrap;
 }
 
 .city-link {
@@ -193,8 +197,6 @@
   display: flex;
   flex-direction: column;
   align-items: stretch; /* Stretch city items to fill container width */
-  padding-left: 20px;
-  width: 100%; /* Ensure list takes full width of container */
 }
 
 .bookmark-container {
@@ -202,7 +204,7 @@
   position: absolute;
   right: 0;
   padding: 10px;
-  margin-right: 20vw;
+  margin-right: 17vw;
   transition: all 0.3s ease;
 
   @media (max-width: 640px) {
@@ -291,6 +293,29 @@
     margin: 0;
     font-size: 18px;
     color: #111827;
+  }
+}
+
+.share-measure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-right: 20px;
+  background-color: #e5f7fb;
+  color: #0284c7;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: none;
+  }
+
+  @media (max-width: 640px) {
+    display: none;
   }
 }
 

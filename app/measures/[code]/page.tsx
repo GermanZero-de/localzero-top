@@ -20,6 +20,7 @@ import {
   useBookmarks,
 } from '@/app/components/BookmarkContext';
 import { saveBookmarksToStorage } from '@/app/components/BookmarkUtils';
+import { FaShareAlt } from 'react-icons/fa';
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -132,6 +133,19 @@ const MeasureDetailPage = () => {
     saveBookmarksToStorage(bookmarks);
   };
 
+  const handleShare = () => {
+    const currentURL = window.location.href;
+    navigator.clipboard.writeText(currentURL).then(
+      () => {
+        console.log('Link copied to clipboard');
+        alert('Link copied to clipboard');
+      },
+      (err) => {
+        console.error('Failed to copy the link: ', err);
+      },
+    );
+  };
+
   return (
     <Layout
       data={{
@@ -145,9 +159,13 @@ const MeasureDetailPage = () => {
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
       <h1 className={styles['measure-title']}>{measure?.title} </h1>
+
       <div
         className={`${styles['bookmark-container']} ${isBookmarkSticky ? styles.sticky : styles['not-sticky']}`}
       >
+        <button onClick={handleShare} className={styles['share-measure']}>
+          <FaShareAlt />
+        </button>
         <button
           className={styles['bookmark-button']}
           onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
@@ -242,9 +260,9 @@ const MeasureDetailPage = () => {
 
           {/* Description text */}
           <div className={styles['description-text']}>
-            {measure?.description?.split('[NEWLINE]').map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
+            {measure?.description
+              ?.split('[NEWLINE]')
+              .map((line, index) => <p key={index}>{line}</p>)}
           </div>
 
           {/* Blue line at the bottom */}
