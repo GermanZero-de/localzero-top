@@ -6,7 +6,7 @@ interface ArrowRightProps {
   style?: React.CSSProperties;
 }
 
-const ArrowRight: React.FC<ArrowRightProps> = ({ color = "#000", className,
+const ArrowRight: React.FC<ArrowRightProps> = ({ color = "#696969", className,
   style }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
