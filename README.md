@@ -20,7 +20,7 @@ Make sure you have Node.js and npm installed on your machine.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/localzero-top.git
+   git clone https://github.com/GermanZero-de/localzero-top.git
    cd localzero-top
    ```
 
