@@ -8,6 +8,7 @@ LocalZero Top Maßnahmen is a project aimed at monitoring and showcasing top mea
 - ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) - React for building the user interface.
 - ![PapaParse](https://img.shields.io/badge/PapaParse-FF6F61?style=for-the-badge&logo=papaparse&logoColor=white) - PapaParse for parsing CSV files.
 - ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) - TypeScript for type safety and better developer experience.
+- ![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=for-the-badge&logo=sass&logoColor=white) - SCSS for styling and design.
 
 ## Getting Started
 
