@@ -1,3 +1,10 @@
+/*
+MeasureCard component is a reusable component that displays a card with information about a blueprint.
+It receives a blueprint object as a prop and displays the blueprint's title, sector, priority, focuses, code, and cities.
+It also displays a bookmark icon that allows the user to add the blueprint to their bookmarks.
+The component also includes a link that redirects the user to the blueprint's details page when clicked.
+*/
+
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import ArrowRight from '@/app/components/Arrow-Right';

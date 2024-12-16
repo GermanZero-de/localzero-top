@@ -1,4 +1,8 @@
-import React from "react";
+/*
+This component is a SVG icon of an arrow pointing to the right.
+*/
+
+import React from 'react';
 
 interface ArrowRightProps {
   color?: string;
@@ -6,8 +10,11 @@ interface ArrowRightProps {
   style?: React.CSSProperties;
 }
 
-const ArrowRight: React.FC<ArrowRightProps> = ({ color = "#696969", className,
-  style }) => (
+const ArrowRight: React.FC<ArrowRightProps> = ({
+  color = '#696969',
+  className,
+  style,
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

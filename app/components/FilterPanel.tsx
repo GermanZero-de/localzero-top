@@ -1,3 +1,12 @@
+/*
+Filtering, that allows users to filter on priorities, sectors, focuses, and cities.
+It also allows users to save and load bookmarks of filters.
+The component includes a button to share the current filter settings and a button to clear all filters.
+
+Some styling is also included in the component.
+Most of the styling is done in the FilterPanel.scss file.
+*/
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
