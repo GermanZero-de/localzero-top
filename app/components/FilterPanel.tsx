@@ -269,10 +269,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             </div>
           </div>
 
-          <div className="filter-divider" />
+          {/* <div className="filter-divider" /> */}
 
-          {/* City Filter */}
-          <div className="city-filter">
+
+          {/* <div className="city-filter">
             <button className="city-filter-toggle" onClick={toggleFilter}>
               <h4>Städte</h4>
               <ArrowRight
@@ -306,7 +306,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       )}
 
