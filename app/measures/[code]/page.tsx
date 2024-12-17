@@ -165,6 +165,7 @@ const MeasureDetailPage = () => {
       >
         <button onClick={handleShare} className={styles['share-measure']}>
           <FaShareAlt />
+          <span className={styles['teilen-text']}>Teilen</span>
         </button>
         <button
           className={styles['bookmark-button']}
