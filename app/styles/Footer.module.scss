@@ -2,3 +2,8 @@
   font-size: 14px;
   font-weight: 600;
 }
+
+.footer-container {
+  position: relative; // or 'fixed' if you want it stuck at the bottom
+  z-index: 10; // Adjust the value as needed
+}

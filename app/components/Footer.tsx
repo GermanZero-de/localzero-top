@@ -10,7 +10,7 @@ import styles from '../styles/Footer.module.scss';
 
 export default function Footer() {
   return (
-    <div className="bg-secondary mt-auto">
+<div className={`bg-secondary mt-auto ${styles['footer-container']}`}>
       <Container className="p-3">
         <Row>
           <Col className="content-align-left fs-5 text-left text-white">
