@@ -159,6 +159,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             />
           </button>
         </div>
+        {/* <p>Filter</p> */}
         <button
           className="clear-filters-button large-screen-icon"
           onClick={handleClearFilters}
@@ -202,7 +203,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer', display: 'inline-block' }}
                   >
                     <span className="stars">{'★'.repeat(priority.stars)}</span>
+
                   </div>
+                  <span className='info-icon'>
+                    i <div className='info-tooltip'>{priority.tooltip}</div>
+                  </span>
                 </div>
               ))}
             </div>
@@ -231,6 +236,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer' }}
                   >
                     {sector.title}
+                  </span>
+                  <span className='info-icon'>
+                      i <div className='info-tooltip'>{sector.tooltip}</div>
                   </span>
                 </div>
               ))}
@@ -263,7 +271,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer', display: 'inline-block' }}
                   >
                     <span className="focus-label">{focus.title}</span>
+
                   </div>
+                  <span className='info-icon'>
+                      i<div className='info-tooltip'>{focus.tooltip}</div>
+                  </span>
                 </div>
               ))}
             </div>
