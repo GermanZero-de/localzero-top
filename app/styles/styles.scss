@@ -49,8 +49,8 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
-  gap: 20px;
+  grid-template-columns: 32.5% 32.5% 32.5%;
+  gap: 14px;
 }
 
 .arrow-icon {
@@ -72,8 +72,9 @@ h1 {
   justify-content: space-between;
   height: 250px;
   font-weight: bold;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 30px;
+  margin-left: 20px;
 
   h5 {
     font-size: 21px;
@@ -86,7 +87,7 @@ h1 {
     line-clamp: 4;
     -webkit-box-orient: vertical;
     box-orient: vertical;
-    overflow: hidden;
+    overflow: visible;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -129,21 +130,32 @@ h1 {
       background-color: #fff;
       padding: 5px 10px;
       z-index: 10;
-      border: 1px solid #000000;
+      // border: 1px solid #000000;
       font-size: 14px;
       max-height: 50px;
-      max-width: 150px;
-      overflow-y: auto;
+      max-width: 108px;
+      // overflow-y: auto;
       left: 30px;
       overflow-x: hidden;
+
+      text-decoration: underline;
+      text-decoration-color: #ed6767;
+
+      /* Hide scrollbar */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       span {
         margin-right: 12px;
       }
 
-      .city-separator:not(:last-child) {
-        border-bottom: 1px solid black;
-      }
+      // .city-separator:not(:last-child) {
+      //   border-bottom: 1px solid black;
+      // }
     }
 
     &:hover .cities-list {
@@ -177,34 +189,92 @@ h1 {
   align-items: center;
 }
 
-// .bookmark-icon {
-//   display: none;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-// }
-
 .bookmark-dropdown {
+  display: flex;
   flex-direction: column;
   position: absolute;
   background-color: #fff;
-  padding: 5px 10px;
-  z-index: 10;
-  border: 1px solid #000000;
+  padding: 10px;
+  z-index: 9999;
+  border: 1px solid #ddd;
   font-size: 14px;
-  max-height: 95px;
-  max-width: 150px;
-  overflow-y: auto;
-  right: 25px;
-  overflow-x: hidden;
-  cursor: pointer;
+  max-width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  .bookmark-separator:not(:last-child) {
-    border-bottom: 1px solid black;
+  .bookmark-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 8px 0;
+    cursor: pointer;
+
+    // Checkbox hidden by default
+    input[type="checkbox"] {
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0; // Hidden by default
+      transition: opacity 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    // Show checkbox on hover
+    &:hover input[type="checkbox"] {
+      opacity: 1;
+    }
+
+    // Bookmark details
+    .bookmark-details {
+      display: flex;
+      flex-direction: column;
+
+      .bookmark-title {
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 3px;
+      }
+
+      .bookmark-date {
+        font-size: 12px;
+        color: #555;
+      }
+    }
+  }
+
+  // Speichern button
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00a9e0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    .icon {
+      margin-right: 5px;
+    }
+
+    &:hover {
+      background-color: #007bb5;
+    }
   }
 }
 
+
+.bookmark-container {
+  position: relative; // Creates stacking context for the dropdown
+  z-index: 1000; // Ensure visibility above base layout
+}
+
+
 .stars {
+  // color: #250382;
   color: #4b0082;
   font-size: 40px;
   margin-right: 40px;
@@ -439,3 +509,11 @@ footer a:hover {
     margin-left: 0%;
   }
 }
+
+.city-count {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 8px; // Adjust spacing between icon and count
+  color: #4b0082;  // Match your design color
+}
+
