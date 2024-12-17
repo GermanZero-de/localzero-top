@@ -238,23 +238,31 @@
   }
 }
 
+.teilen-text {
+  display: block;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
 .bookmark-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background-color: #e5f7fb;
-  color: #0284c7;
+  padding: 10px 18px;
+  background-color: #00B0D8;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 0 24px 24px 24px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
 
-  &:hover {
-    background-color: #cceef7;
-  }
+  // &:hover {
+  //   background-color: #cceef7;
+  // }
 
   svg {
     width: 30px;
@@ -300,13 +308,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 10px 16px;
   margin-right: 20px;
-  background-color: #e5f7fb;
-  color: #0284c7;
+  background-color: #00B0D8;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 0 24px 24px 24px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 
