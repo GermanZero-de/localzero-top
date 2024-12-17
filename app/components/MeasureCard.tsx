@@ -54,41 +54,53 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
     <div
       className={`measure-card priority-${priority.stars} ${hideBookmark ? 'hide-bookmark' : ''}`}
     >
+      {/* Header */}
       <div className="card-header">
         <span className="sector">{sector.title}</span>
         <div className="stars">{'★'.repeat(priority.stars)}</div>
+
+        {/* Bookmark Container */}
         {!hideBookmark && (
           <div
             className="bookmark-container"
             onMouseEnter={() => setShowDropdown(true)}
             onMouseLeave={() => setShowDropdown(false)}
           >
+            {/* Bookmark Icon */}
             <div className="bookmark-toggle">
               {isMeasureBookmarked && isMeasureBookmarked(code) ? (
                 <GoBookmarkFill
                   size={32}
-                  style={{
-                    color: '#f7d00c',
-                  }}
+                  style={{ color: '#f7d00c' }}
                 />
               ) : (
                 <GoBookmark
                   size={32}
-                  style={{
-                    color: '#4b0082',
-                  }}
+                  style={{ color: '#4b0082' }}
                 />
               )}
             </div>
+
+            {/* Bookmark Dropdown */}
             {showDropdown && (bookmarks?.length ?? 0) > 0 && (
               <div className="bookmark-dropdown">
-                {(bookmarks ?? []).map((bookmark: { name: string }) => (
+                {(bookmarks ?? []).map((bookmark: { name: string; date: string }) => (
                   <div
                     key={bookmark.name}
                     onClick={() => handleAddToBookmark(bookmark.name)}
                     className="bookmark-item"
                   >
-                    {bookmark.name}
+                    <div className="bookmark-title">{bookmark.name}</div>
+                    <div className="bookmark-tooltip">
+                      <span className="bookmark-date">
+                        letzte Änderung:{' '}
+                        {new Date(bookmark.date).toLocaleDateString('de-DE')}{' '}
+                        {new Date(bookmark.date).toLocaleTimeString('de-DE', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -96,16 +108,20 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           </div>
         )}
       </div>
-      {/* Rest of the component remains the same */}
+
+      {/* Body */}
       <div className="card-body">
         <h5>{title}</h5>
         <div className="focuses">{focuseBalls}</div>
         <div className="code">
           <p>{code}</p>
         </div>
+
+        {/* Cities */}
         {!hideCities && (
           <div className="cities">
             <Image src={cityIcon} alt="City Icon" width={32} height={32} />
+            <span className="city-count">{cities.length}</span>
             <div className="cities-list">
               {cities.map((city) => (
                 <div key={city.title} className="city-separator">
@@ -116,11 +132,13 @@ const MeasureCard: React.FC<MeasureCardProps> = ({
           </div>
         )}
       </div>
+
+      {/* Footer */}
       <div className="card-footer">
         {!hideArrow && (
           <Link href={`/measures/${code}?${currentFilters || ''}`}>
             <button className="arrow-button">
-              <ArrowRight color="#4b0082" style={{ height: 55, width: 55 }} />
+              <ArrowRight color="#4b0082" style={{ height: 40, width: 55 }} />
             </button>
           </Link>
         )}
