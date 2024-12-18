@@ -63,6 +63,30 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     }, 300);
   };
 
+  const handleBookmarkClick = () => {
+    toggleBookmarks(); // Toggle the bookmarks
+    const currentUrl = new URL(window.location.href); // Get the current URL
+    const params = currentUrl.searchParams;
+    const newShowBookmarks = !showBookmarks; // Calculate the new state
+  
+    // Update the URL with a query parameter
+    if (newShowBookmarks) {
+      params.set('showBookmarks', 'true');
+    } else {
+      params.delete('showBookmarks');
+    }
+  
+    // Use router.replace to update the URL without triggering navigation
+    router.replace(`${currentUrl.pathname}?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('showBookmarks') === 'true') {
+      setShowBookmarks(true); // Sync the state with the URL
+    }
+  }, []);
+
   const toggleItem = <T,>(array: T[], item: T) =>
     array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
 
@@ -325,21 +349,21 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       <div className="filter-divider" />
 
       <div className="filter-section">
-        <button className="bookmark-button" onClick={toggleBookmarks}>
-          <h4>
-            <Image
-              src={bookmarkIcon}
-              alt="Bookmark Icon"
-              width={40}
-              height={40}
-            />
-            Merkzettel
-          </h4>
-        </button>
-        {showBookmarks && (
-          <Bookmark onSelectBookmark={onSelectBookmark} onClose={handleClose} />
-        )}
-      </div>
+  <button className="bookmark-button" onClick={handleBookmarkClick}>
+    <h4>
+      <Image
+        src={bookmarkIcon}
+        alt="Bookmark Icon"
+        width={40}
+        height={40}
+      />
+      Merkzettel
+    </h4>
+  </button>
+  {showBookmarks && (
+    <Bookmark onSelectBookmark={onSelectBookmark} onClose={handleClose} />
+  )}
+</div>
     </div>
   );
 };
