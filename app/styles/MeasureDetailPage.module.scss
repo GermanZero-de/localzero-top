@@ -25,16 +25,27 @@
     margin-left: 30px;
     margin-right: 30px;
   }
+  @media (min-width: 650px) and (max-width: 1670px) {
+    margin-left: 130px;
+  }
 }
 
 .measure-title {
   font-size: 2.5rem;
   font-weight: bold;
   color: #000;
+  margin-left: 200px;
+  margin-right: 200px;
 
   /* Hide on mobile screens */
   @media (max-width: 645px) {
     display: none;
+  }
+
+  @media (min-width: 650px) and (max-width: 1630px) {
+    margin-left: 59px;  /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
+    font-size: 2.2rem;
   }
 }
 
@@ -329,6 +340,13 @@
 
 .bookmark-list {
   padding: 16px;
+  top: 100%;
+  right: 0;
+
+  &.left {
+    right: auto; 
+    left: 0;
+  }
 
   .bookmark-item {
     display: flex;
@@ -376,20 +394,24 @@
 }
 
 .save-button {
-  width: 100%;
-  padding: 8px 16px;
-  margin-top: 16px;
-  background-color: #0284c7;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00B0D8;
+  color: #fff;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 0 24px 24px 24px;
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  .icon {
+    margin-right: 5px;
+  }
 
   &:hover {
-    background-color: #0369a1;
+    background-color: #007bb5;
   }
 }
 .no-city-message {
