@@ -41,7 +41,6 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             <div className={styles.bookmarkDropdown}>
               <div className={styles.bookmarkItems}>
               </div>
-              <button className={styles.saveButton}>Speichern</button>
             </div>
           )}
         </div>
