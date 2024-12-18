@@ -21,6 +21,7 @@ import {
 } from '@/app/components/BookmarkContext';
 import { saveBookmarksToStorage } from '@/app/components/BookmarkUtils';
 import { FaShareAlt } from 'react-icons/fa';
+import { ImLocation } from "react-icons/im";
 
 import Sidebar from '@/app/components/Sidebar'; // Import Sidebar
 import RightSidebar from '@/app/components/RightSidebar'; // Import Sidebar
@@ -253,8 +254,14 @@ const MeasureDetailPage = () => {
               allFocuses={focuses}
             />
           </div>
-            <div className={`${styles['cities-overlay']} ${styles[PriorityClass]}`}>
-              <h2>Städte</h2>
+
+          
+          <div className={styles['blue-line-above-cities']}></div> {/* Blue line */}
+            <div className={`${styles['cities-overlay']}`}>
+              <h2>
+                <ImLocation className={styles['icon']} /> {/* Add the styled icon */}
+                Lokalteams mit Fokus auf diese TOP-Maßnahme
+              </h2>
               <div className={styles['cities-list']}>
                 {(!linkedMeasures || linkedMeasures.length === 0) && (
                   <div className={styles['city-item']}>

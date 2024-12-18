@@ -118,18 +118,29 @@
   }
 }
 
+.blue-line-above-cities {
+  width: 40%;   
+  height: 7px;
+  background-color: #00B0D8;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-left: 12px;
+}
+
 .cities-overlay {
   align-items: center;
-  background-color: rgb(190 252 255 / 90%);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   margin-bottom: 35px;
   margin-right: -20px;
   max-width: 95vw;
 
   h2 {
-    color: #4a0a78;
-    margin-top: 1rem;
+    color: #000000;
+    margin-top: 2rem;
     text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 
   &.priority-1 {
@@ -159,11 +170,12 @@
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
-  font-weight: bold;
+  // font-weight: bold;
   margin-right: 5px; /* Space between the city name and the arrow */
   display: inline-block; /* Ensures the city name stays inline with the arrow */
   background: none;
   border: none;
+  margin-left: 30px;
 }
 
 .arrow-button {
@@ -420,4 +432,11 @@
   margin-top: 1rem;
   font-weight: 600;
   text-align: center;
+}
+
+.icon {
+  margin-right: 10px; /* Spacing between icon and text */
+  vertical-align: middle; /* Align the icon with text */
+  font-size: 2.3em; /* Increase icon size */
+  color:#4a0a78; /* Purple color (adjust shade as needed) */
 }

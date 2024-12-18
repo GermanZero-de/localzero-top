@@ -25,13 +25,16 @@
       border: none;
       border-radius: 0 24px 24px 24px;
       padding: 8px 12px;
-      font-size: 22px;
+      font-size: 24px;
       cursor: pointer;
       text-align: center;
       transition: background-color 0.3s;
       width: 180px;
+
       .icon {
-        margin-right: 5px;
+        margin-left: -15px;
+        margin-right: 15px;
+        font-size: 35px;
       }
   
       &:hover {
@@ -148,7 +151,7 @@
       justify-content: center;
       background-color: #00B0D8;
       color: #fff;
-      font-size: 14px;
+      font-size: 27px;
       font-weight: bold;
       padding: 8px 12px;
       border: none;
