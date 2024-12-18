@@ -87,20 +87,20 @@
   .blue-line {
     width: 20%;
     height: 8px; /* Height of the line */
-    background-color: #4a90e2; /* Default color (blue) */
+    background-color: #00B0D8;
   }
 
   /* Priority-based coloring */
   &.priority-1 .blue-line {
-    background-color: #e5f7fb;
+    background-color: #00B0D8;
   }
 
   &.priority-2 .blue-line {
-    background-color: #cceef7;
+    background-color: #00B0D8;
   }
 
   &.priority-3 .blue-line {
-    background-color: #9adfef;
+    background-color: #00B0D8;
   }
 
   .top-blue-line {
@@ -210,6 +210,7 @@
   padding-left: 10px; /* Add padding to the left of the link */
   display: block; /* Ensure it's block-level so it sits below the city name */
   margin-top: 5px; /* Optional: Adds some space between the city name and the link */
+  margin-left: 35px;
 
   &:hover {
     color: #4a0a78; /* Change the color on hover */
