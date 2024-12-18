@@ -105,10 +105,12 @@
 
   .top-blue-line {
     margin-bottom: 20px; /* Optional, remove any bottom space */
+    height: 6px;
   }
 
   .bottom-blue-line {
     margin-top: 20px; /* Optional, adjust space from the description text */
+    height: 6px;
   }
 
   .description-text {
@@ -120,7 +122,7 @@
 
 .blue-line-above-cities {
   width: 40%;   
-  height: 7px;
+  height: 6px;
   background-color: #00B0D8;
   margin-bottom: 1rem;
   margin-top: 2rem;
@@ -170,12 +172,19 @@
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
-  // font-weight: bold;
   margin-right: 5px; /* Space between the city name and the arrow */
   display: inline-block; /* Ensures the city name stays inline with the arrow */
   background: none;
   border: none;
   margin-left: 30px;
+  position: relative;
+
+  &::before {
+    content: '•'; /* Adds a dot */
+    margin-right: 10px;
+    color: rgb(55, 55, 55);
+    font-size: 1.5rem;
+  }
 }
 
 .arrow-button {
