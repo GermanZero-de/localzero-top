@@ -72,6 +72,9 @@ sheets directory for data storage.
 
 In the future, the project will integrate with the LocalZero backend for data management.
 
+Example sheets:
+https://docs.google.com/spreadsheets/d/1zluA1FvCrFrGiLkB828kt54BEQed52jpEJMcX8hRRLk
+You can download each page and put them into the project sheets folder in order to use them in the project, notice the naming for the files from fetchdata file.
 
 ## Learn More
 

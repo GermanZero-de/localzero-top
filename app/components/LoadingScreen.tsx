@@ -1,3 +1,9 @@
+/*
+LoadingScreen.tsx
+Displays the loading spinner when the app is fetching data
+Uses loading.scss for styling
+
+*/
 import React from 'react';
 import '../styles/loading.scss';
 

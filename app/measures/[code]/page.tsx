@@ -21,6 +21,10 @@ import {
 } from '@/app/components/BookmarkContext';
 import { saveBookmarksToStorage } from '@/app/components/BookmarkUtils';
 import { FaShareAlt } from 'react-icons/fa';
+import { ImLocation } from "react-icons/im";
+
+import Sidebar from '@/app/components/Sidebar'; // Import Sidebar
+import RightSidebar from '@/app/components/RightSidebar'; // Import Sidebar
 
 const MeasureDetailPage = () => {
   const { code } = useParams(); // Get the dynamic parameter 'code' from the URL
@@ -158,15 +162,18 @@ const MeasureDetailPage = () => {
       }}
       activeFilters={{ prioritys: [], sectors: [], focuses: [], cities: [] }} // Pass filters if necessary
     >
+
+    <Sidebar />
       <h1 className={styles['measure-title']}>{measure?.title} </h1>
 
       <div
         className={`${styles['bookmark-container']} ${isBookmarkSticky ? styles.sticky : styles['not-sticky']}`}
       >
-        <button onClick={handleShare} className={styles['share-measure']}>
+        {/* <button onClick={handleShare} className={styles['share-measure']}>
           <FaShareAlt />
+          <span className={styles['teilen-text']}>Teilen</span>
         </button>
-        <button
+         <button
           className={styles['bookmark-button']}
           onClick={() => setShowBookmarkDropdown(!showBookmarkDropdown)}
         >
@@ -176,7 +183,7 @@ const MeasureDetailPage = () => {
             <GoBookmark />
           )}
           <span className={styles['merken-text']}>Merken</span>
-        </button>
+        </button>  */}
 
         {showBookmarkDropdown && (
           <div className={styles['bookmark-dropdown']}>
@@ -247,6 +254,72 @@ const MeasureDetailPage = () => {
               allFocuses={focuses}
             />
           </div>
+
+          
+          <div className={styles['blue-line-above-cities']}></div> {/* Blue line */}
+            <div className={`${styles['cities-overlay']}`}>
+              <h2>
+                <ImLocation className={styles['icon']} /> {/* Add the styled icon */}
+                Lokalteams mit Fokus auf diese TOP-Maßnahme
+              </h2>
+              <div className={styles['cities-list']}>
+                {(!linkedMeasures || linkedMeasures.length === 0) && (
+                  <div className={styles['city-item']}>
+                    <p className={styles['no-city-message']}>
+                      No city has implemented this measure.
+                    </p>
+                  </div>
+                )}
+                {linkedMeasures?.length
+                  ? Object.entries(
+                      linkedMeasures.reduce(
+                        (acc, localMeasure) => {
+                          const cityTitle = localMeasure.city?.title;
+                          if (!acc[cityTitle]) acc[cityTitle] = [];
+                          acc[cityTitle].push(localMeasure);
+                          return acc;
+                        },
+                        {} as Record<string, LocalMeasure[]>,
+                      ),
+                    ).map(([cityTitle, measures]) => {
+                      const isOpen = dropdownStates[cityTitle] || false;
+
+                      return (
+                        <div key={cityTitle} className={styles['city-item']}>
+                          <div onClick={() => toggleDropdown(cityTitle)}>
+                            <button className={styles['city-item-link']}>
+                              {cityTitle}
+                            </button>
+                            <ArrowRight
+                              color="#4a0a78"
+                              className={`${styles['arrow-button']} ${
+                                isOpen
+                                  ? styles['arrow-down']
+                                  : styles['arrow-right']
+                              }`}
+                            />
+                          </div>
+                          {isOpen && (
+                            <div className={styles['dropdown-menu']}>
+                              {measures.map((measure, index) => (
+                                <a
+                                  key={index}
+                                  href={measure.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className={styles['city-link']}
+                                >
+                                  - {measure.title}
+                                </a>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })
+                  : null}
+              </div>
+          </div>
         </div>
 
         {/* Middle Column: Description */}
@@ -272,72 +345,14 @@ const MeasureDetailPage = () => {
         </div>
 
         {/* Right Column: Cities and Dropdown */}
-        <div className={`${styles['cities-overlay']} ${styles[PriorityClass]}`}>
-          <h2>Städte</h2>
+        <RightSidebar
+            handleShare={handleShare}
+            measure={measure}
+            isMeasureBookmarked={isMeasureBookmarked}
+            setShowBookmarkDropdown={setShowBookmarkDropdown}
+            showBookmarkDropdown={showBookmarkDropdown}
+          />
 
-          <div className={styles['cities-list']}>
-            {(!linkedMeasures || linkedMeasures.length === 0) && (
-              <div className={styles['city-item']}>
-                <p className={styles['no-city-message']}>
-                  No city has implemented this measure.
-                </p>
-              </div>
-            )}
-            {linkedMeasures?.length
-              ? Object.entries(
-                  linkedMeasures.reduce(
-                    (acc, localMeasure) => {
-                      const cityTitle = localMeasure.city?.title; // Ensure city title is being assigned correctly
-                      if (!acc[cityTitle]) {
-                        acc[cityTitle] = [];
-                      }
-                      acc[cityTitle].push(localMeasure);
-                      return acc;
-                    },
-                    {} as Record<string, LocalMeasure[]>,
-                  ),
-                ).map(([cityTitle, measures]) => {
-                  const isOpen = dropdownStates[cityTitle] || false; // Get the open/close state for this city
-
-                  // For other cities, render normal city dropdown
-                  return (
-                    <div key={cityTitle} className={styles['city-item']}>
-                      <div onClick={() => toggleDropdown(cityTitle)}>
-                        <button className={styles['city-item-link']}>
-                          {cityTitle}
-                        </button>
-                        <ArrowRight
-                          color="#4a0a78"
-                          className={`${styles['arrow-button']} ${
-                            isOpen
-                              ? styles['arrow-down']
-                              : styles['arrow-right']
-                          }`}
-                        />
-                      </div>
-
-                      {/* When the dropdown is open, show all links for the city */}
-                      {isOpen && (
-                        <div className={styles['dropdown-menu']}>
-                          {measures.map((measure, index) => (
-                            <a
-                              key={index}
-                              href={measure.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={styles['city-link']}
-                            >
-                              - {measure.title}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
-              : null}
-          </div>
-        </div>
       </div>
     </Layout>
   );

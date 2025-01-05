@@ -25,16 +25,27 @@
     margin-left: 30px;
     margin-right: 30px;
   }
+  @media (min-width: 650px) and (max-width: 1670px) {
+    margin-left: 130px;
+  }
 }
 
 .measure-title {
   font-size: 2.5rem;
   font-weight: bold;
   color: #000;
+  margin-left: 200px;
+  margin-right: 200px;
 
   /* Hide on mobile screens */
   @media (max-width: 645px) {
     display: none;
+  }
+
+  @media (min-width: 650px) and (max-width: 1630px) {
+    margin-left: 59px;  /* Adjust as needed */
+    margin-right: 20px; /* Adjust as needed */
+    font-size: 2.2rem;
   }
 }
 
@@ -76,28 +87,30 @@
   .blue-line {
     width: 20%;
     height: 8px; /* Height of the line */
-    background-color: #4a90e2; /* Default color (blue) */
+    background-color: #00B0D8;
   }
 
   /* Priority-based coloring */
   &.priority-1 .blue-line {
-    background-color: #e5f7fb;
+    background-color: #00B0D8;
   }
 
   &.priority-2 .blue-line {
-    background-color: #cceef7;
+    background-color: #00B0D8;
   }
 
   &.priority-3 .blue-line {
-    background-color: #9adfef;
+    background-color: #00B0D8;
   }
 
   .top-blue-line {
     margin-bottom: 20px; /* Optional, remove any bottom space */
+    height: 6px;
   }
 
   .bottom-blue-line {
     margin-top: 20px; /* Optional, adjust space from the description text */
+    height: 6px;
   }
 
   .description-text {
@@ -107,18 +120,29 @@
   }
 }
 
+.blue-line-above-cities {
+  width: 40%;   
+  height: 6px;
+  background-color: #00B0D8;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-left: 12px;
+}
+
 .cities-overlay {
   align-items: center;
-  background-color: rgb(190 252 255 / 90%);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   margin-bottom: 35px;
   margin-right: -20px;
   max-width: 95vw;
 
   h2 {
-    color: #4a0a78;
-    margin-top: 1rem;
+    color: #000000;
+    margin-top: 2rem;
     text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 
   &.priority-1 {
@@ -148,11 +172,19 @@
   text-decoration: none;
   color: rgb(55, 55, 55);
   font-size: 1.5rem;
-  font-weight: bold;
   margin-right: 5px; /* Space between the city name and the arrow */
   display: inline-block; /* Ensures the city name stays inline with the arrow */
   background: none;
   border: none;
+  margin-left: 30px;
+  position: relative;
+
+  &::before {
+    content: '•'; /* Adds a dot */
+    margin-right: 10px;
+    color: rgb(55, 55, 55);
+    font-size: 1.5rem;
+  }
 }
 
 .arrow-button {
@@ -187,6 +219,7 @@
   padding-left: 10px; /* Add padding to the left of the link */
   display: block; /* Ensure it's block-level so it sits below the city name */
   margin-top: 5px; /* Optional: Adds some space between the city name and the link */
+  margin-left: 35px;
 
   &:hover {
     color: #4a0a78; /* Change the color on hover */
@@ -238,23 +271,31 @@
   }
 }
 
+.teilen-text {
+  display: block;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
 .bookmark-button {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background-color: #e5f7fb;
-  color: #0284c7;
+  padding: 10px 18px;
+  background-color: #00B0D8;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 0 24px 24px 24px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
 
-  &:hover {
-    background-color: #cceef7;
-  }
+  // &:hover {
+  //   background-color: #cceef7;
+  // }
 
   svg {
     width: 30px;
@@ -300,13 +341,13 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 10px 16px;
   margin-right: 20px;
-  background-color: #e5f7fb;
-  color: #0284c7;
+  background-color: #00B0D8;
+  color: #ffffff;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 0 24px 24px 24px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 
@@ -321,6 +362,13 @@
 
 .bookmark-list {
   padding: 16px;
+  top: 100%;
+  right: 0;
+
+  &.left {
+    right: auto; 
+    left: 0;
+  }
 
   .bookmark-item {
     display: flex;
@@ -368,20 +416,24 @@
 }
 
 .save-button {
-  width: 100%;
-  padding: 8px 16px;
-  margin-top: 16px;
-  background-color: #0284c7;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00B0D8;
+  color: #fff;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 0 24px 24px 24px;
   cursor: pointer;
-  transition: background-color 0.2s;
+
+  .icon {
+    margin-right: 5px;
+  }
 
   &:hover {
-    background-color: #0369a1;
+    background-color: #007bb5;
   }
 }
 .no-city-message {
@@ -390,4 +442,11 @@
   margin-top: 1rem;
   font-weight: 600;
   text-align: center;
+}
+
+.icon {
+  margin-right: 10px; /* Spacing between icon and text */
+  vertical-align: middle; /* Align the icon with text */
+  font-size: 2.3em; /* Increase icon size */
+  color:#4a0a78; /* Purple color (adjust shade as needed) */
 }

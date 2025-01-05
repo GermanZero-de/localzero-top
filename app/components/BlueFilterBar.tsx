@@ -1,3 +1,8 @@
+/*
+This file creates the BlueFilterBar on the mobile devices and small screens.
+The BlueFilterBar contains a back button, filtering, and share button.
+*/
+
 'use client';
 import React from 'react';
 import Image from 'next/image';

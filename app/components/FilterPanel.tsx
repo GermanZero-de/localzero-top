@@ -1,3 +1,12 @@
+/*
+Filtering, that allows users to filter on priorities, sectors, focuses, and cities.
+It also allows users to save and load bookmarks of filters.
+The component includes a button to share the current filter settings and a button to clear all filters.
+
+Some styling is also included in the component.
+Most of the styling is done in the FilterPanel.scss file.
+*/
+
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -53,6 +62,30 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       onClose();
     }, 300);
   };
+
+  const handleBookmarkClick = () => {
+    toggleBookmarks(); // Toggle the bookmarks
+    const currentUrl = new URL(window.location.href); // Get the current URL
+    const params = currentUrl.searchParams;
+    const newShowBookmarks = !showBookmarks; // Calculate the new state
+  
+    // Update the URL with a query parameter
+    if (newShowBookmarks) {
+      params.set('showBookmarks', 'true');
+    } else {
+      params.delete('showBookmarks');
+    }
+  
+    // Use router.replace to update the URL without triggering navigation
+    router.replace(`${currentUrl.pathname}?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('showBookmarks') === 'true') {
+      setShowBookmarks(true); // Sync the state with the URL
+    }
+  }, []);
 
   const toggleItem = <T,>(array: T[], item: T) =>
     array.includes(item) ? array.filter((i) => i !== item) : [...array, item];
@@ -150,6 +183,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
             />
           </button>
         </div>
+        {/* <p>Filter</p> */}
         <button
           className="clear-filters-button large-screen-icon"
           onClick={handleClearFilters}
@@ -193,7 +227,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer', display: 'inline-block' }}
                   >
                     <span className="stars">{'★'.repeat(priority.stars)}</span>
+
                   </div>
+                  <span className='info-icon'>
+                    i <div className='info-tooltip'>{priority.tooltip}</div>
+                  </span>
                 </div>
               ))}
             </div>
@@ -222,6 +260,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer' }}
                   >
                     {sector.title}
+                  </span>
+                  <span className='info-icon'>
+                      i <div className='info-tooltip'>{sector.tooltip}</div>
                   </span>
                 </div>
               ))}
@@ -254,16 +295,20 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                     style={{ cursor: 'pointer', display: 'inline-block' }}
                   >
                     <span className="focus-label">{focus.title}</span>
+
                   </div>
+                  <span className='info-icon'>
+                      i<div className='info-tooltip'>{focus.tooltip}</div>
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="filter-divider" />
+          {/* <div className="filter-divider" /> */}
 
-          {/* City Filter */}
-          <div className="city-filter">
+
+          {/* <div className="city-filter">
             <button className="city-filter-toggle" onClick={toggleFilter}>
               <h4>Städte</h4>
               <ArrowRight
@@ -297,28 +342,28 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       )}
 
       <div className="filter-divider" />
 
       <div className="filter-section">
-        <button className="bookmark-button" onClick={toggleBookmarks}>
-          <h4>
-            <Image
-              src={bookmarkIcon}
-              alt="Bookmark Icon"
-              width={40}
-              height={40}
-            />
-            Merkzettel
-          </h4>
-        </button>
-        {showBookmarks && (
-          <Bookmark onSelectBookmark={onSelectBookmark} onClose={handleClose} />
-        )}
-      </div>
+  <button className="bookmark-button" onClick={handleBookmarkClick}>
+    <h4>
+      <Image
+        src={bookmarkIcon}
+        alt="Bookmark Icon"
+        width={40}
+        height={40}
+      />
+      Merkzettel
+    </h4>
+  </button>
+  {showBookmarks && (
+    <Bookmark onSelectBookmark={onSelectBookmark} onClose={handleClose} />
+  )}
+</div>
     </div>
   );
 };

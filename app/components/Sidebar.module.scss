@@ -1,0 +1,46 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full height of the viewport */
+  width: 70px; /* Thin sidebar */
+  background-color: #ffffff; /* Light gray background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 0 3px rgba(55, 196, 116, 0.952);
+  z-index: 0; /* Ensures it stays above other components */
+
+  .icons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Spacing between icons */
+    margin-top: -300px;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: #00B0D8; /* Default icon color */
+    font-size: 24px; /* Icon size */
+    cursor: pointer;
+    transition: color 0.2s ease;
+    font-size: 40px;
+
+    &:hover {
+      color: #00B0D8; /* Highlight color on hover */
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.sidebar {
+    /* Hide on mobile screens */
+    @media (max-width: 646px) {
+      display: none;
+    }
+  }

@@ -49,8 +49,8 @@ h1 {
 
 .measures-grid {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
-  gap: 20px;
+  grid-template-columns: 32.5% 32.5% 32.5%;
+  gap: 14px;
 }
 
 .arrow-icon {
@@ -72,8 +72,9 @@ h1 {
   justify-content: space-between;
   height: 250px;
   font-weight: bold;
-  overflow: hidden;
+  overflow: visible;
   margin-bottom: 30px;
+  margin-left: 20px;
 
   h5 {
     font-size: 21px;
@@ -129,21 +130,33 @@ h1 {
       background-color: #fff;
       padding: 5px 10px;
       z-index: 10;
-      border: 1px solid #000000;
       font-size: 14px;
       max-height: 50px;
-      max-width: 150px;
-      overflow-y: auto;
+      max-width: 128px;
+      // overflow-y: auto;
       left: 30px;
       overflow-x: hidden;
+      margin-left: 10px;
+      margin-top: -10px;
+
+      text-decoration: underline;
+      text-decoration-color: #3c3636;
+
+      /* Hide scrollbar */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
       span {
         margin-right: 12px;
       }
 
-      .city-separator:not(:last-child) {
-        border-bottom: 1px solid black;
-      }
+      // .city-separator:not(:last-child) {
+      //   border-bottom: 1px solid black;
+      // }
     }
 
     &:hover .cities-list {
@@ -177,37 +190,108 @@ h1 {
   align-items: center;
 }
 
-// .bookmark-icon {
-//   display: none;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-// }
-
 .bookmark-dropdown {
+  display: flex;
   flex-direction: column;
   position: absolute;
   background-color: #fff;
-  padding: 5px 10px;
-  z-index: 10;
-  border: 1px solid #000000;
+  padding: 10px;
+  z-index: 100;
+  border: 1px solid #00a9e0;
   font-size: 14px;
-  max-height: 95px;
-  max-width: 150px;
-  overflow-y: auto;
-  right: 25px;
-  overflow-x: hidden;
-  cursor: pointer;
+  max-width: 300px;
+  height: 240px;
+  width: 260px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  .bookmark-separator:not(:last-child) {
-    border-bottom: 1px solid black;
+  top: 100%; // Default dropdown appears below the icon
+  right: 0; // Default position to the right
+
+  &.left {
+    right: auto; // Remove default right positioning
+    left: 0; // Align dropdown to the left
+  }
+
+  // Scrollable content for bookmarks
+  .bookmark-items {
+    overflow-y: auto;
+    max-height: 180px; // Limit height and make it scrollable
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  .bookmark-item {
+    display: flex;
+    align-items: center; // Align checkbox and text
+    padding: 5px 0;
+    cursor: pointer;
+    margin-top: 5px;
+
+    // Checkbox placement and visibility
+    input[type="checkbox"] {
+      margin-right: 10px; // Space between checkbox and title
+      margin-top: -20px;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      // opacity: 1;
+    }
+
+    .bookmark-details {
+      display: flex;
+      flex-direction: column;
+
+      .bookmark-title {
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 3px;
+      }
+
+      .bookmark-date {
+        font-size: 12px;
+        color: #555;
+      }
+    }
+  }
+
+  // Speichern button at the bottom
+  .save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00B0D8;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 0 24px 24px 24px;
+    cursor: pointer;
+
+    .icon {
+      margin-right: 5px;
+    }
+
+    &:hover {
+      background-color: #007bb5;
+    }
   }
 }
 
+
+
+.bookmark-container {
+  position: relative; // Creates stacking context for the dropdown
+  z-index: 100; // Ensure visibility above base layout
+}
+
+
 .stars {
+  // color: #250382;
   color: #4b0082;
   font-size: 40px;
-  margin-right: 40px;
+  margin-right: 15px;
+  margin-top: -10px;
 }
 
 .arrow-button {
@@ -424,7 +508,7 @@ footer a:hover {
 }
 
 .bookmark-toggle {
-  margin-top: -33px;
+  margin-top: -20px;
 }
 
 .measures-grid .stars {
@@ -439,3 +523,11 @@ footer a:hover {
     margin-left: 0%;
   }
 }
+
+.city-count {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 8px; // Adjust spacing between icon and count
+  color: #4b0082;  // Match your design color
+}
+
